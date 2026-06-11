@@ -115,27 +115,9 @@ main {
 .hero {
   min-height: 56vh;
   display: flex;
-  align-items: center;
-  gap: clamp(32px, 6vw, 72px);
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
   padding-top: 24px;
-}
-.hero-text { flex: 1 1 400px; }
-.hero-visual {
-  flex: 0 1 300px;
-  max-width: 340px;
-  aspect-ratio: 4 / 5;
-  border-radius: 20px;
-  border: 1px solid var(--card-border);
-  background: var(--accent-soft);
-  overflow: hidden;
-  display: flex;
-}
-.hero-visual svg,
-.hero-visual img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 .hero .eyebrow {
   color: var(--text-dim);
@@ -240,24 +222,6 @@ main {
   border: 1px solid var(--card-border);
   color: var(--text-dim);
 }
-
-/* ============ Card visuals ============ */
-.card-visual {
-  margin: -28px -28px 22px;
-  height: 150px;
-  border-radius: var(--radius) var(--radius) 0 0;
-  border-bottom: 1px solid var(--card-border);
-  background: var(--accent-soft);
-  overflow: hidden;
-  display: flex;
-}
-.card-visual svg {
-  width: 100%;
-  height: 100%;
-  transition: transform 0.4s ease;
-}
-.card:hover .card-visual svg { transform: scale(1.07); }
-.card-visual.warm { background: #f5efe6; }
 
 /* ============ Timeline (experience) ============ */
 .timeline {
