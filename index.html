@@ -7,7 +7,7 @@
   <meta name="description" content="Niranjana Sankar — EECS @ UC Berkeley. ML researcher and engineer." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;550;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Hanken+Grotesk:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -23,27 +23,33 @@
 
   <main>
     <div class="hero">
-      <p class="eyebrow">hi, i'm</p>
-      <h1>niranjana <span class="serif">sankar</span></h1>
-      <p>
-        EECS student at UC Berkeley building and studying machine learning systems —
-        from multimodal models and LLM interpretability to production RAG pipelines.
-        Currently an ML intern at Bright.ai and a researcher across four Berkeley AI labs.
+      <p class="eyebrow fade-up">hello, i'm</p>
+      <h1 class="fade-up">niranjana <span class="serif">sankar</span></h1>
+      <p class="fade-up">
+        I study EECS at UC Berkeley and spend most of my time on one question:
+        <strong>why do models do what they do?</strong> That curiosity runs through
+        my work in interpretability, multimodal learning, and the systems that
+        carry research into production.
       </p>
-      <div class="hero-cta">
+      <div class="hero-cta fade-up">
         <a class="btn btn-primary" href="mailto:niranjana.sankar@berkeley.edu">get in touch</a>
         <a class="btn btn-ghost" href="research.html">see my research</a>
+      </div>
+      <div class="hero-meta fade-up">
+        <div><span>currently</span> ml intern @ bright.ai</div>
+        <div><span>researching</span> vla interpretability @ berkeley icon lab</div>
+        <div><span>also at</span> berkeley nlp group</div>
       </div>
     </div>
 
     <section class="reveal">
-      <span class="section-label">education</span>
+      <span class="section-label" data-n="01">education</span>
       <div class="card">
         <h3>university of california, berkeley</h3>
-        <span class="meta">B.E. Electrical Engineering &amp; Computer Science · Expected May 2029 · 4.0/4.0</span>
+        <span class="meta">B.S. Electrical Engineering &amp; Computer Science · Expected May 2029 · 4.0 GPA</span>
         <p>
-          Relevant coursework: Data Structures · Discrete Math &amp; Probability Theory ·
-          Foundations of Signals, Dynamical Systems &amp; Information Processing ·
+          Coursework: Data Structures · Discrete Math &amp; Probability Theory ·
+          Signals, Dynamical Systems &amp; Information Processing ·
           Structure &amp; Interpretation of Computer Programs · Linear Algebra &amp; Differential Equations
         </p>
         <div class="tags">
@@ -56,7 +62,7 @@
     </section>
 
     <section class="reveal">
-      <span class="section-label">skills</span>
+      <span class="section-label" data-n="02">skills</span>
       <div class="about-grid">
         <div class="card">
           <h3>languages</h3>
@@ -96,21 +102,22 @@
     </section>
 
     <section class="reveal">
-      <span class="section-label">beyond the code</span>
+      <span class="section-label" data-n="03">beyond the code</span>
       <div class="card">
         <h3>wildfire awareness initiative — <span class="serif">founder</span></h3>
         <span class="meta">501(c)(3) Nonprofit · 2021 – 2025</span>
         <p>
-          Founded and led a nonprofit promoting wildfire preparedness: led 20+ students,
-          distributed curriculum and go-bag supplies to 400+ schools, published a storybook,
-          and built &amp; launched an iOS app with 400+ users.
+          Founded and led a nonprofit promoting wildfire preparedness. Over four years
+          we grew to a team of 20+ students, brought curriculum and go-bag supplies to
+          400+ schools, published a children's storybook, and shipped an iOS app that
+          reached 400+ users.
         </p>
       </div>
     </section>
 
     <div class="contact-strip reveal">
       <h2>let's <span class="serif">connect</span></h2>
-      <p>Open to research collaborations, internships, and interesting ML problems.</p>
+      <p>Always happy to talk interpretability, internships, or a hard ML problem you can't put down. Email is the fastest way to reach me.</p>
       <div class="contact-links">
         <a class="btn btn-primary" href="mailto:niranjana.sankar@berkeley.edu">email</a>
         <a class="btn btn-ghost" href="https://linkedin.com/in/niranjana-sankar-0067852a8/" target="_blank" rel="noopener">linkedin</a>
@@ -119,7 +126,7 @@
     </div>
   </main>
 
-  <footer>© 2026 niranjana sankar · berkeley, ca</footer>
+  <footer>© 2026 <span class="serif">niranjana sankar</span> · berkeley, ca</footer>
   <script src="script.js"></script>
 </body>
 </html>
