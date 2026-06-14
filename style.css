@@ -1,16 +1,16 @@
 /* ============ Base ============ */
 :root {
-  --paper: #f5f0e3;
-  --paper-deep: #ebe4cf;
-  --card: #fbf8ee;
-  --ink: #232015;
-  --dim: #726957;
-  --line: #d9cfb6;
-  --line-dark: #b3a682;
-  --moss: #44572f;
-  --moss-soft: #e5e9d4;
-  --clay: #a3502b;
-  --clay-soft: #f2e2d3;
+  --paper: #f6f1e4;
+  --paper-deep: #ece4cc;
+  --card: #fdfaf0;
+  --ink: #1e1a0e;
+  --dim: #7a6e56;
+  --line: #d8ccb0;
+  --line-dark: #b09e72;
+  --moss: #3a7c18;
+  --moss-soft: #ceeaad;
+  --clay: #c95c24;
+  --clay-soft: #f7cdb0;
   --display: "Fraunces", Georgia, serif;
   --body: "Hanken Grotesk", system-ui, sans-serif;
   --radius: 8px;
