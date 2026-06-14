@@ -11,9 +11,11 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="cursor-glow" aria-hidden="true"></div>
   <nav>
     <a class="logo" href="index.html">niranjana sankar</a>
-    <div class="nav-links">
+    <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">☰</button>
+    <div class="nav-links" id="nav-links">
       <a href="index.html" class="active">about</a>
       <a href="research.html">research</a>
       <a href="projects.html">projects</a>
@@ -127,6 +129,7 @@
   </main>
 
   <footer>© 2026 <span class="serif">niranjana sankar</span> · berkeley, ca</footer>
+  <button class="back-top" aria-label="Back to top">↑</button>
   <script src="script.js"></script>
 </body>
 </html>

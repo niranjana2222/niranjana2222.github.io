@@ -117,6 +117,21 @@ nav {
   background-size: 100% 1.5px;
 }
 
+/* hamburger button — hidden on desktop */
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--ink);
+  border-radius: 3px;
+  transition: color 0.2s;
+}
+.nav-hamburger:hover { color: var(--moss); }
+
 /* ============ Layout ============ */
 main {
   max-width: 1080px;
@@ -147,7 +162,8 @@ main {
   font-size: 1.04em;
 }
 .page-sub + .card-grid,
-.page-sub + .timeline { margin-top: 48px; }
+.page-sub + .timeline,
+.page-sub + section { margin-top: 48px; }
 
 /* asymmetric editorial sections: label in the margin, content beside it */
 section {
@@ -177,7 +193,8 @@ section {
   font-size: 2.1rem;
   line-height: 1.15;
   letter-spacing: 0;
-  color: var(--line-dark);
+  color: var(--paper-deep);
+  -webkit-text-stroke: 1px var(--line-dark);
   margin-bottom: 2px;
   font-variation-settings: "WONK" 1;
 }
@@ -213,7 +230,10 @@ section {
   font-weight: 580;
   line-height: 0.98;
   margin-bottom: 30px;
-  font-variation-settings: "opsz" 144;
+  font-variation-settings: "opsz" 144, "WONK" 0;
+}
+.hero h1 .serif {
+  font-variation-settings: "opsz" 9, "WONK" 1, "SOFT" 40;
 }
 .hero p {
   color: var(--dim);
@@ -321,7 +341,7 @@ section {
   margin-bottom: 12px;
   display: block;
 }
-.card p { color: var(--dim); font-size: 0.96rem; }
+.card p { color: var(--dim); font-size: 0.96rem; max-width: 72ch; }
 .card ul { color: var(--dim); font-size: 0.96rem; padding-left: 18px; margin-top: 8px; }
 .card ul li { margin-bottom: 6px; }
 
@@ -342,6 +362,10 @@ section {
 }
 .badge.pub { color: var(--moss); }
 
+/* Card visual differentiation */
+.card-pub { border-left: 3px solid var(--moss); }
+.card-current { border-left: 3px solid var(--clay); }
+
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .tag {
   font-size: 0.76rem;
@@ -349,7 +373,8 @@ section {
   letter-spacing: 0.03em;
   padding: 4px 11px;
   border-radius: 3px;
-  background: var(--paper-deep);
+  background: transparent;
+  background-image: linear-gradient(135deg, var(--paper-deep) 0%, var(--card) 100%);
   border: 1px solid var(--line);
   color: var(--dim);
 }
@@ -385,6 +410,7 @@ section {
   transition: background 0.25s ease;
 }
 .timeline-item:hover::before { background: var(--moss); }
+.timeline-current::before { background: var(--clay); border-color: var(--clay); box-shadow: 0 0 0 4px var(--clay-soft); }
 .timeline-item h3 { font-size: 1.5rem; }
 .timeline-item .role { color: var(--moss); font-weight: 600; font-size: 0.95rem; }
 .timeline-item .dates {
@@ -397,7 +423,7 @@ section {
   display: block;
   font-variation-settings: "WONK" 1;
 }
-.timeline-item ul { color: var(--dim); font-size: 0.97rem; padding-left: 18px; }
+.timeline-item ul { color: var(--dim); font-size: 0.97rem; padding-left: 18px; max-width: 72ch; }
 .timeline-item ul li { margin-bottom: 5px; }
 
 /* ============ About sections ============ */
@@ -413,9 +439,9 @@ section {
   margin-top: 110px;
   text-align: center;
   padding: 72px 28px;
-  background: var(--paper-deep);
-  border-top: 2px solid var(--ink);
-  border-bottom: 2px solid var(--ink);
+  border: none;
+  background: linear-gradient(135deg, var(--paper-deep) 0%, var(--card) 60%, var(--moss-soft) 100%);
+  border-radius: 12px;
 }
 .contact-strip h2 {
   font-size: clamp(2rem, 4.5vw, 2.9rem);
@@ -442,20 +468,213 @@ footer {
   text-transform: lowercase;
   padding: 38px 20px;
   border-top: 1px solid var(--line);
+  box-shadow: 0 1px 0 var(--line);
 }
-footer .serif { font-size: 1.08em; }
+footer .serif { font-size: 1.18em; }
+
+/* ============ Focus-visible ring ============ */
+:focus-visible {
+  outline: 2px solid var(--moss);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
 
 /* ============ Mobile ============ */
 @media (max-width: 760px) {
   section { grid-template-columns: 1fr; gap: 22px; }
   .section-label::before { display: inline; font-size: 1.4rem; margin-right: 10px; }
+
+  /* hamburger becomes visible; nav-links become a drop-down panel */
+  .nav-hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 60;
+  }
+
+  .nav-links {
+    /* hidden by default — slide down when .open */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(245, 240, 227, 0.97);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+    padding: 0 clamp(20px, 6vw, 72px);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                padding-top 0.35s ease,
+                padding-bottom 0.35s ease;
+  }
+  .nav-links.open {
+    max-height: 260px;
+    padding-top: 16px;
+    padding-bottom: 20px;
+  }
+  .nav-links a {
+    font-size: 1rem;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-links a:last-child { border-bottom: none; }
+
+  /* Item 1: active link differentiation in mobile dropdown */
+  .nav-links a.active {
+    color: var(--ink);
+    font-weight: 700;
+    background-image: linear-gradient(var(--ink), var(--ink));
+  }
 }
+
+/* nav already has position:sticky; the drop-down uses position:absolute
+   relative to nav's own bounding box because sticky elements create a
+   containing block for absolute children in modern browsers */
+
+/* ============ Item 2: Card-link external arrow ============ */
+a.card-link .card h3::after,
+.card-link h3::after {
+  content: " ↗";
+  font-size: 0.85em;
+  font-style: normal;
+  color: var(--dim);
+  transition: color 0.2s, transform 0.2s;
+  display: inline-block;
+}
+a.card-link:hover .card h3::after,
+.card-link:hover h3::after {
+  color: var(--moss);
+  transform: translate(2px, -2px);
+}
+
+/* ============ Item 3: Page exit animation ============ */
+@keyframes fadeOut {
+  to { opacity: 0; transform: translateY(-8px); }
+}
+.page-exit {
+  animation: fadeOut 0.25s ease forwards;
+}
+
+/* ============ Item 4: Back-to-top button ============ */
+.back-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 200;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  cursor: pointer;
+  font-size: 1.15rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.2s ease, background 0.2s;
+  font-family: var(--body);
+}
+.back-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.back-top:hover {
+  background: var(--moss);
+  transform: translateY(-3px);
+}
+
+/* ============ Whimsy 7: Back-to-top tooltip ============ */
+.back-top::before {
+  content: "back to top";
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 0;
+  font-size: 0.72rem;
+  white-space: nowrap;
+  color: var(--dim);
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+  font-family: var(--body);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.back-top:hover::before {
+  opacity: 1;
+}
+
+/* ============ Whimsy 1: Cursor glow ============ */
+.cursor-glow {
+  position: fixed;
+  pointer-events: none;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(163, 80, 43, 0.06) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+/* ============ Whimsy 3: Tag hover pop ============ */
+.tag {
+  transition: transform 0.18s ease, background 0.18s ease;
+}
+.tag:hover {
+  transform: scale(1.08);
+  background-image: linear-gradient(135deg, var(--moss-soft) 0%, var(--paper-deep) 100%);
+  cursor: default;
+}
+
+/* ============ Whimsy 5: Nav logo hover ============ */
+.logo {
+  transition: letter-spacing 0.3s ease, color 0.3s ease;
+}
+.logo:hover {
+  letter-spacing: 0.04em;
+  color: var(--clay);
+}
+
+/* ============ Whimsy 6: Hero eyebrow line extension ============ */
+.hero .eyebrow::after {
+  width: 0;
+  animation: lineGrow 0.8s 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+@keyframes lineGrow {
+  from { width: 0; }
+  to   { width: 64px; }
+}
+
+/* ============ Item 6: Prefers-reduced-motion ============ */
+@media (prefers-reduced-motion: reduce) {
+  .fade-up, .reveal {
+    animation: none;
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+  .hero .eyebrow::after {
+    animation: none;
+    width: 64px;
+  }
+  .cursor-glow { display: none; }
+  .tag { transition: none; }
+  .logo { transition: none; }
+}
+
 @media (max-width: 600px) {
   body { font-size: 16px; }
   nav { padding: 14px 20px; }
   .logo { font-size: 1.05rem; }
-  .nav-links { gap: 13px; }
-  .nav-links a { font-size: 0.79rem; }
   .hero h1 { font-size: 2.7rem; }
   .page-title { font-size: 2.5rem; }
   .timeline { padding-left: 28px; }

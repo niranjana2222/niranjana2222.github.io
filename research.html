@@ -11,9 +11,11 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="cursor-glow" aria-hidden="true"></div>
   <nav>
     <a class="logo" href="index.html">niranjana sankar</a>
-    <div class="nav-links">
+    <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">☰</button>
+    <div class="nav-links" id="nav-links">
       <a href="index.html">about</a>
       <a href="research.html" class="active">research</a>
       <a href="projects.html">projects</a>
@@ -30,77 +32,80 @@
       not just whether they work.
     </p>
 
-    <div class="card-grid">
-      <div class="card reveal">
-        <span class="badge">jan 2026 – present</span>
-        <h3>berkeley icon lab</h3>
-        <span class="meta">Researcher · VLA Interpretability</span>
-        <p>
-          Studying how vision-language-action (VLA) models attend to language, and
-          building methods that strengthen the ActionExpert's grounding in
-          instructions.
-        </p>
-        <div class="tags">
-          <span class="tag">VLA</span>
-          <span class="tag">Interpretability</span>
-          <span class="tag">Attention</span>
+    <section class="reveal">
+      <span class="section-label" data-n="00">research</span>
+      <div class="card-grid">
+        <div class="card card-current reveal">
+          <span class="badge">jan 2026 – present</span>
+          <h3>berkeley icon lab</h3>
+          <span class="meta">Researcher · VLA Interpretability</span>
+          <p>
+            Studying how vision-language-action (VLA) models attend to language, and
+            building methods that strengthen the ActionExpert's grounding in
+            instructions.
+          </p>
+          <div class="tags">
+            <span class="tag">VLA</span>
+            <span class="tag">Interpretability</span>
+            <span class="tag">Attention</span>
+          </div>
         </div>
-      </div>
 
-      <div class="card reveal">
-        <span class="badge">jan 2026 – present</span>
-        <h3>berkeley nlp group</h3>
-        <span class="meta">Researcher · Multimodal Speech Recognition</span>
-        <p>
-          Designing test-time adaptation (TTA) methods for Qwen3-Omni, LLaMA, and
-          Whisper-Flamingo on audio-visual speech recognition for accented speech,
-          and using SHAP values to compare how much the models lean on audio versus
-          visual features.
-        </p>
-        <div class="tags">
-          <span class="tag">TTA</span>
-          <span class="tag">AVSR</span>
-          <span class="tag">SHAP</span>
+        <div class="card card-current reveal">
+          <span class="badge">jan 2026 – present</span>
+          <h3>berkeley nlp group</h3>
+          <span class="meta">Researcher · Multimodal Speech Recognition</span>
+          <p>
+            Designing test-time adaptation (TTA) methods for Qwen3-Omni, LLaMA, and
+            Whisper-Flamingo on audio-visual speech recognition for accented speech,
+            and using SHAP values to compare how much the models lean on audio versus
+            visual features.
+          </p>
+          <div class="tags">
+            <span class="tag">TTA</span>
+            <span class="tag">AVSR</span>
+            <span class="tag">SHAP</span>
+          </div>
         </div>
-      </div>
 
-      <div class="card reveal">
-        <span class="badge">dec 2025 – may 2026</span>
-        <h3>berkeley ai sky computing group</h3>
-        <span class="meta">Researcher · LLM Reasoning</span>
-        <p>
-          Built an interpretable extension of GEPA with tuned lens for process-level
-          evaluation of LLM reasoning. Developed QThink — latent reasoning via
-          per-step distillation of multiple chain-of-thought rollouts.
-        </p>
-        <div class="tags">
-          <span class="tag">GEPA</span>
-          <span class="tag">Tuned Lens</span>
-          <span class="tag">Chain-of-Thought</span>
+        <div class="card reveal">
+          <span class="badge">dec 2025 – may 2026</span>
+          <h3>berkeley ai sky computing group</h3>
+          <span class="meta">Researcher · LLM Reasoning</span>
+          <p>
+            Built an interpretable extension of GEPA with tuned lens for process-level
+            evaluation of LLM reasoning. Developed QThink — latent reasoning via
+            per-step distillation of multiple chain-of-thought rollouts.
+          </p>
+          <div class="tags">
+            <span class="tag">GEPA</span>
+            <span class="tag">Tuned Lens</span>
+            <span class="tag">Chain-of-Thought</span>
+          </div>
         </div>
-      </div>
 
-      <div class="card reveal">
-        <span class="badge">nov 2025 – mar 2026</span>
-        <h3>berkeley ai research — speech group</h3>
-        <span class="meta">Researcher · LLM Interpretability &amp; RL</span>
-        <p>
-          Evaluated LLM interpretability with tuned-lens methods on GPT models for
-          multilingual multi-token prediction. Improved ICRL, SOAR, and TRPO for
-          summarization and math-game tasks with note-taking mechanisms.
-        </p>
-        <div class="tags">
-          <span class="tag">Tuned Lens</span>
-          <span class="tag">ICRL</span>
-          <span class="tag">TRPO</span>
+        <div class="card reveal">
+          <span class="badge">nov 2025 – mar 2026</span>
+          <h3>berkeley ai research — speech group</h3>
+          <span class="meta">Researcher · LLM Interpretability &amp; RL</span>
+          <p>
+            Evaluated LLM interpretability with tuned-lens methods on GPT models for
+            multilingual multi-token prediction. Improved ICRL, SOAR, and TRPO for
+            summarization and math-game tasks with note-taking mechanisms.
+          </p>
+          <div class="tags">
+            <span class="tag">Tuned Lens</span>
+            <span class="tag">ICRL</span>
+            <span class="tag">TRPO</span>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
     <section class="reveal">
       <span class="section-label" data-n="01">publications &amp; presentations</span>
       <div class="card-grid">
-        <div class="card">
+        <div class="card card-pub">
           <span class="badge pub">ncur 2024 · oral presentation &amp; publication</span>
           <h3>enhancing disaster response systems</h3>
           <p>
@@ -109,7 +114,7 @@
             to improve predictive modeling and fast assessment for disaster response.
           </p>
         </div>
-        <div class="card">
+        <div class="card card-pub">
           <span class="badge pub">aaomr 2024 · poster presentation</span>
           <h3>detecting infections in 3d ct scans</h3>
           <p>
@@ -123,6 +128,7 @@
   </main>
 
   <footer>© 2026 niranjana sankar · berkeley, ca</footer>
+  <button class="back-top" aria-label="Back to top">↑</button>
   <script src="script.js"></script>
 </body>
 </html>

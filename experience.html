@@ -11,9 +11,11 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="cursor-glow" aria-hidden="true"></div>
   <nav>
     <a class="logo" href="index.html">niranjana sankar</a>
-    <div class="nav-links">
+    <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">☰</button>
+    <div class="nav-links" id="nav-links">
       <a href="index.html">about</a>
       <a href="research.html">research</a>
       <a href="projects.html">projects</a>
@@ -29,37 +31,40 @@
       <em>actually understanding</em> things.
     </p>
 
-    <div class="timeline">
-      <div class="timeline-item reveal">
-        <h3>bright.ai</h3>
-        <span class="role">Machine Learning Intern</span>
-        <span class="dates">April 2025 – Present</span>
-        <ul>
-          <li>Developing graph-based RAG using entity embeddings, RAPTOR hierarchical retrieval, and LLM Wiki storage strategies</li>
-          <li>Optimized an end-to-end VLM-TTS CoPilot system to help infrastructure specialists with safety procedures</li>
-        </ul>
-      </div>
+    <section class="reveal">
+      <span class="section-label" data-n="00">work</span>
+      <div class="timeline">
+        <div class="timeline-item timeline-current reveal">
+          <h3>bright.ai</h3>
+          <span class="role">Machine Learning Intern</span>
+          <span class="dates">April 2025 – Present</span>
+          <ul>
+            <li>Developing graph-based RAG using entity embeddings, RAPTOR hierarchical retrieval, and LLM Wiki storage strategies</li>
+            <li>Optimized an end-to-end VLM-TTS CoPilot system to help infrastructure specialists with safety procedures</li>
+          </ul>
+        </div>
 
-      <div class="timeline-item reveal">
-        <h3>google</h3>
-        <span class="role">Consultant · via SAAS Machine Learning at Berkeley</span>
-        <span class="dates">August 2025 – Present</span>
-        <ul>
-          <li>Developed 5 Constitutional AI frameworks with critique-revision pairs for supervised fine-tuning and RL on Gemini 2.5</li>
-          <li>Evaluated safety performance on a curated dataset of 14k harmful prompts</li>
-        </ul>
-      </div>
+        <div class="timeline-item reveal">
+          <h3>google</h3>
+          <span class="role">Consultant · via SAAS Machine Learning at Berkeley</span>
+          <span class="dates">August 2025 – Present</span>
+          <ul>
+            <li>Developed 5 Constitutional AI frameworks with critique-revision pairs for supervised fine-tuning and RL on Gemini 2.5</li>
+            <li>Evaluated safety performance on a curated dataset of 14k harmful prompts</li>
+          </ul>
+        </div>
 
-      <div class="timeline-item reveal">
-        <h3>entelligence.ai</h3>
-        <span class="role">Software Engineer Intern</span>
-        <span class="dates">August 2023 – August 2025</span>
-        <ul>
-          <li>Integrated LangChain agent pipelines into production chatbot workflows</li>
-          <li>Shipped 3 Composio integration features (Jira, GitHub, Slack) with SQL-backed services and a Next.js frontend</li>
-        </ul>
+        <div class="timeline-item reveal">
+          <h3>entelligence.ai</h3>
+          <span class="role">Software Engineer Intern</span>
+          <span class="dates">August 2023 – August 2025</span>
+          <ul>
+            <li>Integrated LangChain agent pipelines into production chatbot workflows</li>
+            <li>Shipped 3 Composio integration features (Jira, GitHub, Slack) with SQL-backed services and a Next.js frontend</li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </section>
 
     <section class="reveal">
       <span class="section-label" data-n="01">teaching</span>
@@ -95,6 +100,7 @@
   </main>
 
   <footer>© 2026 niranjana sankar · berkeley, ca</footer>
+  <button class="back-top" aria-label="Back to top">↑</button>
   <script src="script.js"></script>
 </body>
 </html>
