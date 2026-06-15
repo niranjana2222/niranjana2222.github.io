@@ -11,7 +11,7 @@
   --moss-soft: #ADD8E6;
   --clay: #8E0A1E;
   --clay-soft: #f2c8ce;
-  --display: "Playfair Display", Georgia, serif;
+  --display: "Inter", system-ui, sans-serif;
   --body: "Hanken Grotesk", system-ui, sans-serif;
   --radius: 8px;
 }
@@ -221,7 +221,7 @@ section {
   background: var(--line-dark);
 }
 .hero h1 {
-  font-size: clamp(3.4rem, 10vw, 6.6rem);
+  font-size: clamp(1.9rem, 4.5vw, 3.2rem);
   font-weight: 580;
   line-height: 0.98;
   margin-bottom: 30px;
