@@ -11,7 +11,7 @@
   --moss-soft: #ADD8E6;
   --clay: #8E0A1E;
   --clay-soft: #f2c8ce;
-  --display: "Fraunces", Georgia, serif;
+  --display: "Playfair Display", Georgia, serif;
   --body: "Hanken Grotesk", system-ui, sans-serif;
   --radius: 8px;
 }
@@ -65,7 +65,6 @@ h1, h2, h3 {
   font-weight: 480;
   letter-spacing: 0;
   color: var(--clay);
-  font-variation-settings: "WONK" 1, "SOFT" 40;
 }
 
 a { color: var(--ink); text-decoration: none; }
@@ -83,7 +82,7 @@ nav {
   padding: 18px clamp(20px, 6vw, 72px);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  background: rgba(245, 240, 227, 0.82);
+  background: rgba(243, 247, 250, 0.82);
   border-bottom: 1px solid var(--line);
 }
 .logo {
@@ -93,7 +92,6 @@ nav {
   font-size: 1.35rem;
   text-transform: lowercase;
   color: var(--ink);
-  font-variation-settings: "WONK" 1;
 }
 .nav-links { display: flex; gap: 28px; }
 .nav-links a {
@@ -144,7 +142,6 @@ main {
   font-weight: 580;
   margin-bottom: 14px;
   line-height: 1.02;
-  font-variation-settings: "opsz" 120;
 }
 .page-title .serif { font-size: 1em; }
 
@@ -196,7 +193,6 @@ section {
   color: var(--paper-deep);
   -webkit-text-stroke: 1px var(--line-dark);
   margin-bottom: 2px;
-  font-variation-settings: "WONK" 1;
 }
 
 /* ============ Hero (about page) ============ */
@@ -217,7 +213,6 @@ section {
   font-size: 1.15rem;
   margin-bottom: 14px;
   text-transform: lowercase;
-  font-variation-settings: "WONK" 1;
 }
 .hero .eyebrow::after {
   content: "";
@@ -230,10 +225,8 @@ section {
   font-weight: 580;
   line-height: 0.98;
   margin-bottom: 30px;
-  font-variation-settings: "opsz" 144, "WONK" 0;
 }
 .hero h1 .serif {
-  font-variation-settings: "opsz" 9, "WONK" 1, "SOFT" 40;
 }
 .hero p {
   color: var(--dim);
@@ -263,7 +256,6 @@ section {
   font-weight: 440;
   font-size: 0.95rem;
   color: var(--clay);
-  font-variation-settings: "WONK" 1;
 }
 
 /* staggered load */
@@ -383,7 +375,6 @@ section {
   margin-bottom: 12px;
   padding-bottom: 10px;
   border-bottom: 1px solid var(--line);
-  font-variation-settings: "WONK" 1;
 }
 .badge.pub { color: var(--moss); }
 
@@ -446,7 +437,6 @@ section {
   font-size: 0.96rem;
   margin-bottom: 10px;
   display: block;
-  font-variation-settings: "WONK" 1;
 }
 .timeline-item ul { color: var(--dim); font-size: 0.97rem; padding-left: 18px; max-width: 72ch; }
 .timeline-item ul li { margin-bottom: 5px; }
@@ -471,7 +461,6 @@ section {
 .contact-strip h2 {
   font-size: clamp(2rem, 4.5vw, 2.9rem);
   margin-bottom: 10px;
-  font-variation-settings: "opsz" 100;
 }
 .contact-strip p { color: var(--dim); margin-bottom: 30px; max-width: 520px; margin-inline: auto; }
 .contact-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
@@ -525,7 +514,7 @@ footer .serif { font-size: 1.18em; }
     right: 0;
     flex-direction: column;
     gap: 0;
-    background: rgba(245, 240, 227, 0.97);
+    background: rgba(243, 247, 250, 0.97);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
@@ -643,7 +632,7 @@ a.card-link:hover .card h3::after,
   width: 300px;
   height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(163, 80, 43, 0.06) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(142, 10, 30, 0.06) 0%, transparent 70%);
   transform: translate(-50%, -50%);
   z-index: 0;
   transition: opacity 0.3s;
