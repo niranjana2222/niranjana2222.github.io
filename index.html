@@ -37,25 +37,6 @@
         <a class="btn btn-primary" href="mailto:niranjana.sankar@berkeley.edu">get in touch</a>
         <a class="btn btn-ghost" href="research.html">see my research</a>
       </div>
-      <!-- mini turntable -->
-      <div class="hero-t-wrap fade-up">
-        <svg style="position:absolute;width:0;height:0" aria-hidden="true"><defs>
-          <filter id="goo-h" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -8" result="goo2"/>
-            <feBlend in="SourceGraphic" in2="goo2"/>
-          </filter>
-        </defs></svg>
-        <div class="t-stage" id="homeStage">
-          <div class="t-goo" id="homeGoo" style="filter:url(#goo-h)"></div>
-          <div class="t-labels" id="homeLabels"></div>
-        </div>
-        <div class="t-controls">
-          <button class="t-btn" id="homePrev" aria-label="previous">‹</button>
-          <div class="t-cap" id="homeCap"></div>
-          <button class="t-btn" id="homeNext" aria-label="next">›</button>
-        </div>
-      </div>
       <div class="hero-meta fade-up">
         <div><span>currently</span> ml intern @ bright.ai</div>
         <div><span>researching</span> vla interpretability @ berkeley icon lab</div>
@@ -150,20 +131,5 @@
   <footer>© 2026 <span class="serif">niranjana sankar</span> · berkeley, ca</footer>
   <button class="back-top" aria-label="Back to top">↑</button>
   <script src="script.js"></script>
-  <script src="turntable.js"></script>
-  <script>
-  createTurntable({
-    stageId:'homeStage', gooLayerId:'homeGoo', labelLayerId:'homeLabels',
-    filterId:'goo-h', capId:'homeCap', prevId:'homePrev', nextId:'homeNext',
-    projects:[
-      {name:"ai-fetch",      kind:"Agent",       grad:"var(--tg4)"},
-      {name:"wildfire-doc",  kind:"RAG",         grad:"var(--tg3)"},
-      {name:"Cognitive Asst",kind:"Multimodal",  grad:"var(--tg1)"},
-      {name:"Wildfire App",  kind:"iOS",         grad:"var(--tg5)"},
-      {name:"Disaster ML",   kind:"Published",   grad:"var(--tg2)"},
-    ],
-    rx:28, ry:12, cy:45, base:19
-  });
-  </script>
 </body>
 </html>

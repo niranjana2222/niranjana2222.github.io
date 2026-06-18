@@ -26,115 +26,223 @@
   <main>
     <h1 class="page-title">pro<span class="serif">jects</span></h1>
     <p class="page-sub">
-      Spin to explore — drag the cluster or use ‹ › to bring a project forward.
+      Things I've built and shipped — real-time multimodal assistants, on-device
+      medical ML, and apps with <em>real users</em>, not just demos.
     </p>
 
-    <!-- SVG goo filter -->
-    <svg style="position:absolute;width:0;height:0" aria-hidden="true"><defs>
-      <filter id="goo" x="-30%" y="-30%" width="160%" height="160%">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/>
-        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -8" result="goo2"/>
-        <feBlend in="SourceGraphic" in2="goo2"/>
-      </filter>
-    </defs></svg>
+    <section class="reveal">
+      <span class="section-label" data-n="01">projects</span>
+      <div class="card-grid">
 
-    <!-- Turntable -->
-    <div class="t-wrap">
-      <div class="t-stage" id="projStage">
-        <div class="t-goo" id="projGoo"></div>
-        <div class="t-labels" id="projLabels"></div>
-        <div class="t-focal-model" id="projModel">
-          <model-viewer camera-controls auto-rotate auto-rotate-delay="0" rotation-per-second="22deg"
-            interaction-prompt="none" disable-zoom shadow-intensity="0" exposure="1"
-            camera-orbit="0deg 80deg 120%"></model-viewer>
+        <!-- ai-fetch- -->
+        <div class="card card-current reveal">
+          <div class="card-hero">
+            <svg viewBox="0 0 400 128" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="af-bg" x1="0" y1="0" x2="400" y2="128" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#f2c8ce"/><stop offset="1" stop-color="#e2edf3"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="128" fill="url(#af-bg)"/>
+              <!-- input feed dots -->
+              <circle cx="48" cy="36" r="6" fill="#8e0a1e" opacity="0.75"/>
+              <circle cx="48" cy="64" r="6" fill="#8e0a1e" opacity="0.55"/>
+              <circle cx="48" cy="92" r="6" fill="#8e0a1e" opacity="0.75"/>
+              <circle cx="22" cy="50" r="4" fill="#8e0a1e" opacity="0.35"/>
+              <circle cx="22" cy="78" r="4" fill="#8e0a1e" opacity="0.35"/>
+              <!-- connector dashes -->
+              <line x1="54" y1="36" x2="160" y2="64" stroke="#8e0a1e" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.45"/>
+              <line x1="54" y1="64" x2="160" y2="64" stroke="#8e0a1e" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.45"/>
+              <line x1="54" y1="92" x2="160" y2="64" stroke="#8e0a1e" stroke-width="1.2" stroke-dasharray="4 3" opacity="0.45"/>
+              <!-- central agent ring -->
+              <circle cx="184" cy="64" r="34" fill="#8e0a1e" fill-opacity="0.07" stroke="#8e0a1e" stroke-width="1.5" stroke-opacity="0.3"/>
+              <circle cx="184" cy="64" r="22" fill="#8e0a1e" fill-opacity="0.14" stroke="#8e0a1e" stroke-width="1" stroke-opacity="0.45"/>
+              <text x="184" y="60" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#8e0a1e" opacity="0.9">LangGraph</text>
+              <text x="184" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#8e0a1e" opacity="0.65">agent</text>
+              <!-- output arrow -->
+              <line x1="218" y1="64" x2="302" y2="64" stroke="#2e6f40" stroke-width="2" opacity="0.7"/>
+              <polygon points="300,59 310,64 300,69" fill="#2e6f40" opacity="0.7"/>
+              <!-- digest card -->
+              <rect x="314" y="26" width="68" height="76" rx="6" fill="#ffffff" stroke="#2e6f40" stroke-width="1.5" stroke-opacity="0.55"/>
+              <rect x="322" y="34" width="48" height="3.5" rx="1.75" fill="#2e6f40" opacity="0.65"/>
+              <rect x="322" y="41" width="42" height="2" rx="1" fill="#1a0e12" opacity="0.2"/>
+              <rect x="322" y="46" width="46" height="2" rx="1" fill="#1a0e12" opacity="0.15"/>
+              <rect x="322" y="51" width="36" height="2" rx="1" fill="#1a0e12" opacity="0.12"/>
+              <rect x="322" y="59" width="46" height="3.5" rx="1.75" fill="#2e6f40" opacity="0.45"/>
+              <rect x="322" y="66" width="40" height="2" rx="1" fill="#1a0e12" opacity="0.2"/>
+              <rect x="322" y="71" width="44" height="2" rx="1" fill="#1a0e12" opacity="0.15"/>
+              <rect x="322" y="76" width="34" height="2" rx="1" fill="#1a0e12" opacity="0.12"/>
+              <text x="322" y="94" font-family="system-ui,sans-serif" font-size="8" font-weight="600" fill="#2e6f40" opacity="0.75">✓ digest sent</text>
+            </svg>
+          </div>
+          <span class="badge">personal project · 2025 – present</span>
+          <h3>ai-fetch</h3>
+          <p>
+            Personalized AI news digest agent — fetches articles and content from
+            configured sources, processes them through a LangGraph multi-agent
+            pipeline, and delivers a summarized digest on a schedule.
+          </p>
+          <div class="tags">
+            <span class="tag">LangGraph</span>
+            <span class="tag">Python</span>
+            <span class="tag">Agents</span>
+            <span class="tag">Scheduling</span>
+          </div>
+          <a class="card-gh" href="https://github.com/niranjana2222/ai-fetch-" target="_blank" rel="noopener">github →</a>
+        </div>
+
+        <!-- wildfire-doc -->
+        <div class="card card-current reveal">
+          <div class="card-hero">
+            <svg viewBox="0 0 400 128" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="wd-bg" x1="0" y1="0" x2="400" y2="128" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#add8e6"/><stop offset="0.55" stop-color="#e2edf3"/><stop offset="1" stop-color="#f2c8ce"/>
+                </linearGradient>
+                <linearGradient id="wd-flame" x1="0" y1="128" x2="0" y2="20" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#8e0a1e"/><stop offset="0.55" stop-color="#c01830"/><stop offset="1" stop-color="#e8a0b0" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="128" fill="url(#wd-bg)"/>
+              <!-- topographic terrain lines -->
+              <path d="M0,100 Q55,84 110,94 Q165,104 220,88 Q270,74 320,84 Q360,90 400,78" stroke="#8e0a1e" stroke-width="1.5" fill="none" opacity="0.28"/>
+              <path d="M0,112 Q55,98 110,106 Q165,114 220,100 Q270,86 320,96 Q360,102 400,90" stroke="#8e0a1e" stroke-width="1" fill="none" opacity="0.18"/>
+              <path d="M0,90 Q65,74 120,84 Q185,94 240,76 Q295,58 345,70 Q375,76 400,64" stroke="#2e6f40" stroke-width="1.5" fill="none" opacity="0.28"/>
+              <path d="M0,80 Q70,62 125,72 Q188,82 248,64 Q300,48 350,58 Q378,64 400,54" stroke="#2e6f40" stroke-width="1" fill="none" opacity="0.18"/>
+              <!-- flame -->
+              <path d="M96,120 Q90,96 100,80 Q93,86 87,72 Q94,82 84,64 Q93,78 100,66 Q102,80 112,58 Q110,78 120,66 Q114,80 124,76 Q116,94 112,120 Z" fill="url(#wd-flame)" opacity="0.6"/>
+              <!-- stacked documents -->
+              <rect x="220" y="16" width="64" height="82" rx="5" fill="#ffffff" stroke="#a4bbc8" stroke-width="1" opacity="0.7" transform="rotate(-5,252,57)"/>
+              <rect x="228" y="20" width="64" height="82" rx="5" fill="#ffffff" stroke="#a4bbc8" stroke-width="1" opacity="0.85" transform="rotate(-2,260,61)"/>
+              <rect x="236" y="24" width="64" height="82" rx="5" fill="#ffffff" stroke="#2e6f40" stroke-width="1.5"/>
+              <!-- front doc content -->
+              <rect x="244" y="32" width="46" height="3.5" rx="1.75" fill="#2e6f40" opacity="0.65"/>
+              <rect x="244" y="39" width="40" height="2" rx="1" fill="#1a0e12" opacity="0.2"/>
+              <rect x="244" y="44" width="44" height="2" rx="1" fill="#1a0e12" opacity="0.15"/>
+              <rect x="244" y="49" width="36" height="2" rx="1" fill="#1a0e12" opacity="0.12"/>
+              <!-- chat bubble -->
+              <rect x="244" y="58" width="50" height="32" rx="7" fill="#8e0a1e" fill-opacity="0.11" stroke="#8e0a1e" stroke-width="1" stroke-opacity="0.5"/>
+              <rect x="251" y="65" width="36" height="2" rx="1" fill="#8e0a1e" opacity="0.55"/>
+              <rect x="251" y="70" width="30" height="2" rx="1" fill="#8e0a1e" opacity="0.38"/>
+              <rect x="251" y="75" width="34" height="2" rx="1" fill="#8e0a1e" opacity="0.45"/>
+              <path d="M250,90 L244,99 L260,90 Z" fill="#8e0a1e" fill-opacity="0.22" stroke="#8e0a1e" stroke-width="0.5" stroke-opacity="0.5"/>
+              <!-- source labels -->
+              <text x="106" y="32" font-family="system-ui,sans-serif" font-size="8" font-weight="600" fill="#8e0a1e" opacity="0.75" text-anchor="middle">cal fire</text>
+              <text x="106" y="42" font-family="system-ui,sans-serif" font-size="7" fill="#8e0a1e" opacity="0.55" text-anchor="middle">noaa · usfs</text>
+            </svg>
+          </div>
+          <span class="badge">personal project · 2025 – present</span>
+          <h3>wildfire-doc</h3>
+          <p>
+            Enterprise-grade RAG chat interface for wildfire operations — ingests
+            CAL FIRE incident reports, USFS forest assessments, and NOAA weather data,
+            then answers queries with hybrid BM25 + dense vector search, RRF fusion,
+            HyDE, and Cohere reranking over a Qdrant vector store.
+          </p>
+          <div class="tags">
+            <span class="tag">RAG</span>
+            <span class="tag">Qdrant</span>
+            <span class="tag">FastAPI</span>
+            <span class="tag">BM25</span>
+            <span class="tag">Cohere Rerank</span>
+          </div>
+          <a class="card-gh" href="https://github.com/niranjana2222/wildfire-doc" target="_blank" rel="noopener">github →</a>
+        </div>
+
+        <div class="card reveal">
+          <span class="badge">mit beaverworks summer institute · 2024</span>
+          <h3>real-time cognitive assistant</h3>
+          <p>
+            Designed and implemented a real-time multimodal cognitive assistant combining
+            NLP, computer vision, and audio analysis to infer user mood, facial expressions,
+            and vocal cues — enabling adaptive human-computer interaction.
+          </p>
+          <div class="tags">
+            <span class="tag">NLP</span>
+            <span class="tag">Computer Vision</span>
+            <span class="tag">Audio</span>
+            <span class="tag">Real-time</span>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <span class="badge">santa clara university internship · 2023</span>
+          <h3>on-device ckd detection</h3>
+          <p>
+            Co-developed an on-device ML pipeline for chronic kidney disease detection:
+            implemented a color constancy algorithm for input normalization, fine-tuned
+            CNN models for better generalization, and engineered features for robust performance.
+          </p>
+          <div class="tags">
+            <span class="tag">On-Device ML</span>
+            <span class="tag">CNNs</span>
+            <span class="tag">Medical Imaging</span>
+          </div>
+        </div>
+
+        <div class="card card-current reveal">
+          <span class="badge">berkeley blueprint · jan 2026 – present</span>
+          <h3>adopt an inmate matching platform</h3>
+          <p>
+            Built the backend SQL adoptee-adopter matching algorithm with LLM-powered
+            semantic similarity, plus the React frontend user application, for the
+            Adopt an Inmate nonprofit.
+          </p>
+          <div class="tags">
+            <span class="tag">SQL</span>
+            <span class="tag">LLM Embeddings</span>
+            <span class="tag">React</span>
+          </div>
+        </div>
+
+        <div class="card reveal">
+          <span class="badge">wildfire awareness initiative · 2021 – 2025</span>
+          <h3>wildfire preparedness ios app</h3>
+          <p>
+            Built and launched an iOS app with 400+ users as part of a 501(c)(3) nonprofit
+            I founded — alongside curriculum and go-bag supplies distributed to 400+ schools
+            and a published storybook.
+          </p>
+          <div class="tags">
+            <span class="tag">iOS</span>
+            <span class="tag">Founder</span>
+            <span class="tag">400+ users</span>
+          </div>
+        </div>
+
+        <div class="card card-pub reveal">
+          <span class="badge pub">ncur 2024 · published</span>
+          <h3>disaster response ml pipeline</h3>
+          <p>
+            End-to-end multimodal pipeline (RoBERTa-XLM, GPT-J, InceptionV3) fine-tuned
+            on curated disaster datasets for fast damage assessment — presented orally
+            and published at NCUR 2024.
+          </p>
+          <div class="tags">
+            <span class="tag">Multimodal</span>
+            <span class="tag">Fine-tuning</span>
+          </div>
+        </div>
+
+        <div class="card card-pub reveal">
+          <span class="badge pub">aaomr 2024 · poster</span>
+          <h3>3d ct scan infection detection</h3>
+          <p>
+            Volumetric infection detection using fine-tuned 3D U-Net architectures on
+            annotated CT datasets, with preprocessing pipelines for diagnostic accuracy
+            and robustness.
+          </p>
+          <div class="tags">
+            <span class="tag">3D U-Net</span>
+            <span class="tag">Medical Imaging</span>
+          </div>
         </div>
       </div>
-      <div class="t-controls">
-        <button class="t-btn" id="projPrev" aria-label="previous">‹</button>
-        <div class="t-cap" id="projCap"></div>
-        <button class="t-btn" id="projNext" aria-label="next">›</button>
-      </div>
-      <p class="t-hint">Drag to spin · click a blob · or use ‹ ›</p>
-    </div>
-
-    <!-- Detail panel — updated by JS when focal project changes -->
-    <div class="proj-detail reveal" id="projDetail">
-      <span class="badge" id="pdBadge"></span>
-      <div class="proj-detail-top">
-        <h3 id="pdName"></h3>
-        <a class="btn btn-ghost" id="pdLink" href="#" target="_blank" rel="noopener" style="display:none">github →</a>
-      </div>
-      <p id="pdDesc"></p>
-      <div class="tags" id="pdTags"></div>
-    </div>
+    </section>
   </main>
 
   <footer>© 2026 niranjana sankar · berkeley, ca</footer>
   <button class="back-top" aria-label="Back to top">↑</button>
   <script src="script.js"></script>
-  <script type="module" src="https://unpkg.com/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
-  <script src="turntable.js"></script>
-  <script>
-  const PROJ = [
-    {name:"ai-fetch",      kind:"Agent",      grad:"var(--tg4)", model:true,
-     modelSrc:"https://modelviewer.dev/shared-assets/models/RobotExpressive.glb",
-     badge:"personal project · 2025 – present", current:true,
-     desc:"Personalized AI news digest agent — fetches articles and content from configured sources, processes them through a LangGraph multi-agent pipeline, and delivers a summarized digest on a schedule.",
-     tags:["LangGraph","Python","Agents","Scheduling"],link:"https://github.com/niranjana2222/ai-fetch-"},
-    {name:"wildfire-doc",  kind:"RAG",        grad:"var(--tg3)", model:true,
-     modelSrc:"https://modelviewer.dev/shared-assets/models/Astronaut.glb",
-     badge:"personal project · 2025 – present", current:true,
-     desc:"Enterprise-grade RAG chat interface for wildfire operations — ingests CAL FIRE incident reports, USFS forest assessments, and NOAA weather data with hybrid BM25 + dense vector search, RRF fusion, HyDE, and Cohere reranking.",
-     tags:["RAG","Qdrant","FastAPI","BM25","Cohere Rerank"],link:"https://github.com/niranjana2222/wildfire-doc"},
-    {name:"Cognitive Asst",kind:"Multimodal", grad:"var(--tg1)", model:false,
-     badge:"mit beaverworks · 2024",
-     desc:"Real-time multimodal cognitive assistant combining NLP, computer vision, and audio analysis to infer user mood, facial expressions, and vocal cues — enabling adaptive human-computer interaction.",
-     tags:["NLP","Computer Vision","Audio","Real-time"]},
-    {name:"CKD Detection", kind:"On-Device ML",grad:"var(--tg2)", model:false,
-     badge:"santa clara university · 2023",
-     desc:"On-device ML pipeline for chronic kidney disease detection: color constancy algorithm for input normalization, fine-tuned CNN models for generalization, and engineered features for robust performance.",
-     tags:["On-Device ML","CNNs","Medical Imaging"]},
-    {name:"Adopt Inmate",  kind:"Platform",   grad:"var(--tg5)", model:false,
-     badge:"berkeley blueprint · jan 2026 – present", current:true,
-     desc:"Backend SQL adoptee-adopter matching algorithm with LLM-powered semantic similarity, plus the React frontend user application, for the Adopt an Inmate nonprofit.",
-     tags:["SQL","LLM Embeddings","React"]},
-    {name:"Wildfire App",  kind:"iOS App",    grad:"var(--tg3)", model:false,
-     badge:"wildfire awareness initiative · 2021 – 2025",
-     desc:"iOS app with 400+ users as part of a 501(c)(3) nonprofit I founded — alongside curriculum and go-bag supplies distributed to 400+ schools and a published storybook.",
-     tags:["iOS","Founder","400+ users"]},
-    {name:"Disaster ML",   kind:"Published",  grad:"var(--tg1)", model:false, pub:true,
-     badge:"ncur 2024 · oral presentation & publication",
-     desc:"End-to-end multimodal pipeline (RoBERTa-XLM, GPT-J, InceptionV3) fine-tuned on curated disaster datasets for fast damage assessment — presented orally and published at NCUR 2024.",
-     tags:["Multimodal","Fine-tuning","RoBERTa","GPT-J"]},
-    {name:"CT Scan",       kind:"Medical ML", grad:"var(--tg4)", model:false, pub:true,
-     badge:"aaomr 2024 · poster",
-     desc:"Volumetric infection detection using fine-tuned 3D U-Net architectures on annotated CT datasets, with preprocessing pipelines for diagnostic accuracy and robustness.",
-     tags:["3D U-Net","Medical Imaging"]},
-  ];
-
-  function updateDetail(idx, p) {
-    const badgeEl=document.getElementById('pdBadge'), nameEl=document.getElementById('pdName');
-    const descEl=document.getElementById('pdDesc'), tagsEl=document.getElementById('pdTags');
-    const linkEl=document.getElementById('pdLink'), detail=document.getElementById('projDetail');
-    const mv=document.querySelector('#projModel model-viewer');
-    badgeEl.textContent=p.badge||'';
-    badgeEl.className='badge'+(p.pub?' pub':'');
-    nameEl.textContent=p.name;
-    descEl.textContent=p.desc||'';
-    tagsEl.innerHTML=(p.tags||[]).map(t=>'<span class="tag">'+t+'</span>').join('');
-    if(p.link){linkEl.href=p.link;linkEl.style.display='inline-flex';}else{linkEl.style.display='none';}
-    detail.className='proj-detail reveal visible'+(p.current?' card-current':p.pub?' card-pub':'');
-    if(mv&&p.modelSrc) mv.setAttribute('src',p.modelSrc);
-  }
-
-  const tt = createTurntable({
-    stageId:'projStage', gooLayerId:'projGoo', labelLayerId:'projLabels',
-    filterId:'goo', focalModelId:'projModel', capId:'projCap',
-    prevId:'projPrev', nextId:'projNext',
-    projects:PROJ, onFocusChange:updateDetail,
-    rx:30, ry:14, cy:45, base:21
-  });
-  updateDetail(0, PROJ[0]);
-  </script>
 </body>
 </html>
