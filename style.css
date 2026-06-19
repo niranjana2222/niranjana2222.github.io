@@ -772,3 +772,187 @@ body.cursor-hover .cursor-ring {
 /* ============ Page Transition ============ */
 body { transition: opacity 0.25s ease; }
 body.page-exit { opacity: 0; }
+
+/* ============ Stat Strip ============ */
+.stat-strip {
+  display: flex;
+  gap: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 48px 0 0;
+  background: var(--bg-2);
+}
+
+.stat-item {
+  flex: 1;
+  padding: 28px 24px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-item:last-child { border-right: none; }
+
+.stat-num {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* ============ Hero Tagline ============ */
+.hero-tagline {
+  max-width: 520px;
+  font-size: 1rem;
+  color: var(--text-2);
+  line-height: 1.75;
+  margin-top: 32px;
+  border-left: 2px solid var(--accent);
+  padding-left: 20px;
+}
+
+/* ============ Education Block ============ */
+.edu-block {
+  padding: 32px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.edu-primary {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.edu-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.edu-degree {
+  font-size: 0.85rem;
+  color: var(--text-2);
+}
+
+.edu-clubs {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* ============ Skills Prose ============ */
+.skills-prose {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+}
+
+.skills-prose p {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+
+.skills-prose em {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--text);
+  margin-right: 8px;
+}
+
+/* ============ Project List (editorial) ============ */
+.project-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.project-entry {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 0 32px;
+  padding: 48px 0;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+
+.project-entry:first-child { border-top: 1px solid var(--border); }
+
+.project-entry:hover { background: var(--bg-2); }
+.project-entry:hover { padding-left: 8px; padding-right: 8px; margin: 0 -8px; border-radius: var(--radius); }
+
+.project-num {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  padding-top: 4px;
+}
+
+.project-meta {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin-bottom: 8px;
+}
+
+.project-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.025em;
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+
+.project-desc {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+.project-footer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+/* ============ Timeline Narrative ============ */
+.timeline-narrative {
+  font-size: 0.9rem;
+  color: var(--text-2);
+  line-height: 1.7;
+  max-width: 560px;
+  margin-bottom: 12px;
+}
+
+/* ============ Responsive stat strip ============ */
+@media (max-width: 600px) {
+  .stat-strip { flex-wrap: wrap; }
+  .stat-item { flex: 0 0 50%; border-bottom: 1px solid var(--border); }
+  .stat-item:nth-child(2) { border-right: none; }
+  .project-entry { grid-template-columns: 1fr; }
+  .project-num { display: none; }
+}
