@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Niranjana Sankar — About</title>
+  <title>Niranjana Sankar</title>
   <meta name="description" content="Niranjana Sankar — EECS @ UC Berkeley. ML researcher and engineer." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300..700;1,300..700&family=Hanken+Grotesk:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="cursor"><div class="cursor-dot"></div><div class="cursor-ring"></div></div>
   <nav>
-    <a class="logo" href="index.html">niranjana sankar</a>
-    <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">☰</button>
-    <div class="nav-links" id="nav-links">
+    <a class="logo" href="index.html">Niranjana Sankar</a>
+    <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <div class="nav-links">
       <a href="index.html" class="active">about</a>
       <a href="research.html">research</a>
       <a href="projects.html">projects</a>
@@ -24,51 +24,98 @@
   </nav>
 
   <main>
-    <div class="hero">
-      <p class="eyebrow fade-up">hello, i'm</p>
-      <h1 class="fade-up">niranjana <span class="serif">sankar</span></h1>
-      <p class="fade-up">
+    <div class="hero reveal">
+      <p class="hero-label">EECS @ UC Berkeley</p>
+      <h1>Niranjana<br><em>Sankar</em></h1>
+      <p class="hero-bio">
         I study EECS at UC Berkeley and spend most of my time on one question:
         <strong>why do models do what they do?</strong> That curiosity runs through
         my work in interpretability, multimodal learning, and the systems that
         carry research into production.
       </p>
-      <div class="hero-cta fade-up">
+      <div class="hero-cta">
         <a class="btn btn-primary" href="mailto:niranjana.sankar@berkeley.edu">get in touch</a>
         <a class="btn btn-ghost" href="research.html">see my research</a>
       </div>
-      <div class="hero-meta fade-up">
-        <div><span>currently</span> ml intern @ bright.ai</div>
-        <div><span>researching</span> vla interpretability @ berkeley icon lab</div>
-        <div><span>also at</span> berkeley nlp group</div>
+      <div class="hero-status">
+        <div class="hero-status-item">
+          <span class="label">currently</span>
+          ML Intern @ bright.ai
+        </div>
+        <div class="hero-status-item">
+          <span class="label">researching</span>
+          VLA Interpretability @ Berkeley ICON Lab
+        </div>
+        <div class="hero-status-item">
+          <span class="label">also at</span>
+          Berkeley NLP Group
+        </div>
       </div>
     </div>
 
-    <section class="reveal">
-      <span class="section-label" data-n="01">education</span>
-      <div class="card">
-        <h3>university of california, berkeley</h3>
-        <span class="meta">B.S. Electrical Engineering &amp; Computer Science · Expected May 2029 · 4.0 GPA</span>
-        <p>
-          Coursework: Data Structures · Discrete Math &amp; Probability Theory ·
-          Signals, Dynamical Systems &amp; Information Processing ·
-          Structure &amp; Interpretation of Computer Programs · Linear Algebra &amp; Differential Equations
-        </p>
-        <div class="tags">
-          <span class="tag">SAAS ML</span>
-          <span class="tag">AWE (Women in EECS)</span>
-          <span class="tag">BluePrint</span>
-          <span class="tag">Berkeley NLP</span>
+    <div class="marquee-strip">
+      <div class="marquee-track">
+        <span class="marquee-item">ML Engineer</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">Berkeley <em>EECS</em></span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">Interpretability Research</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">Multimodal ML</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">VLA Systems</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">RAG Pipelines</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">ML Engineer</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">Berkeley <em>EECS</em></span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">Interpretability Research</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">Multimodal ML</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">VLA Systems</span>
+        <span class="marquee-item">·</span>
+        <span class="marquee-item">RAG Pipelines</span>
+        <span class="marquee-item">·</span>
+      </div>
+    </div>
+
+    <div class="section reveal">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2>Education</h2>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-kind">University</div>
+          <h3>University of California, Berkeley</h3>
+          <div class="card-meta">B.S. Electrical Engineering &amp; Computer Science · Expected May 2029 · 4.0 GPA</div>
+          <p>
+            Coursework: Data Structures · Discrete Math &amp; Probability Theory ·
+            Signals, Dynamical Systems &amp; Information Processing ·
+            Structure &amp; Interpretation of Computer Programs · Linear Algebra &amp; Differential Equations
+          </p>
+          <div class="tags">
+            <span class="tag">SAAS ML</span>
+            <span class="tag">AWE (Women in EECS)</span>
+            <span class="tag">BluePrint</span>
+            <span class="tag">Berkeley NLP</span>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section class="reveal">
-      <span class="section-label" data-n="02">skills</span>
-      <div class="about-grid">
-        <div class="card">
-          <h3>languages</h3>
-          <div class="tags skill-row">
+    <div class="section reveal">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2>Skills</h2>
+      </div>
+      <div class="skill-grid">
+        <div class="skill-cell">
+          <h3>Languages</h3>
+          <div class="tags">
             <span class="tag">Python</span>
             <span class="tag">Java</span>
             <span class="tag">SQL</span>
@@ -77,9 +124,9 @@
             <span class="tag">Scheme</span>
           </div>
         </div>
-        <div class="card">
-          <h3>tools &amp; frameworks</h3>
-          <div class="tags skill-row">
+        <div class="skill-cell">
+          <h3>Tools &amp; Frameworks</h3>
+          <div class="tags">
             <span class="tag">PyTorch</span>
             <span class="tag">TensorFlow</span>
             <span class="tag">HuggingFace</span>
@@ -93,32 +140,38 @@
             <span class="tag">Linux</span>
           </div>
         </div>
-        <div class="card">
-          <h3>awards</h3>
-          <div class="tags skill-row">
+        <div class="skill-cell">
+          <h3>Awards</h3>
+          <div class="tags">
             <span class="tag">USACO Gold</span>
             <span class="tag">AIME Qualifier</span>
           </div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section class="reveal">
-      <span class="section-label" data-n="03">beyond the code</span>
-      <div class="card">
-        <h3>wildfire awareness initiative — <span class="serif">founder</span></h3>
-        <span class="meta">501(c)(3) Nonprofit · 2021 – 2025</span>
-        <p>
-          Founded and led a nonprofit promoting wildfire preparedness. Over four years
-          we grew to a team of 20+ students, brought curriculum and go-bag supplies to
-          400+ schools, published a children's storybook, and shipped an iOS app that
-          reached 400+ users.
-        </p>
+    <div class="section reveal">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2>Beyond the Code</h2>
       </div>
-    </section>
+      <div class="card-grid">
+        <div class="card card-current">
+          <div class="card-kind">Nonprofit · Founder</div>
+          <h3>Wildfire Awareness Initiative</h3>
+          <div class="card-meta">501(c)(3) · 2021 – 2025</div>
+          <p>
+            Founded and led a nonprofit promoting wildfire preparedness. Over four years
+            we grew to a team of 20+ students, brought curriculum and go-bag supplies to
+            400+ schools, published a children's storybook, and shipped an iOS app that
+            reached 400+ users.
+          </p>
+        </div>
+      </div>
+    </div>
 
     <div class="contact-strip reveal">
-      <h2>let's <span class="serif">connect</span></h2>
+      <h2>let's <em>connect</em></h2>
       <p>Always happy to talk interpretability, internships, or a hard ML problem you can't put down. Email is the fastest way to reach me.</p>
       <div class="contact-links">
         <a class="btn btn-primary" href="mailto:niranjana.sankar@berkeley.edu">email</a>
@@ -128,7 +181,7 @@
     </div>
   </main>
 
-  <footer>© 2026 <span class="serif">niranjana sankar</span> · berkeley, ca</footer>
+  <footer>© 2026 Niranjana Sankar · <span style="color:var(--accent)">Berkeley, CA</span></footer>
   <button class="back-top" aria-label="Back to top">↑</button>
   <script src="script.js"></script>
 </body>

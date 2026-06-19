@@ -7,15 +7,15 @@
   <meta name="description" content="Research by Niranjana Sankar — interpretability, multimodal ML, and LLM reasoning at UC Berkeley." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300..700;1,300..700&family=Hanken+Grotesk:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="cursor"><div class="cursor-dot"></div><div class="cursor-ring"></div></div>
   <nav>
-    <a class="logo" href="index.html">niranjana sankar</a>
-    <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">☰</button>
-    <div class="nav-links" id="nav-links">
+    <a class="logo" href="index.html">Niranjana Sankar</a>
+    <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <div class="nav-links">
       <a href="index.html">about</a>
       <a href="research.html" class="active">research</a>
       <a href="projects.html">projects</a>
@@ -24,110 +24,158 @@
   </nav>
 
   <main>
-    <h1 class="page-title">re<span class="serif">search</span></h1>
-    <p class="page-sub">
-      I've worked in four Berkeley AI labs — currently the ICON Lab and the NLP
-      Group — across interpretability, multimodal learning, and LLM reasoning.
-      The common thread: understanding <em>why</em> models behave the way they do,
-      not just whether they work.
-    </p>
+    <div class="page-hero reveal">
+      <h1>Research</h1>
+      <p>
+        I've worked in four Berkeley AI labs — currently the ICON Lab and the NLP
+        Group — across interpretability, multimodal learning, and LLM reasoning.
+        The common thread: understanding why models behave the way they do,
+        not just whether they work.
+      </p>
+    </div>
 
-    <section class="reveal">
-      <span class="section-label" data-n="00">research</span>
-      <div class="card-grid">
-        <div class="card card-current reveal">
-          <span class="badge">jan 2026 – present</span>
-          <h3>berkeley icon lab</h3>
-          <span class="meta">Researcher · VLA Interpretability</span>
-          <p>
-            Studying how vision-language-action (VLA) models attend to language, and
-            building methods that strengthen the ActionExpert's grounding in
-            instructions.
-          </p>
-          <div class="tags">
-            <span class="tag">VLA</span>
-            <span class="tag">Interpretability</span>
-            <span class="tag">Attention</span>
-          </div>
-        </div>
-
-        <div class="card card-current reveal">
-          <span class="badge">jan 2026 – present</span>
-          <h3>berkeley nlp group</h3>
-          <span class="meta">Researcher · Multimodal Speech Recognition</span>
-          <p>
-            Designing test-time adaptation (TTA) methods for Qwen3-Omni, LLaMA, and
-            Whisper-Flamingo on audio-visual speech recognition for accented speech,
-            and using SHAP values to compare how much the models lean on audio versus
-            visual features.
-          </p>
-          <div class="tags">
-            <span class="tag">TTA</span>
-            <span class="tag">AVSR</span>
-            <span class="tag">SHAP</span>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <span class="badge">dec 2025 – may 2026</span>
-          <h3>berkeley ai sky computing group</h3>
-          <span class="meta">Researcher · LLM Reasoning</span>
-          <p>
-            Built an interpretable extension of GEPA with tuned lens for process-level
-            evaluation of LLM reasoning. Developed QThink — latent reasoning via
-            per-step distillation of multiple chain-of-thought rollouts.
-          </p>
-          <div class="tags">
-            <span class="tag">GEPA</span>
-            <span class="tag">Tuned Lens</span>
-            <span class="tag">Chain-of-Thought</span>
-          </div>
-        </div>
-
-        <div class="card reveal">
-          <span class="badge">nov 2025 – mar 2026</span>
-          <h3>berkeley ai research — speech group</h3>
-          <span class="meta">Researcher · LLM Interpretability &amp; RL</span>
-          <p>
-            Evaluated LLM interpretability with tuned-lens methods on GPT models for
-            multilingual multi-token prediction. Improved ICRL, SOAR, and TRPO for
-            summarization and math-game tasks with note-taking mechanisms.
-          </p>
-          <div class="tags">
-            <span class="tag">Tuned Lens</span>
-            <span class="tag">ICRL</span>
-            <span class="tag">TRPO</span>
-          </div>
-        </div>
+    <div class="section reveal">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2>Active Research</h2>
       </div>
-    </section>
+      <div class="research-list">
 
-    <section class="reveal">
-      <span class="section-label" data-n="01">publications &amp; presentations</span>
+        <div class="research-item">
+          <div class="research-date">Jan 2026 – Present</div>
+          <div>
+            <h3>Berkeley ICON Lab</h3>
+            <div class="role">Researcher · VLA Interpretability</div>
+            <p>
+              Studying how vision-language-action (VLA) models attend to language, and
+              building methods that strengthen the ActionExpert's grounding in instructions.
+            </p>
+            <div class="tags">
+              <span class="tag">VLA</span>
+              <span class="tag">Interpretability</span>
+              <span class="tag">Attention</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <div class="research-date">Jan 2026 – Present</div>
+          <div>
+            <h3>Berkeley NLP Group</h3>
+            <div class="role">Researcher · Multimodal Speech Recognition</div>
+            <p>
+              Designing test-time adaptation (TTA) methods for Qwen3-Omni, LLaMA, and
+              Whisper-Flamingo on audio-visual speech recognition for accented speech,
+              and using SHAP values to compare how much the models lean on audio versus
+              visual features.
+            </p>
+            <div class="tags">
+              <span class="tag">TTA</span>
+              <span class="tag">AVSR</span>
+              <span class="tag">SHAP</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section reveal">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2>Past Research</h2>
+      </div>
+      <div class="research-list">
+
+        <div class="research-item">
+          <div class="research-date">Dec 2025 – May 2026</div>
+          <div>
+            <h3>Berkeley AI Sky Computing Group</h3>
+            <div class="role">Researcher · LLM Reasoning</div>
+            <p>
+              Built an interpretable extension of GEPA with tuned lens for process-level
+              evaluation of LLM reasoning. Developed QThink — latent reasoning via
+              per-step distillation of multiple chain-of-thought rollouts.
+            </p>
+            <div class="tags">
+              <span class="tag">GEPA</span>
+              <span class="tag">Tuned Lens</span>
+              <span class="tag">Chain-of-Thought</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="research-item">
+          <div class="research-date">Nov 2025 – Mar 2026</div>
+          <div>
+            <h3>Berkeley AI Research — Speech Group</h3>
+            <div class="role">Researcher · LLM Interpretability &amp; RL</div>
+            <p>
+              Evaluated LLM interpretability with tuned-lens methods on GPT models for
+              multilingual multi-token prediction. Improved ICRL, SOAR, and TRPO for
+              summarization and math-game tasks with note-taking mechanisms.
+            </p>
+            <div class="tags">
+              <span class="tag">Tuned Lens</span>
+              <span class="tag">ICRL</span>
+              <span class="tag">TRPO</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section reveal">
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <h2>Publications &amp; Presentations</h2>
+      </div>
       <div class="card-grid">
+
         <div class="card card-pub">
-          <span class="badge pub">ncur 2024 · oral presentation &amp; publication</span>
-          <h3>enhancing disaster response systems</h3>
+          <div class="card-kind">NCUR 2024 · Oral Presentation &amp; Publication</div>
+          <h3>Enhancing Disaster Response Systems</h3>
           <p>
             Fine-tuned LLM and vision models on curated multimodal disaster datasets;
             designed end-to-end ML pipelines using RoBERTa-XLM, GPT-J, and InceptionV3
             to improve predictive modeling and fast assessment for disaster response.
           </p>
+          <div class="tags">
+            <span class="tag">Multimodal</span>
+            <span class="tag">Fine-tuning</span>
+            <span class="tag">RoBERTa-XLM</span>
+          </div>
         </div>
+
         <div class="card card-pub">
-          <span class="badge pub">aaomr 2024 · poster presentation</span>
-          <h3>detecting infections in 3d ct scans</h3>
+          <div class="card-kind">AAOMR 2024 · Poster Presentation</div>
+          <h3>Detecting Infections in 3D CT Scans</h3>
           <p>
             Developed volumetric infection detection models by fine-tuning 3D U-Net
             architectures on annotated CT datasets; built preprocessing pipelines to
             improve diagnostic accuracy and robustness in medical imaging.
           </p>
+          <div class="tags">
+            <span class="tag">3D U-Net</span>
+            <span class="tag">Medical Imaging</span>
+          </div>
         </div>
+
       </div>
-    </section>
+    </div>
+
+    <div class="contact-strip reveal">
+      <h2>want to <em>collaborate?</em></h2>
+      <p>I'm always open to talking interpretability, multimodal ML, or whatever you're stuck on.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:niranjana.sankar@berkeley.edu">email me</a>
+        <a class="btn btn-ghost" href="https://github.com/niranjana2222" target="_blank" rel="noopener">github</a>
+      </div>
+    </div>
   </main>
 
-  <footer>© 2026 niranjana sankar · berkeley, ca</footer>
+  <footer>© 2026 Niranjana Sankar · <span style="color:var(--accent)">Berkeley, CA</span></footer>
   <button class="back-top" aria-label="Back to top">↑</button>
   <script src="script.js"></script>
 </body>

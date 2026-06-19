@@ -7,15 +7,15 @@
   <meta name="description" content="Work experience of Niranjana Sankar — ML engineering, consulting, and teaching." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300..700;1,300..700&family=Hanken+Grotesk:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="cursor-glow" aria-hidden="true"></div>
+  <div class="cursor"><div class="cursor-dot"></div><div class="cursor-ring"></div></div>
   <nav>
-    <a class="logo" href="index.html">niranjana sankar</a>
-    <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">☰</button>
-    <div class="nav-links" id="nav-links">
+    <a class="logo" href="index.html">Niranjana Sankar</a>
+    <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <div class="nav-links">
       <a href="index.html">about</a>
       <a href="research.html">research</a>
       <a href="projects.html">projects</a>
@@ -24,82 +24,146 @@
   </nav>
 
   <main>
-    <h1 class="page-title">exper<span class="serif">ience</span></h1>
-    <p class="page-sub">
-      Industry roles spanning production ML systems, AI safety consulting, and
-      full-stack engineering — plus the teaching that keeps me honest about
-      <em>actually understanding</em> things.
-    </p>
+    <div class="page-hero reveal">
+      <h1>Experience</h1>
+      <p>
+        Industry roles spanning production ML systems, AI safety consulting, and
+        full-stack engineering — plus the teaching that keeps me honest about
+        actually understanding things.
+      </p>
+    </div>
 
-    <section class="reveal">
-      <span class="section-label" data-n="00">work</span>
-      <div class="timeline">
-        <div class="timeline-item timeline-current reveal">
-          <h3>bright.ai</h3>
-          <span class="role">Machine Learning Intern</span>
-          <span class="dates">April 2025 – Present</span>
-          <ul>
-            <li>Developing graph-based RAG using entity embeddings, RAPTOR hierarchical retrieval, and LLM Wiki storage strategies</li>
-            <li>Optimized an end-to-end VLM-TTS CoPilot system to help infrastructure specialists with safety procedures</li>
-          </ul>
-        </div>
-
-        <div class="timeline-item reveal">
-          <h3>google</h3>
-          <span class="role">Consultant · via SAAS Machine Learning at Berkeley</span>
-          <span class="dates">August 2025 – Present</span>
-          <ul>
-            <li>Developed 5 Constitutional AI frameworks with critique-revision pairs for supervised fine-tuning and RL on Gemini 2.5</li>
-            <li>Evaluated safety performance on a curated dataset of 14k harmful prompts</li>
-          </ul>
-        </div>
-
-        <div class="timeline-item reveal">
-          <h3>entelligence.ai</h3>
-          <span class="role">Software Engineer Intern</span>
-          <span class="dates">August 2023 – August 2025</span>
-          <ul>
-            <li>Integrated LangChain agent pipelines into production chatbot workflows</li>
-            <li>Shipped 3 Composio integration features (Jira, GitHub, Slack) with SQL-backed services and a Next.js frontend</li>
-          </ul>
-        </div>
+    <div class="section reveal">
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <h2>Work</h2>
       </div>
-    </section>
+      <div class="timeline">
 
-    <section class="reveal">
-      <span class="section-label" data-n="01">teaching</span>
+        <div class="timeline-item timeline-current">
+          <div class="timeline-left">
+            <div class="timeline-org">bright.ai</div>
+            <div class="timeline-dates">April 2025 – Present</div>
+          </div>
+          <div class="timeline-body">
+            <div class="timeline-role">Machine Learning Intern</div>
+            <ul>
+              <li>Developing graph-based RAG using entity embeddings, RAPTOR hierarchical retrieval, and LLM Wiki storage strategies</li>
+              <li>Optimized an end-to-end VLM-TTS CoPilot system to help infrastructure specialists with safety procedures</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">RAG</span>
+              <span class="tag">RAPTOR</span>
+              <span class="tag">VLM</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-org">Google</div>
+            <div class="timeline-dates">August 2025 – Present</div>
+          </div>
+          <div class="timeline-body">
+            <div class="timeline-role">Consultant · via SAAS Machine Learning at Berkeley</div>
+            <ul>
+              <li>Developed 5 Constitutional AI frameworks with critique-revision pairs for supervised fine-tuning and RL on Gemini 2.5</li>
+              <li>Evaluated safety performance on a curated dataset of 14k harmful prompts</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">Constitutional AI</span>
+              <span class="tag">RLHF</span>
+              <span class="tag">Safety</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-left">
+            <div class="timeline-org">Entelligence.ai</div>
+            <div class="timeline-dates">August 2023 – August 2025</div>
+          </div>
+          <div class="timeline-body">
+            <div class="timeline-role">Software Engineer Intern</div>
+            <ul>
+              <li>Integrated LangChain agent pipelines into production chatbot workflows</li>
+              <li>Shipped 3 Composio integration features (Jira, GitHub, Slack) with SQL-backed services and a Next.js frontend</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">LangChain</span>
+              <span class="tag">Next.js</span>
+              <span class="tag">SQL</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section reveal">
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <h2>Teaching</h2>
+      </div>
       <div class="card-grid">
+
         <div class="card">
-          <h3>usaco instructor</h3>
-          <span class="meta">Computer Programming Initiative (CPI)</span>
+          <div class="card-kind">Computer Programming Initiative (CPI)</div>
+          <h3>USACO Instructor</h3>
           <p>
             Taught 120 students across 4 USACO Bronze sessions; created 25 lectures and
             programming problems simplifying advanced algorithms. Led 25 tutoring sessions,
             organized 3 hackathons, and hosted 3 "Computer Programming for Girls" workshops.
           </p>
+          <div class="tags">
+            <span class="tag">USACO</span>
+            <span class="tag">Algorithms</span>
+            <span class="tag">120 students</span>
+          </div>
         </div>
+
         <div class="card">
-          <h3>algebra 2 instructor</h3>
-          <span class="meta">Art of Problem Solving Academy · Jun 2023 – Jun 2024</span>
+          <div class="card-kind">Art of Problem Solving Academy · Jun 2023 – Jun 2024</div>
+          <h3>Algebra 2 Instructor</h3>
           <p>
             Taught 50 middle school students across 2 Algebra 2 summer camps; presented
             10 lectures and designed creative games simplifying advanced concepts through
             guided problem-solving.
           </p>
+          <div class="tags">
+            <span class="tag">Algebra</span>
+            <span class="tag">AoPS</span>
+            <span class="tag">50 students</span>
+          </div>
         </div>
+
         <div class="card">
-          <h3>tennis coach</h3>
-          <span class="meta">Cupertino Lifetime Sports Center · May – Aug 2025</span>
+          <div class="card-kind">Cupertino Lifetime Sports Center · May – Aug 2025</div>
+          <h3>Tennis Coach</h3>
           <p>
             Coached younger players in technical skills, match strategy, and consistent
             practice habits — building teamwork, confidence, and perseverance.
           </p>
+          <div class="tags">
+            <span class="tag">Coaching</span>
+            <span class="tag">Tennis</span>
+          </div>
         </div>
+
       </div>
-    </section>
+    </div>
+
+    <div class="contact-strip reveal">
+      <h2>let's <em>work together</em></h2>
+      <p>Open to research collaborations, internships, and interesting ML problems.</p>
+      <div class="contact-links">
+        <a class="btn btn-primary" href="mailto:niranjana.sankar@berkeley.edu">email me</a>
+        <a class="btn btn-ghost" href="https://linkedin.com/in/niranjana-sankar-0067852a8/" target="_blank" rel="noopener">linkedin</a>
+      </div>
+    </div>
   </main>
 
-  <footer>© 2026 niranjana sankar · berkeley, ca</footer>
+  <footer>© 2026 Niranjana Sankar · <span style="color:var(--accent)">Berkeley, CA</span></footer>
   <button class="back-top" aria-label="Back to top">↑</button>
   <script src="script.js"></script>
 </body>
