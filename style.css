@@ -8,7 +8,7 @@
   --text-2:  #8a7f92;
   --text-3:  #4a4350;
   --accent:  #8E0A1E;
-  --green:   #2E6F40;
+  --green:   #4db870;
   --sky:     #ADD8E6;
   --font:      "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
@@ -424,7 +424,7 @@ main {
   line-height: 1.6;
 }
 
-.timeline-current .timeline-org { color: var(--accent); }
+.timeline-current .timeline-org { color: var(--sky); }
 
 .timeline-current .timeline-org::before {
   content: "";
