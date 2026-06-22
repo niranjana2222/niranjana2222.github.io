@@ -7,9 +7,9 @@
   --text:    #eeeaf4;
   --text-2:  #8a7f92;
   --text-3:  #4a4350;
-  --accent:  #c4192e;
-  --green:   #3d9455;
-  --sky:     #7ec5e0;
+  --accent:  #8E0A1E;
+  --green:   #2E6F40;
+  --sky:     #ADD8E6;
   --font:      "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
   --radius:    6px;
@@ -147,7 +147,7 @@ main {
 
 .hero h1 em {
   font-style: normal;
-  background: linear-gradient(135deg, var(--accent) 0%, #e8474a 50%, #ff6b6b 100%);
+  background: linear-gradient(135deg, var(--accent) 0%, #c4192e 50%, #e8474a 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -229,7 +229,7 @@ main {
   transition: left 0.4s var(--ease);
 }
 
-.btn-primary:hover { background: #a01422; transform: translateY(-1px); }
+.btn-primary:hover { background: #6a0716; transform: translateY(-1px); }
 
 .btn-primary:hover::before {
   left: 100%;
@@ -532,7 +532,7 @@ main {
   left: -80px;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(196, 25, 46, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(142, 10, 30, 0.08) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -761,7 +761,7 @@ footer::before {
 body.cursor-hover .cursor-dot { width: 12px; height: 12px; }
 body.cursor-hover .cursor-ring {
   width: 52px; height: 52px;
-  border-color: rgba(196, 25, 46, 0.7);
+  border-color: rgba(142, 10, 30, 0.7);
 }
 /* Hide custom cursor on touch devices */
 @media (hover: none) {
