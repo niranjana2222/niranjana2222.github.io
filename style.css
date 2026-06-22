@@ -1,15 +1,15 @@
 /* ============ Custom Properties ============ */
 :root {
-  --bg:      #0c0a0d;
-  --bg-2:    #131118;
-  --card:    #1a1620;
-  --border:  #2a2230;
-  --text:    #eeeaf4;
-  --text-2:  #8a7f92;
-  --text-3:  #4a4350;
-  --accent:  #8E0A1E;
-  --green:   #4db870;
-  --sky:     #ADD8E6;
+  --bg:      #f8fdff;
+  --bg-2:    #edf6fa;
+  --card:    #ffffff;
+  --border:  #c8e4ed;
+  --text:    #0d2b35;
+  --text-2:  #3d6878;
+  --text-3:  #7aaab8;
+  --accent:  #2E6F40;
+  --green:   #2E6F40;
+  --sky:     #4a9ab8;
   --font:      "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
   --radius:    6px;
@@ -55,7 +55,7 @@ nav {
   justify-content: space-between;
   padding: 20px clamp(24px, 6vw, 80px);
   border-bottom: 1px solid var(--border);
-  background: rgba(12, 10, 13, 0.88);
+  background: rgba(248, 253, 255, 0.92);
   backdrop-filter: blur(12px);
 }
 
@@ -226,7 +226,7 @@ main {
   transition: left 0.4s var(--ease);
 }
 
-.btn-primary:hover { background: #6a0716; transform: translateY(-1px); }
+.btn-primary:hover { background: #1d4f2c; transform: translateY(-1px); }
 
 .btn-primary:hover::before {
   left: 100%;
@@ -323,7 +323,7 @@ main {
 .card:hover {
   background: var(--card);
   transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 32px rgba(13, 43, 53, 0.12);
 }
 
 .card-kind {
@@ -529,7 +529,7 @@ main {
   left: -80px;
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, rgba(142, 10, 30, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(46, 111, 64, 0.1) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -758,7 +758,7 @@ footer::before {
 body.cursor-hover .cursor-dot { width: 12px; height: 12px; }
 body.cursor-hover .cursor-ring {
   width: 52px; height: 52px;
-  border-color: rgba(142, 10, 30, 0.7);
+  border-color: rgba(74, 154, 184, 0.7);
 }
 /* Hide custom cursor on touch devices */
 @media (hover: none) {
