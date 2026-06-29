@@ -129,10 +129,112 @@ function initPageTransitions() {
   });
 }
 
+// ============ Scroll Progress Bar ============
+function initScrollProgress() {
+  const bar = document.querySelector('.scroll-progress');
+  if (!bar) return;
+  window.addEventListener('scroll', () => {
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + '%';
+  }, { passive: true });
+}
+
+// ============ Dark Mode Toggle ============
+function initThemeToggle() {
+  const btn = document.querySelector('.theme-toggle');
+  if (!btn) return;
+  const saved = localStorage.getItem('theme');
+  if (saved) {
+    document.documentElement.setAttribute('data-theme', saved);
+    btn.textContent = saved === 'dark' ? '☀' : '☾';
+  }
+  btn.addEventListener('click', () => {
+    const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    btn.textContent = next === 'dark' ? '☀' : '☾';
+  });
+}
+
+// ============ Copy Email + Toast ============
+function initEmailCopy() {
+  const toast = document.querySelector('.toast');
+  document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+    link.addEventListener('click', () => {
+      const email = link.getAttribute('href').replace('mailto:', '');
+      navigator.clipboard.writeText(email).then(() => {
+        if (!toast) return;
+        toast.textContent = 'email copied ✓';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2200);
+      }).catch(() => {});
+    });
+  });
+}
+
+// ============ Stat Counter Animation ============
+function initStatCounters() {
+  const stats = document.querySelectorAll('.stat-num');
+  if (!stats.length) return;
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const raw = el.textContent.trim();
+      const hasPlus = raw.endsWith('+');
+      const isDecimal = raw.includes('.');
+      const target = parseFloat(raw.replace('+', ''));
+      let start = null;
+      const duration = 1200;
+      function step(ts) {
+        if (!start) start = ts;
+        const p = Math.min((ts - start) / duration, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = (isDecimal ? (ease * target).toFixed(1) : Math.floor(ease * target)) + (hasPlus ? '+' : '');
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = raw;
+      }
+      requestAnimationFrame(step);
+      obs.unobserve(el);
+    });
+  }, { threshold: 0.6 });
+  stats.forEach(el => obs.observe(el));
+}
+
+// ============ Tag Filtering (projects page) ============
+function initTagFilter() {
+  const entries = document.querySelectorAll('.project-entry');
+  if (!entries.length) return;
+  const allTags = document.querySelectorAll('.project-entry .tag');
+  let active = null;
+  allTags.forEach(tag => {
+    tag.addEventListener('click', () => {
+      const label = tag.textContent.trim();
+      if (active === label) {
+        active = null;
+        allTags.forEach(t => t.classList.remove('tag-active'));
+        entries.forEach(e => e.classList.remove('tag-dimmed'));
+        return;
+      }
+      active = label;
+      allTags.forEach(t => t.classList.toggle('tag-active', t.textContent.trim() === label));
+      entries.forEach(entry => {
+        const has = [...entry.querySelectorAll('.tag')].some(t => t.textContent.trim() === label);
+        entry.classList.toggle('tag-dimmed', !has);
+      });
+    });
+  });
+}
+
 // ============ Init All ============
 document.addEventListener('DOMContentLoaded', () => {
   initCursor();
   initScramble();
   initMagneticButtons();
   initPageTransitions();
+  initScrollProgress();
+  initThemeToggle();
+  initEmailCopy();
+  initStatCounters();
+  initTagFilter();
 });

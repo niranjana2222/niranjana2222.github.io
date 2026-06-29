@@ -14,6 +14,21 @@
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
   --radius:    6px;
   --ease:      cubic-bezier(0.22, 1, 0.36, 1);
+  --nav-bg:    rgba(248, 253, 255, 0.92);
+}
+
+[data-theme="dark"] {
+  --bg:      #0c0a0d;
+  --bg-2:    #131118;
+  --card:    #1a1620;
+  --border:  #2a2230;
+  --text:    #eeeaf4;
+  --text-2:  #8a7f92;
+  --text-3:  #4a4350;
+  --accent:  #4db870;
+  --green:   #4db870;
+  --sky:     #ADD8E6;
+  --nav-bg:  rgba(12, 10, 13, 0.88);
 }
 
 /* ============ Reset & Base ============ */
@@ -55,7 +70,7 @@ nav {
   justify-content: space-between;
   padding: 20px clamp(24px, 6vw, 80px);
   border-bottom: 1px solid var(--border);
-  background: rgba(248, 253, 255, 0.92);
+  background: var(--nav-bg);
   backdrop-filter: blur(12px);
 }
 
@@ -953,3 +968,78 @@ body.page-exit { opacity: 0; }
   .project-entry { grid-template-columns: 1fr; }
   .project-num { display: none; }
 }
+
+/* ============ Scroll Progress Bar ============ */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent), var(--sky));
+  z-index: 300;
+  transition: width 0.08s linear;
+}
+
+/* ============ Theme Toggle ============ */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  transition: all 0.2s var(--ease);
+  flex-shrink: 0;
+  line-height: 1;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ============ Toast ============ */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: var(--text);
+  color: var(--bg);
+  padding: 10px 20px;
+  border-radius: var(--radius);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.25s var(--ease);
+  z-index: 400;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============ Tag Filtering ============ */
+.tag { cursor: pointer; }
+.tag.tag-active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--bg-2);
+}
+.project-entry.tag-dimmed { opacity: 0.2; transition: opacity 0.25s; }
+.project-entry { transition: opacity 0.25s; }
+
+/* ============ Focus Visible ============ */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ============ Nav with toggle ============ */
+nav { gap: 12px; }
