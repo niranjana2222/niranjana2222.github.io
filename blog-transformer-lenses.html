@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Looking Inside the Black Box — Niranjana Sankar</title>
+  <meta name="description" content="What logit lens, tuned lens, and depth-allocation studies tell us about how transformers use their layers." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=wb5" />
+</head>
+<body>
+  <div class="scroll-progress"></div>
+  <div class="cursor"><div class="cursor-dot"></div><div class="cursor-ring"></div></div>
+  <nav>
+    <a class="logo" href="index.html">Niranjana Sankar</a>
+    <button class="theme-toggle" aria-label="Toggle theme">☾</button>
+    <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <div class="nav-links">
+      <a href="index.html">about</a>
+      <a href="research.html">research</a>
+      <a href="projects.html">projects</a>
+      <a href="experience.html">experience</a>
+      <a href="blog.html" class="active">blog</a>
+    </div>
+  </nav>
+
+  <main>
+    <article class="article reveal">
+      <a class="article-back" href="blog.html">← all posts</a>
+
+      <div class="article-header">
+        <div class="article-meta">Jul 2026 · Interpretability</div>
+        <h1>Looking Inside the Black Box: What Logit Lens, Tuned Lens, and Depth Analysis Tell Us About How LLMs Think</h1>
+      </div>
+
+      <div class="article-body">
+        <p>There's a particular kind of magic trick every transformer performs: you feed in a sequence of tokens, and somewhere in the layers between input and output, "guessing" turns into "knowing." The question that keeps interpretability researchers up at night is <em>where</em> that transformation happens, and whether we can watch it unfold in real time.</p>
+
+        <p>Three lines of work — the logit lens, the tuned lens, and a more recent depth-focused study — each take a crack at prying open that process. Read together, they tell a surprisingly coherent story about what a transformer is actually doing with its layers.</p>
+
+        <h2>The Logit Lens: Eavesdropping Mid-Thought</h2>
+
+        <p>The logit lens is deceptively simple. A GPT-style model's final step is always the same: take the last hidden state and project it onto the vocabulary to get a distribution over next tokens. The logit lens asks: what if we did that projection <em>early</em> — at layer 5, or layer 12, instead of layer 40? What would the model "say" if we forced it to stop thinking right there?</p>
+
+        <p>The answer turns out to be genuinely informative. A few patterns show up consistently:</p>
+
+        <p><strong>Predictions refine smoothly, they don't lurch.</strong> Early layers make guesses that are structurally sensible but often wrong — right part of speech, right register, wrong word. As you move deeper, the guesses don't get replaced so much as sharpened. The KL divergence between consecutive layers' distributions shows this directly: there's a sharp jump in the first layer or two, and then the distribution settles into a steady, incremental convergence toward the final answer. Nothing dramatic happens in the middle — no single layer is "where the answer appears." It's assembled gradually.</p>
+
+        <p><strong>The model abandons the input almost instantly.</strong> This one is the more surprising finding. You might expect early layers to still "look like" the input tokens — after all, that's literally what was just embedded. But they don't. Almost immediately, the residual stream stops resembling the input and starts resembling a predictive representation instead. This makes sense once you remember GPT is a pure decoder with no separate encoding stage: there's no phase where the model is allowed to just sit with the input. Every layer is already under pressure to move toward <em>next-token space</em>, because that's the only job description it has.</p>
+
+        <p><strong>Rare tokens get reconstructed, not carried.</strong> For rare or unusual tokens, the model doesn't seem to preserve them verbatim through the layers and hand them back at the end. Instead, it appears to re-derive the relevant information later, only when it's actually needed — a kind of lazy evaluation. Related to this: repetition-loop behavior (the model getting stuck repeating itself) only shows up as a distinguishable pattern in later layers, not something baked in from the start.</p>
+
+        <p>Why does any of this work at all — why can a <em>linear</em> projection trained only on the final layer produce sensible output at layer 15? Two structural properties of transformers are doing the heavy lifting: residual connections keep everything living in roughly the same vector basis across layers (nothing gets remapped into a wildly different coordinate system), and weight decay discourages the network from making huge representational jumps. Together, they mean the "vocabulary direction" a token lives along tends to stay legible throughout the stack, even as the specific values shift.</p>
+
+        <h2>The Tuned Lens: Fixing the Logit Lens's Blind Spots</h2>
+
+        <p>The logit lens is elegant, but it has real problems. It's brittle in early layers, where activations often look like structured noise rather than anything projectable. It's biased toward certain tokens, over-weighting parts of the vocabulary regardless of what's actually being represented. And its reliability is inconsistent — it works better for some models and layers than others, which makes it a shaky tool for drawing general conclusions about <em>how</em> the model computes, as opposed to just what it eventually outputs.</p>
+
+        <p>The core issue is something you could call <strong>representational drift</strong>: the same feature or concept might be encoded in a different "direction" at layer 8 than at layer 30. Reusing the final unembedding matrix at every layer implicitly assumes those directions stay fixed. They don't.</p>
+
+        <p>The tuned lens fixes this by not reusing anything. Instead, it trains a small affine probe — just a linear layer plus a bias, <code>Wh + b</code> — <strong>for every layer</strong>, learning the specific transformation that maps that layer's hidden state into the vocabulary logit space. Crucially, each probe is trained to match the <em>model's actual final-layer output distribution</em>, not the ground-truth next token. That distinction matters: the tuned lens isn't learning to predict the right answer better than the model does, it's learning to translate what a given layer already "believes" into a form we can read — hence the probes sometimes being called <strong>translators</strong>.</p>
+
+        <p>This buys two things. First, smoother and more interpretable trajectories across layers, even in the early ones where the logit lens fell apart. Second, a way to ask a genuinely mechanistic question: does the tuned lens rely on the <em>same directions</em> in the residual stream that the model's own head relies on? This is where techniques like causal basis extraction come in — locating the directions in the residual stream that have the highest causal influence on the output, and checking whether the lens and the model agree on what those directions are. When they do, you have real evidence the lens is reading the model's actual computation, not just curve-fitting to its output.</p>
+
+        <h2>How LLMs Use Their Depth</h2>
+
+        <p>If logit lens and tuned lens tell you <em>what</em> the model is thinking layer by layer, a natural next question is: <em>what kind of work does each layer do?</em> Not all predictions are created equal — some tokens are locked in almost immediately, others take nearly the whole network to resolve.</p>
+
+        <p>A few clean patterns emerge here:</p>
+
+        <ul>
+          <li><strong>Function words and punctuation resolve early.</strong> These are largely corpus statistics — the top 1–10 most frequent tokens conditioned on very little context — and the network nails them down fast.</li>
+          <li><strong>Content words resolve late, and the hardest ones resolve latest.</strong> Nouns and verbs that carry real semantic weight get locked in much deeper — sometimes not until layer 27 out of a much shallower typical convergence point for other tokens. The first word in a sequence tends to be hardest of all, needing the most depth to pin down, since it has the least context to lean on.</li>
+          <li><strong>Multi-token facts front-load their difficulty.</strong> If a fact takes multiple tokens to state, the <em>first</em> token requires the most depth to resolve — it's where the actual "which fact is this" decision gets made — while the tokens that follow resolve much more shallowly, since they're mostly just completing something already decided.</li>
+          <li><strong>Constrained-choice tasks split into two phases.</strong> For something like sentiment classification, where the output is drawn from a small set of options, the first half of the network's depth is spent gathering the <em>valid</em> options into the top ranks, and the second half is spent actually reasoning between them. The network isn't reasoning the whole way down — it's filtering, then deciding.</li>
+        </ul>
+
+        <p>One methodological note worth flagging: when researchers ablate directions in the residual stream to test causal influence, zeroing them out is the wrong move — it creates artificial softmax degeneracies that don't reflect anything the model would naturally do. Replacing the ablated component with its <em>average</em> value across a distribution of examples is the cleaner intervention, since it removes information without injecting an out-of-distribution signal.</p>
+
+        <h2>The Throughline</h2>
+
+        <p>Put the three pieces together and a picture emerges: transformers don't compute in one continuous sweep from "confused" to "correct." They run something closer to a coarse-to-fine search — early layers throw out cheap, high-frequency guesses and immediately abandon the raw input in favor of predictive form; middle layers narrow the space of live options using context; and late layers spend their remaining depth on the genuinely hard disambiguation, especially for content-bearing, low-frequency, or first-in-sequence tokens. The logit lens gives you a rough window into this process; the tuned lens gives you a more faithful one; and the depth-allocation studies tell you <em>why</em> the network needs exactly as many layers as it has — because different kinds of linguistic decisions have fundamentally different depth requirements, and the architecture is, in effect, budgeting compute accordingly.</p>
+
+        <p>That's a genuinely useful frame to carry into other interpretability work: depth isn't just "more computation," it's a resource being spent unevenly on the parts of the prediction that are actually hard.</p>
+      </div>
+
+      <div class="article-footer">
+        <a class="article-back" href="blog.html">← all posts</a>
+      </div>
+    </article>
+  </main>
+
+  <footer>© 2026 Niranjana Sankar · <span style="color:var(--sky)">Berkeley, CA</span></footer>
+  <button class="back-top" aria-label="Back to top">↑</button>
+  <script src="script.js"></script>
+  <div class="toast"></div>
+</body>
+</html>

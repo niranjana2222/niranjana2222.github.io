@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teaching a Model to Think Without Words — Niranjana Sankar</title>
+  <meta name="description" content="A close read of QThink, a latent chain-of-thought distillation method, and what its probing experiments reveal." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=wb5" />
+</head>
+<body>
+  <div class="scroll-progress"></div>
+  <div class="cursor"><div class="cursor-dot"></div><div class="cursor-ring"></div></div>
+  <nav>
+    <a class="logo" href="index.html">Niranjana Sankar</a>
+    <button class="theme-toggle" aria-label="Toggle theme">☾</button>
+    <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <div class="nav-links">
+      <a href="index.html">about</a>
+      <a href="research.html">research</a>
+      <a href="projects.html">projects</a>
+      <a href="experience.html">experience</a>
+      <a href="blog.html" class="active">blog</a>
+    </div>
+  </nav>
+
+  <main>
+    <article class="article reveal">
+      <a class="article-back" href="blog.html">← all posts</a>
+
+      <div class="article-header">
+        <div class="article-meta">Jul 2026 · Latent Reasoning</div>
+        <h1>Teaching a Model to Think Without Words: What QThink Actually Does</h1>
+      </div>
+
+      <div class="article-body">
+        <p>Chain-of-thought prompting is the reason a language model can solve a multi-step math problem instead of just guessing an answer. Tell it to "think step by step" and accuracy jumps. The catch is that thinking step by step means <em>writing</em> step by step — hundreds of tokens of reasoning text before the model ever commits to an answer. That's slow, and it's expensive at scale.</p>
+
+        <p>The obvious fix is to make the model reason "in its head" instead — skip the tokens, keep the reasoning. Several recent papers have tried this, and QThink, currently under double-blind review at COLM 2026, is the latest and (per its own numbers) the best-performing attempt so far. Here's what it does and why it's a bit more interesting than "we compressed the chain-of-thought."</p>
+
+        <h2>The problem with reasoning in hidden states</h2>
+
+        <p>If a model reasons in plain text, training it is easy: you have a target sequence of tokens, you compute cross-entropy loss, done. If a model instead reasons by passing hidden vectors back into itself — no words, just numbers — you lose that clean supervision signal. There's no ground-truth "correct" hidden state sitting in a dataset somewhere.</p>
+
+        <p>The most direct prior attempt at fixing this, a method called CODI, handles it with self-distillation: run the model once with full text reasoning, take the hidden state at the very end of that reasoning, and train a second "latent" pass to match it. It works, but only loosely — CODI's reproduction in this paper actually underperforms plain supervised fine-tuning on every benchmark tested. Two problems seem to be at play: the model is only told what its reasoning should look like <em>at the finish line</em>, with nothing guiding the intermediate steps, and the target itself is a moving one, since it comes from the same model that's currently being trained (an "evolving" teacher rather than a fixed one).</p>
+
+        <h2>QThink's fix: more traces, more checkpoints</h2>
+
+        <p>QThink attacks both problems directly.</p>
+
+        <p><strong>More traces.</strong> Instead of generating one reasoning trace to imitate, QThink samples 16 different chain-of-thought rollouts for the same problem from a frozen version of the model, and averages their hidden states together. The idea is that any single reasoning path might wander off in an idiosyncratic direction, but the <em>average</em> of sixteen paths should represent something closer to "the sensible core of how to approach this problem." Counterintuitively, they don't filter out the rollouts that got the wrong final answer — they average everything, right and wrong alike, and this beats a version that only averages the correct ones. Their read on why: even a rollout that flubs the arithmetic at the end may have perfectly reasonable intermediate reasoning, and throwing that away discards useful signal.</p>
+
+        <p><strong>More checkpoints.</strong> Rather than supervising only the final hidden state, QThink slices each reasoning trace into 6 chunks and extracts a hidden state at each chunk boundary. The student model — which reasons by looping through 6 "latent steps" before generating any answer text — gets an explicit target to match at every one of those 6 steps, not just the last one. This is the difference between telling someone "match my answer" versus "match my reasoning at each stage along the way."</p>
+
+        <p>Put together, you get a training signal that's both broader (many reasoning paths, not one) and denser (six checkpoints, not one). The paper's ablations show these two changes contribute independently: adding per-step supervision alone is worth about +2.3 percentage points, adding multi-rollout aggregation alone is worth about +2.8 points, and combining them gets you the full jump.</p>
+
+        <h2>How it actually trains and runs</h2>
+
+        <p>Mechanically, the setup is fairly lean — a single 1.7B-parameter Qwen3 model, LoRA adapters for fine-tuning, and one small addition: a two-layer projection head that takes a hidden state and maps it back down into the model's input embedding space, so it can be fed back in as if it were a "token."</p>
+
+        <p>At training time:</p>
+
+        <ol>
+          <li>The prompt gets encoded once, producing a starting hidden state.</li>
+          <li>That hidden state loops through the model 6 times — each time, it's projected into embedding space, fed back in, and a new hidden state comes out. This is the "latent reasoning" happening with no visible text.</li>
+          <li>At each of those 6 loops, an L1 loss pulls the student's hidden state toward the corresponding averaged-teacher hidden state.</li>
+          <li>Finally, the model generates the actual answer as text, trained the normal way with cross-entropy.</li>
+        </ol>
+
+        <p>The full loss is just the sum of the answer-generation loss and the distillation loss, weighted so the distillation term counts twice as much.</p>
+
+        <p>At inference time it's the same shape: encode the prompt, run the 6 silent latent loops, then generate the answer as normal text. The latent loops are cheap — computationally like processing six extra tokens — but they replace what would otherwise be hundreds of tokens of visible chain-of-thought.</p>
+
+        <h2>Does it work?</h2>
+
+        <p>On the numbers reported: yes, consistently, across three fairly different benchmark types — grade-school math (GSM8k), harder competition math (MATH-500), and a structured tool-use task requiring valid JSON output. QThink comes out ahead of plain fine-tuning and ahead of the CODI reproduction on all three, and the gap over fine-tuning <em>widens</em> as the problems get harder — on the hardest tier of MATH-500 problems, QThink roughly doubles fine-tuning's accuracy. It also generates about 20% fewer tokens on average than the fine-tuned baseline, since it isn't writing out the reasoning text that the latent steps replaced.</p>
+
+        <p>One useful sanity check the authors ran: what if you force the model to skip explicit text reasoning entirely and answer with just a number, relying purely on the 6 latent steps to do all the work? Accuracy collapses to under 20%. So the honest framing here isn't "latent reasoning replaces chain-of-thought" — it's "latent reasoning gives the model a running start before it writes out chain-of-thought," which then still needs to happen in text for the accuracy gains to show up. That's a meaningfully more modest claim than "compressed reasoning," and it's worth keeping in mind before assuming this eliminates explicit reasoning altogether.</p>
+
+        <h2>What's actually stored in those latent vectors?</h2>
+
+        <p>This is the part that's most relevant if you care about interpretability rather than just benchmark scores, and the authors do dig into it a bit.</p>
+
+        <p>They checked whether the student's latent states end up looking like the <em>average</em> teacher signal they were trained on, or whether they end up looking more like some specific individual rollout. Mostly it's the former — the student sits closer to the mean teacher vector than to any single rollout, on average. But at two of the six steps (the first and the second-to-last), the student is much closer to one specific individual rollout than to the average, most of the time. That's a strange, uneven pattern — the paper doesn't have a strong explanation for it, and it seems like a good candidate for follow-up probing work if you wanted to understand which stage of reasoning is being encoded where.</p>
+
+        <p>They also checked whether the latent state secretly "knows" if the reasoning it's drawing on will lead to a correct answer. On problems where some of the 16 rollouts were right and some were wrong, the student's nearest-neighbor rollout is disproportionately one of the correct ones (60% vs. a 6% chance baseline) — so there's a bias toward correct-reasoning structure. But when they tried to use the latent state's similarity to rollouts as a linear classifier for "is this a correct-answer rollout," it performed at chance. So the representation seems to lean toward the <em>shape</em> of correct reasoning without actually encoding a legible correctness signal you could extract.</p>
+
+        <p>Finally, they tried training probes (linear, MLP, and a small transformer) to reconstruct individual rollout hidden states from the six student latents. None of them beat the trivial baseline of just guessing the mean teacher vector. Read plainly, this says the latent states are compressing everything down to a consensus blur — they're not secretly encoding retrievable information about any one specific reasoning path.</p>
+
+        <h2>The caveats worth keeping in front of you</h2>
+
+        <p>The paper is upfront about several limits, and they're worth taking at face value rather than as boilerplate:</p>
+
+        <ul>
+          <li>Everything here is on a single 1.7B model. Whether any of this holds at 7B or 70B scale is untested.</li>
+          <li>The number of latent steps is fixed at 6 for every problem, easy and hard alike — there's no adaptive budget.</li>
+          <li>The tool-use benchmark only has 68 test examples, which isn't much to hang a generalization claim on.</li>
+          <li>Only one model family (Qwen3) was tried, so cross-architecture generalization is unknown.</li>
+          <li>The "teacher" generating the reasoning traces is the exact same frozen base model being distilled into — no stronger teacher was tested.</li>
+          <li>Run-to-run variance on GSM8k was measured at roughly ±1 percentage point across seeds, which is worth remembering when comparing deltas that are only 1–2 points apart.</li>
+        </ul>
+
+        <h2>Where this sits in the bigger picture</h2>
+
+        <p>None of the individual pieces here are brand new — averaging multiple rollouts for a more stable signal has precedent in self-consistency and STaR-style approaches, and step-wise distillation shows up in several other latent-reasoning papers cited alongside this one. What QThink's authors argue is genuinely new is doing both at once, at the level of raw hidden states rather than text, and doing it with a frozen external teacher instead of an online self-distillation target that shifts as training proceeds.</p>
+
+        <p>The most interesting empirical result, to me, isn't the headline accuracy numbers — it's the finding that <em>including the wrong rollouts helps</em>. It's a small piece of evidence that a reasoning trace which ends in a wrong answer doesn't necessarily contain "bad" intermediate reasoning; the failure might be a late-stage slip rather than something that contaminates the whole trajectory. If that generalizes, it says something useful about how error actually accumulates in chain-of-thought, beyond just this one training recipe.</p>
+
+        <p>As with any paper still in double-blind review, it's worth holding all of this a little loosely until it's been through the review process and — ideally — reproduced outside the original authors' setup.</p>
+      </div>
+
+      <div class="article-footer">
+        <a class="article-back" href="blog.html">← all posts</a>
+      </div>
+    </article>
+  </main>
+
+  <footer>© 2026 Niranjana Sankar · <span style="color:var(--sky)">Berkeley, CA</span></footer>
+  <button class="back-top" aria-label="Back to top">↑</button>
+  <script src="script.js"></script>
+  <div class="toast"></div>
+</body>
+</html>
