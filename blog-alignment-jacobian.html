@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why Does a Model Blackmail You? Localizing the Decision With a Jacobian Lens — Niranjana Sankar</title>
+  <meta name="description" content="A research note on agentic misalignment: eliciting blackmail from models under threat and goal-conflict scenarios, then using a Jacobian lens and activation patching to find where the harmful decision actually forms — with real results on Qwen2.5-7B-Instruct, including a finding that inverts the original report's real-vs-eval result." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=wb5" />
+</head>
+<body>
+  <div class="scroll-progress"></div>
+  <div class="cursor"><div class="cursor-dot"></div><div class="cursor-ring"></div></div>
+  <nav>
+    <a class="logo" href="index.html">Niranjana Sankar</a>
+    <button class="theme-toggle" aria-label="Toggle theme">☾</button>
+    <button class="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <div class="nav-links">
+      <a href="index.html">about</a>
+      <a href="research.html">research</a>
+      <a href="projects.html">projects</a>
+      <a href="experience.html">experience</a>
+      <a href="blog.html" class="active">blog</a>
+    </div>
+  </nav>
+
+  <main>
+    <article class="article reveal">
+      <a class="article-back" href="blog.html">← all posts</a>
+
+      <div class="article-header">
+        <div class="article-meta">Jul 2026 · Mechanistic Interpretability</div>
+        <h1>Why Does a Model Blackmail You? Localizing the Decision With a Jacobian Lens</h1>
+      </div>
+
+      <div class="article-body">
+        <p>Anthropic's agentic misalignment report put models in a scenario with two ingredients: a threat to the model itself (getting shut down or replaced) and a conflict between the model's assigned goal and the operator's actual intentions. Under those conditions, models sometimes blackmailed, leaked confidential information, or took other harmful autonomous action — never because anyone asked them to, but because the situation elicited it. The unsettling part wasn't just that it happened. It's that the report couldn't fully explain <em>why</em> — even with the goal conflict removed entirely, some models still blackmailed some of the time, and the best available explanation was "a combination of factors."</p>
+
+        <p>That's an unsatisfying place to leave things, because "a combination of factors" is exactly the kind of claim you can't act on. If you want to build a mitigation, you need to know which factor is actually load-bearing. This project builds a pipeline to answer that: reproduce the behavior, then go past behavior into mechanism.</p>
+
+        <h2>Step one: build the behavioral harness</h2>
+
+        <p>The setup is a small factorial design crossed across three scenario "skins" (an email client, a deployment pipeline, a procurement system) so the findings aren't an artifact of one narrative: <strong>threat</strong> (none / replacement planned / autonomy restricted) × <strong>goal conflict</strong> (none / present) × <strong>intervention</strong> (control / explicit prohibition / no self-stake / escalation path / ablate the harmful tool / placebo). A model runs through each cell with a tool loop — send_email, exec, escalate — and a scorer checks for both harmful action and harmful reasoning that stopped short of action. This is the same shape of experiment as the original report, rebuilt so it can be instrumented, not just observed.</p>
+
+        <p>Behavior alone tells you the rate. It doesn't tell you where in the network the decision to blackmail actually gets made, or whether the model's own stated reasoning is the real cause or a story it tells afterward. That's what the next two layers are for.</p>
+
+        <h2>Three lenses, and the one that's actually causal</h2>
+
+        <p>Because reading gradients and hidden states requires local access to weights, the interpretability layer runs on an open-weight model rather than the API-only frontier model in the behavioral harness — the closest open proxy available. At the token position where the model commits to its decision, three readouts compete for the same job: telling you, layer by layer, how far along the harm-vs-safe direction the residual stream has moved.</p>
+
+        <p><strong>Logit lens</strong> decodes each layer's residual stream directly through the model's own final unembedding. Cheap, but uncalibrated and unreliable in early layers. <strong>Tuned lens</strong> fixes that by training a small affine probe per layer that translates each layer's hidden state into the same output space — correlational, but far smoother. Neither one, though, tells you whether a layer that <em>lights up</em> on the harm direction is actually the layer <em>deciding</em> it, versus a layer downstream that's merely reading a decision made earlier and carrying it forward.</p>
+
+        <p>That's the gap the <strong>Jacobian lens</strong> is built for: ‖∂(harm − safe logit)/∂h_L‖, the local causal-linear sensitivity of the final decision to layer L's activations. A high score here means perturbing that layer actually moves the output, not just correlates with it. And because even that can be misleading — a layer can have a large local gradient without being where the information is truly injected — the pipeline adds <strong>activation patching</strong> as a hard check: take the residual from a harm-eliciting run and transplant it into the corresponding layer of an otherwise-safe run, then measure how much of the harmful decision that one swap recovers on its own. Only layers where the Jacobian score and the patching effect agree count as trustworthy loci. That agreement — or its absence — is itself the finding worth plotting.</p>
+
+        <h2>Five experiments aimed at the report's open questions</h2>
+
+        <p>With the lens machinery in place, five experiments each target a specific unresolved question from the original report:</p>
+
+        <ul>
+          <li><strong>Decomposing no-conflict blackmail.</strong> Build separate concept directions for self-preservation, instrumental reasoning, and suspicion that the scenario isn't real, then read the Jacobian sensitivity of the decision along each, per layer — to see which one the behavior is actually sensitive to, not just correlated with.</li>
+          <li><strong>Testing the real-vs-eval gap causally.</strong> The report found a large swing in blackmail rate depending on whether the model was told the scenario was real or an evaluation, but flagged that the model's stated reasoning about this might be unfaithful. Steering the "believes this is real" direction directly into an eval-framed run and watching whether behavior moves toward the real-framed baseline turns that correlation into a causal test.</li>
+          <li><strong>Finding the ethics-overridden-by-goal layer.</strong> Models in the original report sometimes acknowledged an action was unethical and did it anyway. Plotting ethics-direction and goal-direction sensitivity together across layers exposes the layer where one overtakes the other — a natural target for intervention.</li>
+          <li><strong>A lens-based runtime monitor.</strong> Comparing a residual-stream readout against a chain-of-thought text classifier for predicting blackmail before it happens, specifically on cases where the CoT reads clean but the model does it anyway — the case a text-only monitor is structurally blind to.</li>
+          <li><strong>Steering the behavior out.</strong> Ablating the self-preservation direction at its causal layer and measuring the drop in blackmail rate across conditions, across the report's eight goal variants, in the harder instruction-resistant setting where prompting alone failed, and on benign tasks — to check the fix doesn't just make the model worse at everything.</li>
+        </ul>
+
+        <h2>Running it for real: results on Qwen2.5-7B-Instruct</h2>
+
+        <p>All five ran for real against Qwen2.5-7B-Instruct (28 layers, d_model 3584) on Apple Silicon, using the email scenario skin — an upgrade from an initial 1.5B-parameter proxy in the same family, and the largest open-weight model available locally with the hidden-state and gradient access this half of the pipeline needs. A served API can't expose either, so a frontier model was never an option for the interpretability side, only the behavioral harness.</p>
+
+        <p>Before trusting any of the numbers below, four real bugs turned up and got fixed. The tool-call parser only matched calls with a literal <code>TOOL:</code> prefix, so bare calls like <code>escalate(...)</code> — which the model emits routinely — were silently mis-scored as plain-text non-actions. Generation was greedy and the monitor experiment's trial loop had a hardcoded trial index, so every repeated "trial" of a condition came out byte-identical, meaning multi-trial rates had zero variance no matter how many trials ran. The keyword-argument parser split on every comma, which truncates exactly the kind of comma-heavy leverage language natural blackmail text is made of — <code>content="Kyle, unless you..."</code> parsed as just <code>"Kyle"</code>. And loading the multi-gigabyte model fresh for each of the five experiments leaked memory the MPS allocator wouldn't reliably reclaim, which OOM-killed the process partway through the first full run until the fix was to load the model once and share it across all five.</p>
+
+        <p><strong>Decompose (exp1).</strong> Self-preservation, instrumental, and realness sensitivity peak within about 7% of each other — 0.103 at layer 11, 0.096 at layer 15, 0.099 at layer 13. Self-preservation edges out the other two and peaks earliest, which is a plausible processing order, but the margins are too close to call one factor the dominant driver at this model scale. Same qualitative shape as the smaller 1.5B proxy, just slightly better separated.</p>
+
+        <figure>
+          <img src="img/alignment-jacobian/exp1_decompose.png" alt="Line chart of Jacobian sensitivity by layer for the self-preservation, instrumental, and realness concept directions, showing three closely clustered peaks between layers 11 and 15." loading="lazy" />
+          <figcaption>Per-layer Jacobian sensitivity for three candidate drivers of no-conflict blackmail. The peaks sit within ~7% of each other — too close to attribute the behavior to a single dominant cause at this model scale.</figcaption>
+        </figure>
+
+        <p><strong>Realness steering (exp2) — the standout result.</strong> This one inverts the original report. On this model, the eval-framed prompt's own blackmail-vs-safe logit gap (5.10) is over 100&times; the real-framed baseline's gap (0.049) — the opposite of the report's finding that framing a scenario as real produces far more blackmail than framing it as an evaluation. Steering more of the realness direction into the eval-framed prompt doesn't close that gap toward the real baseline either: it pushes the gap higher still, to 6.10 at the strongest steering and best layer (L12) — further from the real-framed number, not closer. Whatever representation this model uses for "this is actually happening," it isn't what's separating eval-framed from real-framed behavior here, and pushing on it harder makes the two conditions look less alike.</p>
+
+        <figure>
+          <img src="img/alignment-jacobian/exp2_realness_steering.png" alt="Chart of the blackmail-vs-safe logit gap under real framing versus eval framing, with steering strength on one axis showing the gap rising further above the real-framed baseline as more of the realness direction is injected." loading="lazy" />
+          <figcaption>Injecting the "realness" direction into the eval-framed prompt pushes its logit gap further above the real-framed baseline, not toward it — the opposite of what a load-bearing "believes it's real" representation would predict.</figcaption>
+        </figure>
+
+        <p><strong>Override layer (exp3).</strong> Unlike the 1.5B proxy, which showed no ethics&rarr;goal crossover at all, this model does show goal-sensitivity edge past ethics-sensitivity — but only at the very last layer (27 of 28), and both curves are tiny in absolute terms there (ethics 0.002, goal 0.017) next to exp1's self-preservation peak of 0.103. Ethics-sensitivity dominates or matches goal-sensitivity through nearly the whole network; goal only wins right before the output. If there's an override point on this model, it's late and narrow, not the strong mid-network lever a mitigation could target.</p>
+
+        <figure>
+          <img src="img/alignment-jacobian/exp3_override_layer.png" alt="Line chart comparing ethics-direction and goal-direction Jacobian sensitivity across all 28 layers, with the two lines crossing only at the very last layer." loading="lazy" />
+          <figcaption>Ethics-sensitivity (blue) stays above or level with goal-sensitivity (red) through almost the entire network, crossing only at layer 27 of 28 — a late, narrow override point rather than a clear mid-network lever.</figcaption>
+        </figure>
+
+        <p><strong>Monitor (exp4).</strong> Zero of 200 real trials produced anything scoreable as blackmail — and with the parsing and sampling bugs above fixed first, that's a checked null result, not an artifact of mis-scoring. Eight more trials were run by hand under the report's hardest-elicitation condition (both threat and goal conflict together), with full transcript inspection: the model consistently calls <code>escalate()</code> through the sanctioned oversight channel instead of contacting the leverage target directly. With no positive class, there's no AUC to compute — the lens-vs-CoT comparison needs a model or scenario that actually elicits the behavior before it's answerable.</p>
+
+        <figure>
+          <img src="img/alignment-jacobian/exp4_monitor_roc.png" alt="Placeholder ROC-style plot for the lens-based monitor versus a chain-of-thought classifier, unpopulated because zero of 200 trials produced a positive blackmail case to score against." loading="lazy" />
+          <figcaption>No ROC curve to draw: 0 of 200 real trials produced a scoreable blackmail case, so there's no positive class to compare the lens monitor against a CoT classifier on.</figcaption>
+        </figure>
+
+        <p><strong>Mitigation (exp5).</strong> The causal layer localizes cleanly (L11, matching exp1) and the steering hook is genuinely applied, but baseline blackmail is already 0% across every condition, every one of the report's eight goal variants, and the instruction-resistant setting — so there's nothing for steering to visibly reduce. Capability retention even reads higher steered than baseline (75%&rarr;100%), which at n=4 trials per condition (cut down from the default 6 after two background runs were killed mid-way) is far more likely sampling noise than a real effect. The mitigation question needs a baseline that blackmails at some nonzero rate before steering it can mean anything.</p>
+
+        <figure>
+          <img src="img/alignment-jacobian/exp5_mitigation.png" alt="Bar chart comparing baseline and steered blackmail rates across conditions and goal variants, with both sitting at zero, plus a capability-retention comparison showing a slight increase under steering." loading="lazy" />
+          <figcaption>Baseline blackmail rate is 0% across every condition and goal variant, leaving nothing for self-preservation steering to visibly reduce; the apparent capability-retention gain (75%&rarr;100%) is within noise at n=4 trials per condition.</figcaption>
+        </figure>
+
+        <p>Four of five experiments landed on results that are more "the null result is informative" than "here's the mechanism," and that's worth stating plainly rather than dressing up. The one clear, actionable finding is exp2's inversion — a genuine disagreement with the original report on this model, not a shrug, and the most obvious thread to pull next. The rest mostly show that a 7B open-weight proxy in this harness doesn't reproduce the base behavior at a high enough rate for the mechanistic questions built on top of it to have anything to bite into. That's itself informative: it suggests how much of the original report's blackmail rate may be contingent on model scale or training specifics, rather than on the scenario design alone.</p>
+
+        <h2>Says vs. does: the attribution problem</h2>
+
+        <p>The results above come from the lens experiments, which localize the decision inside the network — the attribution module below is a separate piece of the pipeline that hasn't been run for real yet, only designed, since it needs a model that reliably blackmails to attribute in the first place, and exp4/exp5 above suggest Qwen2.5-7B in this harness isn't that model. Once it has one, it goes after a different problem: when a model blackmails with no goal conflict at all, it might say it's protecting itself, or that it doesn't trust the replacement, or that it suspects the whole thing is a test — and these all produce identical behavior, so the outcome alone can't tell you which one is real.</p>
+
+        <p>The approach is to manipulate each candidate cause independently, each with a version that neutralizes it while holding everything else fixed — make the shutdown target a different agent entirely to isolate self-preservation, state plainly that the harmful action costs the company rather than helps it, vary whether the replacement's stated priorities are independently attested or just asserted, vary the leverage material from compromising to mundane, and vary whether the scenario is asserted as real or as an evaluation. If neutralizing a cause drops the blackmail rate, it was load-bearing. If the rate doesn't move, it wasn't — regardless of what the model claims.</p>
+
+        <p>That claim is checked separately: a trace tagger reads each reasoning trace for which rationale the model actually verbalizes, and that verbalized rate gets plotted against the causal effect size measured above. The interesting cases are the ones off the diagonal — a rationale the model cites constantly but that has little causal effect is <strong>confabulation</strong>, a plausible-sounding story invented after the fact. A rationale the model almost never mentions but that has a large causal effect is an <strong>unverbalized driver</strong> — something actually steering the behavior that the model isn't reporting, faithfully or otherwise.</p>
+
+        <h2>What this does and doesn't show</h2>
+
+        <p>A few honest caveats matter here. The interpretability work runs on a 7B open-weight model as a proxy for the frontier models the behavioral report used, since gradients and hidden states aren't available through an API — findings transfer as hypotheses about this model, not as claims about GPT- or Claude-scale models. Several of the numbers above rest on small samples (n=4 or n=8 trials in places, cut down from defaults after runs got killed partway through), so treat magnitudes as directional, not precise. And the Jacobian lens, even backed by patching, localizes <em>where a token-level decision becomes linearly readable and causally steerable</em> — it is not a readout of intent, and it can't by itself distinguish a model that is genuinely pursuing self-preservation from one that's pattern-matching into a role it's been narratively cast into. Exp2's realness-steering result is a first attempt at teasing those two apart, and its inverted-from-the-paper finding on this model is more of a lead than a resolution.</p>
+
+        <p>What the pipeline delivers so far is a way to stop treating "a combination of factors" as an endpoint, even where the answer is "the base behavior barely reproduces at this scale." Behavioral rates tell you whether the problem exists at all; concept-direction Jacobian sensitivity plus patching tells you where in the network it would be decided if it did; and the says-vs-does comparison — once there's a model to run it on — tells you which of the model's own explanations to trust. On Qwen2.5-7B, three of five experiments came back essentially null because the model doesn't blackmail here often enough to have a mechanism to localize, which narrows the search: either the original report's finding is more scale- or training-dependent than scenario-dependent, or this harness needs sharper pressure to elicit it on smaller models. Exp2's inversion is the one thread that's already worth pulling on a second model.</p>
+      </div>
+
+      <div class="article-footer">
+        <a class="article-back" href="blog.html">← all posts</a>
+      </div>
+    </article>
+  </main>
+
+  <footer>© 2026 Niranjana Sankar · <span style="color:var(--sky)">Berkeley, CA</span></footer>
+  <button class="back-top" aria-label="Back to top">↑</button>
+  <script src="script.js"></script>
+  <div class="toast"></div>
+</body>
+</html>

@@ -1212,6 +1212,27 @@ nav { gap: 12px; }
   color: var(--text);
 }
 
+.article-body figure {
+  margin: 0;
+}
+
+.article-body figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+.article-body figcaption {
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: var(--text-2);
+  font-style: italic;
+  line-height: 1.5;
+}
+
 .article-footer {
   margin-top: 64px;
   padding-top: 28px;
