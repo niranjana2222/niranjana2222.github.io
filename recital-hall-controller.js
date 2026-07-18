@@ -1,6 +1,12 @@
 (function () {
+  function hideLoader() {
+    const loader = document.getElementById('rh-loader');
+    if (loader) loader.classList.add('rh-loader-hidden');
+  }
+
   function showError(msg) {
     console.error('[recital-hall]', msg);
+    hideLoader();
     const root = document.getElementById('rh-root');
     if (!root) return;
     let banner = document.getElementById('rh-error');
@@ -140,6 +146,8 @@
     if (!supportsWebGL()) { showError('WebGL not supported in this browser.'); return; }
     if (!window.THREE) { showError('three.js failed to load from CDN.'); return; }
 
+    setTimeout(hideLoader, 8000);
+
     try {
       const markerEls = {};
       root.querySelectorAll('[data-marker]').forEach(el => { markerEls[el.getAttribute('data-marker')] = el; });
@@ -186,6 +194,7 @@
       themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
       root.classList.add('rh-active');
+      requestAnimationFrame(() => requestAnimationFrame(hideLoader));
 
       let openKey = null;
       let openTimer = null;
