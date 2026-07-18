@@ -1,7 +1,10 @@
 (function () {
   function hideLoader() {
+    window.__rhLoaderStop = true;
+    const pctEl = document.getElementById('rh-loader-pct');
+    if (pctEl) pctEl.textContent = '100%';
     const loader = document.getElementById('rh-loader');
-    if (loader) loader.classList.add('rh-loader-hidden');
+    if (loader) setTimeout(() => loader.classList.add('rh-loader-hidden'), 180);
   }
 
   function showError(msg) {
@@ -193,8 +196,12 @@
       });
       themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
-      root.classList.add('rh-active');
-      requestAnimationFrame(() => requestAnimationFrame(hideLoader));
+      const MIN_LOADER_MS = 5000;
+      const elapsed = performance.now() - (window.__rhLoaderStart || performance.now());
+      setTimeout(() => {
+        root.classList.add('rh-active');
+        hideLoader();
+      }, Math.max(0, MIN_LOADER_MS - elapsed));
 
       let openKey = null;
       let openTimer = null;
