@@ -23,7 +23,7 @@
   }
 
   const HIT_PITCH = { about: 523.25, experience: 587.33, research: 659.25, projects: 698.46, journal: 783.99 };
-  const NAV_LABELS = { about: 'About', experience: 'Experience', research: 'Research', projects: 'Projects', journal: 'Blog' };
+  const NAV_LABELS = { about: 'About Me', experience: 'Experience', research: 'Research', projects: 'Projects', journal: 'Blog' };
 
   const DATA = {
     projects: {
@@ -50,7 +50,7 @@
       viewAll: 'blog.html',
     },
     about: {
-      kicker: "The Umpire's Chair", title: 'About me', color: '#e8b96a',
+      kicker: "The Umpire's Chair", title: 'About Me', color: '#e8b96a',
       blurb: 'A view from up top — who I am, what I care about, and how to reach me.',
       items: [
         { title: 'Education', meta: 'UC Berkeley — EECS', text: 'B.S. EECS, expected May 2029 — 4.0 GPA.<br>Member of SAAS, AWE, and Blueprint.' },

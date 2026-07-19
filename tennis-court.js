@@ -621,7 +621,7 @@
     const cardW = 1.05, cardH = 0.34, cardD = 0.09;
     const capR = 0.16;
     const SIGNS = [
-      { id: 'about', label: 'ABOUT' },
+      { id: 'about', label: 'ABOUT ME' },
       { id: 'experience', label: 'WORK' },
       { id: 'research', label: 'RESEARCH' },
       { id: 'projects', label: 'PROJECTS' },
