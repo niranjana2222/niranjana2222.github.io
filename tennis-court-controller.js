@@ -28,13 +28,13 @@
   const DATA = {
     projects: {
       kicker: 'The Bag', title: 'Projects', color: '#3a7a4e',
-      blurb: "Pieces I've built and shipped, all packed into one bag — research pipelines, agents, and apps, each one a match played out in the code.",
+      blurb: "Pieces I've built and shipped, all packed into one bag — research pipelines, agents, and apps.",
       items: [
-        { thumb: true, color: '#3a7a4e', glyph: '01', title: 'alignment-jacobian', meta: '2026', text: 'Agentic-misalignment research pipeline — Jacobian lens, activation patching, and causal attribution to localize where a model decides to blackmail.', tag: 'AI Safety', href: 'https://github.com/niranjana2222/alignment_jacobian' },
-        { thumb: true, color: '#1a2f66', glyph: '02', title: 'alignment', meta: '2025', text: 'Bias detection, a 9-attack safety prober, and a logit-lens approximation rendered as an HTML heatmap.', tag: 'Interpretability', href: 'https://github.com/niranjana2222/alignment' },
-        { thumb: true, color: '#2bb0e0', glyph: '03', title: 'rag-eval', meta: '2025', text: 'Hybrid BM25 + TF-IDF RAG pipeline with an LLM-as-judge eval harness — no vector DB required.', tag: 'RAG', href: 'https://github.com/niranjana2222/rag-eval' },
-        { thumb: true, color: '#a8843c', glyph: '04', title: 'agent-learner', meta: '2025', text: 'An agent that scores its own runs with an LLM judge and synthesizes new tools when it fails.', tag: 'Agentic AI', href: 'https://github.com/niranjana2222/agent-learner' },
-        { thumb: true, color: '#6a4c93', glyph: '05', title: 'wildfire-doc', meta: '2025', text: 'RAG chat over CAL FIRE, USFS, and NOAA data for wildfire operations.', tag: 'RAG', href: 'https://github.com/niranjana2222/wildfire-doc' },
+        { thumb: true, color: '#3a7a4e', glyph: '01', title: 'Jacobian Lens Misalignment', meta: '2026', text: 'Agentic-misalignment research pipeline — Jacobian lens and causal attribution to localize where a model decides to blackmail.', tag: 'AI Safety', href: 'https://github.com/niranjana2222/alignment_jacobian' },
+        { thumb: true, color: '#1a2f66', glyph: '02', title: 'Bias Detection', meta: '2025', text: 'Bias detection with a 9-attack safety prober and a logit-lens approximation rendered as an HTML heatmap.', tag: 'Interpretability', href: 'https://github.com/niranjana2222/alignment' },
+        { thumb: true, color: '#2bb0e0', glyph: '03', title: 'RAG Evaluation', meta: '2025', text: 'Hybrid BM25 + TF-IDF RAG pipeline with an LLM-as-judge eval harness — no vector DB required.', tag: 'RAG', href: 'https://github.com/niranjana2222/rag-eval' },
+        { thumb: true, color: '#a8843c', glyph: '04', title: 'Self-Evaluating Agent', meta: '2025', text: 'An agent that scores its own runs with an LLM judge and synthesizes new tools when it fails.', tag: 'Agentic AI', href: 'https://github.com/niranjana2222/agent-learner' },
+        { thumb: true, color: '#6a4c93', glyph: '05', title: 'Wildfire RAG Chat', meta: '2025', text: 'RAG chat over CAL FIRE, USFS, and NOAA data for wildfire operations.', tag: 'RAG', href: 'https://github.com/niranjana2222/wildfire-doc' },
       ],
       viewAll: 'projects.html',
     },
@@ -53,10 +53,10 @@
       kicker: "The Umpire's Chair", title: 'About', color: '#e8b96a',
       blurb: 'A view from up top — who I am, what I care about, and how to reach me.',
       items: [
-        { title: 'Education', meta: 'UC Berkeley — EECS', text: 'B.S. EECS, expected May 2029 — 4.0 GPA. Member of SAAS ML, AWE, Blueprint, and Berkeley NLP.', tag: 'Education' },
+        { title: 'Education', meta: 'UC Berkeley — EECS', text: 'B.S. EECS, expected May 2029 — 4.0 GPA. \n Member of SAAS, AWE, and Blueprint.', tag: 'Education' },
         { title: 'Skills', meta: 'Languages & ML stack', text: 'Python, Java, SQL, JavaScript, React, Scheme. PyTorch, TensorFlow, HuggingFace, LangChain, LangGraph, Scikit-learn, Pandas, OpenCV, Vertex AI. USACO Gold · AIME Qualifier.', tag: 'Skills' },
         { title: 'Beyond the Code', meta: 'Wildfire Awareness Initiative · 2021–2025', text: "Founded and led a 501(c)(3) nonprofit promoting wildfire preparedness — grew to a team of 20+ students, brought curriculum and go-bag supplies to 400+ schools, published a children's storybook, and shipped an iOS app.", tag: 'Nonprofit' },
-        { title: 'Connect', meta: 'Say hello', text: "Always happy to talk interpretability, internships, or a hard ML problem you can't put down. Email is the fastest way to reach me.", tag: 'Get in touch', links: [
+        { title: 'Connect', meta: 'Say hello', text: "Always happy to chat! Email is the fastest way to reach me.", tag: 'Get in touch', links: [
           { href: 'mailto:niranjana.sankar@berkeley.edu', label: 'email me' },
           { href: 'https://linkedin.com/in/niranjana-sankar-0067852a8/', label: 'linkedin' },
         ] },
@@ -68,7 +68,7 @@
       blurb: 'Time on the bench between sets — the roles and teams that shaped how I think about production ML and research engineering.',
       items: [
         { title: 'bright.ai — ML Intern, On-Device Conversational AI', meta: 'Apr 2025 — now', text: 'Shipped a production dialog engine for an industrial wearable, an on-device NLU cascade, and graph-based RAG.' },
-        { title: 'Google — Consultant, via SAAS ML at Berkeley', meta: 'Aug 2025 — Jan 2026', text: 'Five Constitutional AI frameworks for SFT/RL on Gemini 2.5, evaluated on 14k harmful prompts.' },
+        { title: 'Google — Consultant, via SAAS at Berkeley', meta: 'Aug 2025 — Jan 2026', text: 'Five Constitutional AI frameworks for SFT/RL on Gemini 2.5, evaluated on 14k harmful prompts.' },
         { title: 'Entelligence.ai — Software Engineer Intern', meta: '2023 — 2025', text: 'LangChain agent pipelines and Jira/GitHub/Slack integrations in production chatbot workflows.' },
       ],
       viewAll: 'experience.html',
@@ -190,6 +190,16 @@
       });
 
       if (soundEnabled) tc.setSound(true);
+
+      // browsers block Web Audio until a real user gesture — retry applying the
+      // current sound state on the first one so playback doesn't stay silently stuck
+      function unlockAudio() {
+        if (audio) audio.setEnabled(soundEnabled);
+        tc.setSound(soundEnabled);
+      }
+      ['pointerdown', 'keydown', 'touchstart'].forEach(ev => {
+        window.addEventListener(ev, unlockAudio, { once: true, passive: true });
+      });
 
       tc.setLightMode(document.documentElement.getAttribute('data-theme') !== 'dark');
       const themeObserver = new MutationObserver(() => {

@@ -963,9 +963,9 @@
       audioNodes = { src, gain, lfo };
     }
     function setSound(v) {
+      if (v) startAmbience();
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
       if (v) {
-        startAmbience();
-        if (audioCtx.state === 'suspended') audioCtx.resume();
         audioNodes.gain.gain.linearRampToValueAtTime(0.16, audioCtx.currentTime + 0.6);
       } else if (audioNodes) {
         audioNodes.gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.4);
