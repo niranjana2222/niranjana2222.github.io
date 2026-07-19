@@ -50,13 +50,13 @@
       viewAll: 'blog.html',
     },
     about: {
-      kicker: "The Umpire's Chair", title: 'About', color: '#e8b96a',
+      kicker: "The Umpire's Chair", title: 'About me', color: '#e8b96a',
       blurb: 'A view from up top — who I am, what I care about, and how to reach me.',
       items: [
-        { title: 'Education', meta: 'UC Berkeley — EECS', text: 'B.S. EECS, expected May 2029 — 4.0 GPA. \n Member of SAAS, AWE, and Blueprint.', tag: 'Education' },
-        { title: 'Skills', meta: 'Languages & ML stack', text: 'Python, Java, SQL, JavaScript, React, Scheme. PyTorch, TensorFlow, HuggingFace, LangChain, LangGraph, Scikit-learn, Pandas, OpenCV, Vertex AI. USACO Gold · AIME Qualifier.', tag: 'Skills' },
-        { title: 'Beyond the Code', meta: 'Wildfire Awareness Initiative · 2021–2025', text: "Founded and led a 501(c)(3) nonprofit promoting wildfire preparedness — grew to a team of 20+ students, brought curriculum and go-bag supplies to 400+ schools, published a children's storybook, and shipped an iOS app.", tag: 'Nonprofit' },
-        { title: 'Connect', meta: 'Say hello', text: "Always happy to chat! Email is the fastest way to reach me.", tag: 'Get in touch', links: [
+        { title: 'Education', meta: 'UC Berkeley — EECS', text: 'B.S. EECS, expected May 2029 — 4.0 GPA.<br>Member of SAAS, AWE, and Blueprint.' },
+        { title: 'Skills', meta: 'Languages & ML stack', text: 'Python, Java, SQL, JavaScript, React, Scheme.<br>PyTorch, TensorFlow, HuggingFace, LangChain, LangGraph, Scikit-learn, Pandas, OpenCV, Vertex AI.<br>USACO Gold · AIME Qualifier.' },
+        { title: 'Beyond the Code', meta: 'Wildfire Awareness Initiative · 2021–2025', text: "Founded and led a 501(c)(3) nonprofit promoting wildfire preparedness — grew to a team of 20+ students, brought curriculum and go-bag supplies to 400+ schools, published a children's storybook, and shipped an iOS app." },
+        { title: 'Connect', meta: 'Say hello', text: "Always happy to chat! Email is the fastest way to reach me.", links: [
           { href: 'mailto:niranjana.sankar@berkeley.edu', label: 'email me' },
           { href: 'https://linkedin.com/in/niranjana-sankar-0067852a8/', label: 'linkedin' },
         ] },
