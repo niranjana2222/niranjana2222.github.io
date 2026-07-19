@@ -552,6 +552,41 @@
       root.add(torsoInst, headInst);
     });
 
+    // one distinctive fan standing out from the seated crowd — bright shirt, arms up,
+    // clickable: walking to them surfaces a little speech-bubble moment
+    const fanMat = new T.MeshStandardMaterial({ name: 'special_fan_shirt', color: 0xff5a36, roughness: 0.55 });
+    const fanSkinMat = new T.MeshStandardMaterial({ name: 'special_fan_skin', color: 0xe0a878, roughness: 0.7 });
+    const fanGroup = new T.Group();
+    const fanTorso = new T.Mesh(new T.CylinderGeometry(0.12, 0.14, 0.36, 8), fanMat);
+    fanTorso.position.y = 0.32; fanTorso.castShadow = true;
+    fanGroup.add(fanTorso);
+    const fanHead = new T.Mesh(new T.SphereGeometry(0.08, 10, 10), fanSkinMat);
+    fanHead.position.y = 0.56; fanHead.castShadow = true;
+    fanGroup.add(fanHead);
+    [-1, 1].forEach(side => {
+      const arm = new T.Mesh(new T.CylinderGeometry(0.022, 0.028, 0.32, 6), fanMat);
+      arm.position.set(side * 0.14, 0.64, 0.02);
+      arm.rotation.z = side * 0.55; arm.rotation.x = -0.2;
+      arm.castShadow = true;
+      fanGroup.add(arm);
+    });
+    // front row of the side stands (near the About/Experience side of the court) rather
+    // than the far end — the court is much longer than it is wide, so the far stands sit
+    // 30+ units from spawn regardless of angle, while the side stands are within reach
+    // as the player walks over to visit those sections
+    const fanRow = 0;
+    const fanRowA = ellA + 0.6 + fanRow * 0.62, fanRowB = ellB + 0.6 + fanRow * 0.62;
+    const fanPt = ellipsePt(fanRowA, fanRowB, 0.5);
+    const fanBaseY = 1.0 + fanRow * 0.42;
+    fanGroup.position.set(fanPt.x, fanBaseY, fanPt.z);
+    fanGroup.rotation.y = -fanPt.th - Math.PI / 2;
+    fanGroup.scale.setScalar(1.7);
+    root.add(fanGroup);
+    fanTorso.userData.isFan = true;
+    fanHead.userData.isFan = true;
+    const fanClickMeshes = [fanTorso, fanHead];
+    const fanWorldPos = new T.Vector3(fanPt.x, fanBaseY + 0.56 * 1.7, fanPt.z);
+
     const roofY = roofYtemp;
     const roofOuterA = ellA + 0.6 + 13 * 0.62 + 1.6 + 14 * 0.66 + 1.2, roofOuterB = ellB + 0.6 + 13 * 0.62 + 1.6 + 14 * 0.66 + 1.2;
     const roofGeo = new T.CylinderGeometry(1, 1, 0.3, ringSegs, 1, true);
@@ -742,6 +777,12 @@
     const camLook = new T.Vector3();
     const wallMargin = wallInnerX - 0.4, wallMarginZ = wallInnerZ - 0.4;
     let target = null;
+    // ground point in the fan's direction, scaled inside the walkable court —
+    // the stands are elevated and off-limits to the walking camera, so "walking to"
+    // the fan means approaching the rail closest to them and looking up
+    const fanDirLen = Math.hypot(fanPt.x, fanPt.z) || 1;
+    const fanGroundScale = (Math.min(wallMargin, wallMarginZ) * 0.82) / fanDirLen;
+    const fanBaseX = fanPt.x * fanGroundScale, fanBaseZ = fanPt.z * fanGroundScale;
     const keys = Object.create(null);
     let dragging = false, lastPX = 0, lastPY = 0, stepAcc = 0;
     const dom = renderer.domElement;
@@ -757,13 +798,19 @@
       const moved = Math.abs(e.clientX - lastPX) + Math.abs(e.clientY - lastPY);
       dragging = false; dom.style.cursor = 'grab'; try { dom.releasePointerCapture(e.pointerId); } catch (_) {}
       clearKeys();
-      if (moved < 5 && opts.onSignClick) {
+      if (moved < 5) {
         const rect = dom.getBoundingClientRect();
         pointerNDC.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
         pointerNDC.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
         raycaster.setFromCamera(pointerNDC, camera);
-        const hits = raycaster.intersectObjects(signMeshes, false);
-        if (hits.length && hits[0].object.userData.sectionId) opts.onSignClick(hits[0].object.userData.sectionId);
+        if (opts.onFanClick) {
+          const fanHits = raycaster.intersectObjects(fanClickMeshes, false);
+          if (fanHits.length) { opts.onFanClick(); return; }
+        }
+        if (opts.onSignClick) {
+          const hits = raycaster.intersectObjects(signMeshes, false);
+          if (hits.length && hits[0].object.userData.sectionId) opts.onSignClick(hits[0].object.userData.sectionId);
+        }
       }
     }
     const hoverNDC = new T.Vector2(-10, -10);
@@ -848,6 +895,7 @@
           pos.x += (target.x - pos.x) * 0.06; pos.z += (target.z - pos.z) * 0.06;
           let dyaw = target.yaw - yaw; while (dyaw > Math.PI) dyaw -= 6.283; while (dyaw < -Math.PI) dyaw += 6.283;
           yaw += dyaw * 0.06;
+          if (target.pitch !== undefined) pitch += (target.pitch - pitch) * 0.06;
           if (Math.hypot(target.x - pos.x, target.z - pos.z) < 0.15) target = null;
         }
         const bob = moving ? Math.sin(t * 9) * 0.03 : Math.sin(t * 1.4) * 0.01;
@@ -890,6 +938,13 @@
           }
         }
         onAnchors(out);
+
+        if (opts.onFanTrack) {
+          proj.copy(fanWorldPos).project(camera);
+          const fx = (proj.x * 0.5 + 0.5) * rect.w, fy = (-proj.y * 0.5 + 0.5) * rect.h;
+          const fVisible = proj.z < 1 && fx > -80 && fx < rect.w + 80 && fy > -80 && fy < rect.h + 80;
+          opts.onFanTrack(fx, fy, fVisible);
+        }
 
         renderer.render(scene, camera);
       } catch (e) {
@@ -989,6 +1044,14 @@
         if (dir.lengthSq() < 1e-6) dir.set(0, 0, -1); else dir.normalize();
         const tx = a.base.x + dir.x * 1.8, tz = a.base.z + dir.z * 1.8;
         target = { x: Math.max(-wallMargin, Math.min(wallMargin, tx)), z: Math.max(-wallMarginZ, Math.min(wallMarginZ, tz)), yaw: Math.atan2(a.base.x - tx, a.base.z - tz) };
+      },
+      walkToFan() {
+        overview = false;
+        const tx = Math.max(-wallMargin, Math.min(wallMargin, fanBaseX));
+        const tz = Math.max(-wallMarginZ, Math.min(wallMarginZ, fanBaseZ));
+        const horizDist = Math.hypot(fanPt.x - tx, fanPt.z - tz) || 1;
+        const lookPitch = Math.max(-0.5, Math.min(0.45, Math.atan2(fanWorldPos.y - 1.7, horizDist)));
+        target = { x: tx, z: tz, yaw: Math.atan2(fanPt.x - tx, fanPt.z - tz), pitch: lookPitch };
       },
       toggleOverview(v) { overview = typeof v === 'boolean' ? v : !overview; target = null; return overview; },
       resetToStart() {

@@ -183,10 +183,41 @@
         }, 780);
       }
 
+      const bubble = document.getElementById('tc-bubble');
+      const bubbleText = document.getElementById('tc-bubble-text');
+      let bubbleVisible = false;
+      let bubbleHideTimer = null;
+      function showFanBubble() {
+        bubbleText.textContent = "Hopefully me one day cheering for Jannik Sinner!!";
+        bubble.classList.add('tc-bubble-active');
+        bubble.setAttribute('aria-hidden', 'false');
+        bubbleVisible = true;
+        clearTimeout(bubbleHideTimer);
+        bubbleHideTimer = setTimeout(hideFanBubble, 7000);
+      }
+      function hideFanBubble() {
+        bubble.classList.remove('tc-bubble-active');
+        bubble.setAttribute('aria-hidden', 'true');
+        bubbleVisible = false;
+        clearTimeout(bubbleHideTimer);
+      }
+
       const tc = window.buildTennisCourt(mount, {
         onError(e) { showError((e && e.message) || String(e)); },
         onFootstep() { if (soundEnabled && audio) audio.playFootstep(); },
         onSignClick(id) { goToSection(id); },
+        onFanClick() {
+          if (hint) hint.classList.add('tc-hint-hidden');
+          if (bubbleVisible) { hideFanBubble(); return; }
+          tc.walkToFan();
+          if (soundEnabled && audio) audio.playBallHit(659.25);
+          showFanBubble();
+        },
+        onFanTrack(x, y, visible) {
+          if (!bubbleVisible) return;
+          bubble.style.transform = 'translate(-50%,-120%) translate(' + x + 'px,' + y + 'px)';
+          bubble.style.opacity = visible ? '1' : '0';
+        },
       });
 
       if (soundEnabled) tc.setSound(true);
