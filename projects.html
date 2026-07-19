@@ -67,7 +67,7 @@
           <div class="project-num">02</div>
           <div class="project-content">
             <div class="project-meta">Personal Project · 2025 – 2026</div>
-            <h3 class="project-title">agent-learner</h3>
+            <h3 class="project-title">Self-Learning Agent</h3>
             <p class="project-desc">An AI agent that runs tasks, scores its own performance with an LLM judge, and synthesizes new Python tools when it fails — then retries with the expanded toolkit. Implements a full agentic loop: Plan → Execute → Evaluate → Synthesize → Retry, with dynamic tool generation via GPT-4o and a persistent tool registry across runs.</p>
             <div class="project-more">
               <p>The loop treats failure as signal: when a task fails, the LLM judge doesn't just score the attempt, it diagnoses what capability was missing, and that diagnosis becomes the spec handed to the tool-synthesis step. Synthesized tools are validated before being added to the persistent registry, so the agent's toolkit only grows with things that actually ran — later tasks benefit from tools written for earlier ones.</p>
@@ -90,7 +90,7 @@
           <div class="project-num">03</div>
           <div class="project-content">
             <div class="project-meta">Personal Project · 2025 – 2026</div>
-            <h3 class="project-title">alignment</h3>
+            <h3 class="project-title">Bias Detection</h3>
             <p class="project-desc">Three analysis modules that probe an LLM's bias, safety robustness, and internal reasoning — bias detection across demographic pairs with Cohen's d effect size, a 9-attack safety prober (jailbreaks, fiction framing, prompt injection) with bypass rate scoring, and a logit lens approximation that pinpoints the exact token where the model commits to its answer, rendered as an HTML heatmap.</p>
             <div class="project-more">
               <p>The three modules share a single harness so the same model can be probed for bias, safety, and interpretability in one pass. Bias detection reports effect sizes rather than raw pass/fail, so small but consistent skews aren't averaged away; the safety prober logs which specific framing bypassed a refusal, not just that one did; and the logit-lens heatmap makes it possible to see the token where the model's answer was effectively already decided, well before the text that "explains" it.</p>
@@ -113,7 +113,7 @@
           <div class="project-num">04</div>
           <div class="project-content">
             <div class="project-meta">Personal Project · 2025 – 2026</div>
-            <h3 class="project-title">llm-gateway</h3>
+            <h3 class="project-title">LLM Server</h3>
             <p class="project-desc">A FastAPI server exposing a single OpenAI-compatible endpoint that auto-routes requests to the right backend based on model name — GPT-4o, Claude, Gemini, or local Ollama — with no client-side changes needed. Includes sliding-window rate limiting per API key, per-provider cost telemetry (token counts, latency, error rates), and support for offline inference via quantized local models.</p>
             <div class="project-more">
               <p>Routing is done by parsing the model name in the request, so switching a client from GPT-4o to a local Ollama model is a one-line config change, not a code change. Per-provider telemetry is tracked separately so a slow or expensive provider is visible before it shows up in a bill, and the rate limiter is per-API-key rather than global, so one noisy client can't starve the others.</p>
@@ -136,7 +136,7 @@
           <div class="project-num">05</div>
           <div class="project-content">
             <div class="project-meta">Personal Project · 2025 – 2026</div>
-            <h3 class="project-title">rag-eval</h3>
+            <h3 class="project-title">RAG Evaluation</h3>
             <p class="project-desc">Enterprise-grade RAG pipeline with hybrid BM25 + TF-IDF cosine retrieval fused via RRF, a GPT-4o generator that cites source chunks inline, and an LLM-as-judge eval harness scoring each answer on faithfulness, relevance, and context recall — all in pure Python with no external vector database required.</p>
             <div class="project-more">
               <p>Retrieval fuses BM25 and TF-IDF cosine scores via reciprocal rank fusion rather than picking one, which matters most on queries where exact keyword overlap and semantic similarity disagree. The eval harness scores every answer along three separate axes instead of a single blended score, so a hallucinated-but-relevant answer and a faithful-but-incomplete one don't look the same in the results.</p>
@@ -159,7 +159,7 @@
           <div class="project-num">06</div>
           <div class="project-content">
             <div class="project-meta">Personal Project · 2025 – 2026</div>
-            <h3 class="project-title">wildfire-doc</h3>
+            <h3 class="project-title">Wildfire RAG Chatbot</h3>
             <p class="project-desc">Enterprise-grade RAG chat interface for wildfire operations — ingests CAL FIRE incident reports, USFS forest assessments, and NOAA weather data, then answers queries with hybrid BM25 + dense vector search, RRF fusion, HyDE, and Cohere reranking over a Qdrant vector store.</p>
             <div class="project-more">
               <p>Built for the operational reality of wildfire response, where a single question needs to pull from three differently-structured sources — CAL FIRE incident reports, USFS assessments, and NOAA weather data. HyDE generates a hypothetical answer first to improve retrieval recall on sparse or jargon-heavy queries, and Cohere reranking is a second pass specifically to correct for cases where BM25 and dense retrieval agree on the wrong chunk.</p>
@@ -182,7 +182,7 @@
           <div class="project-num">07</div>
           <div class="project-content">
             <div class="project-meta">Personal Project · 2026</div>
-            <h3 class="project-title">alignment-jacobian</h3>
+            <h3 class="project-title">Jacobian Lens Analysis</h3>
             <p class="project-desc">An agentic-misalignment research pipeline that elicits blackmail, leaking, and sabotage from models under threat and goal-conflict scenarios, then goes past behavior into mechanism — a Jacobian lens (∂(harm−safe logit)/∂h, per layer) alongside logit lens, tuned lens, and activation patching localizes where the harmful decision forms and confirms it's causal, not just correlational. A separate attribution module manipulates each candidate cause (self-preservation, distrust, suspicion of a test) independently and compares what the model verbalizes against what actually moves its behavior, surfacing confabulated versus unverbalized drivers. Concept-direction steering then tests whether ablating the causal layer mitigates the behavior while preserving capability on benign tasks.</p>
             <div class="project-more">
               <p>The <a href="blog-alignment-jacobian.html">write-up on this project</a> goes further into where the picture gets messy: steering and patching don't always agree on which layer is causal, and single-scenario findings didn't generalize across framings — the pipeline is built to surface that disagreement rather than paper over it.</p>

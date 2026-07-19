@@ -951,23 +951,30 @@
       bandpass.type = 'bandpass'; bandpass.frequency.value = 450; bandpass.Q.value = 0.6;
       const lowpass = audioCtx.createBiquadFilter();
       lowpass.type = 'lowpass'; lowpass.frequency.value = 1200;
-      const gain = audioCtx.createGain();
-      gain.gain.value = 0;
+      // swellGain holds the LFO "breathing" modulation; masterGain is the on/off switch —
+      // kept separate so toggling off truly reaches silence instead of still oscillating
+      // with whatever the LFO is adding to a shared gain param at that instant
+      const swellGain = audioCtx.createGain();
+      swellGain.gain.value = 0.16;
+      const masterGain = audioCtx.createGain();
+      masterGain.gain.value = 0;
       const lfo = audioCtx.createOscillator();
       lfo.frequency.value = 0.09;
       const lfoGain = audioCtx.createGain();
       lfoGain.gain.value = 0.05;
-      lfo.connect(lfoGain); lfoGain.connect(gain.gain);
-      src.connect(bandpass); bandpass.connect(lowpass); lowpass.connect(gain); gain.connect(audioCtx.destination);
+      lfo.connect(lfoGain); lfoGain.connect(swellGain.gain);
+      src.connect(bandpass); bandpass.connect(lowpass); lowpass.connect(swellGain); swellGain.connect(masterGain); masterGain.connect(audioCtx.destination);
       src.start(); lfo.start();
-      audioNodes = { src, gain, lfo };
+      audioNodes = { src, gain: masterGain, lfo };
     }
     function setSound(v) {
       if (v) startAmbience();
       if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
       if (v) {
-        audioNodes.gain.gain.linearRampToValueAtTime(0.16, audioCtx.currentTime + 0.6);
+        audioNodes.gain.gain.cancelScheduledValues(audioCtx.currentTime);
+        audioNodes.gain.gain.linearRampToValueAtTime(1, audioCtx.currentTime + 0.6);
       } else if (audioNodes) {
+        audioNodes.gain.gain.cancelScheduledValues(audioCtx.currentTime);
         audioNodes.gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 0.4);
       }
     }
