@@ -7,115 +7,154 @@
   <meta name="description" content="Niranjana Sankar — EECS @ UC Berkeley. ML researcher and engineer." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=wb6" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=wb7" />
 </head>
 <body>
   <div class="scroll-progress"></div>
   <div class="cursor"><div class="cursor-dot"></div><div class="cursor-ring"></div></div>
 
-  <main class="rh-root" id="rh-root">
-    <div class="rh-loader" id="rh-loader">
-      <div class="rh-loader-icon" aria-hidden="true">
-        <span class="rh-loader-note-main">&#9835;</span>
-        <span class="rh-loader-bubble rh-loader-bubble--1">&#9834;</span>
-        <span class="rh-loader-bubble rh-loader-bubble--2">&#9835;</span>
-        <span class="rh-loader-bubble rh-loader-bubble--3">&#9833;</span>
-        <svg class="rh-loader-swoosh" viewBox="0 0 220 70">
-          <path d="M4 54 C 50 6, 110 6, 150 32 S 210 12 216 4" />
+  <main class="tc-root" id="tc-root">
+    <div class="tc-loader" id="tc-loader">
+      <div class="tc-loader-icon" aria-hidden="true">
+        <span class="tc-loader-racket tc-loader-racket--left">
+          <svg viewBox="0 0 50 92">
+            <ellipse cx="25" cy="30" rx="20" ry="27" />
+            <line class="tc-racket-string" x1="9" y1="18" x2="41" y2="42" />
+            <line class="tc-racket-string" x1="9" y1="26" x2="41" y2="34" />
+            <line class="tc-racket-string" x1="9" y1="34" x2="41" y2="26" />
+            <line class="tc-racket-string" x1="9" y1="42" x2="41" y2="18" />
+            <line class="tc-racket-string" x1="15" y1="8" x2="15" y2="52" />
+            <line class="tc-racket-string" x1="25" y1="4" x2="25" y2="56" />
+            <line class="tc-racket-string" x1="35" y1="8" x2="35" y2="52" />
+            <line class="tc-racket-handle" x1="25" y1="57" x2="25" y2="88" />
+          </svg>
+        </span>
+        <svg class="tc-loader-ball" viewBox="0 0 44 44">
+          <circle cx="22" cy="22" r="20" fill="#d8e830" stroke="#a8b81a" stroke-width="1.5" />
+          <path d="M4 22 Q 22 8 40 22" fill="none" stroke="#f4f6ee" stroke-width="2.5" stroke-linecap="round" />
+          <path d="M4 22 Q 22 36 40 22" fill="none" stroke="#f4f6ee" stroke-width="2.5" stroke-linecap="round" />
         </svg>
+        <span class="tc-loader-racket tc-loader-racket--right">
+          <svg viewBox="0 0 50 92">
+            <ellipse cx="25" cy="30" rx="20" ry="27" />
+            <line class="tc-racket-string" x1="9" y1="18" x2="41" y2="42" />
+            <line class="tc-racket-string" x1="9" y1="26" x2="41" y2="34" />
+            <line class="tc-racket-string" x1="9" y1="34" x2="41" y2="26" />
+            <line class="tc-racket-string" x1="9" y1="42" x2="41" y2="18" />
+            <line class="tc-racket-string" x1="15" y1="8" x2="15" y2="52" />
+            <line class="tc-racket-string" x1="25" y1="4" x2="25" y2="56" />
+            <line class="tc-racket-string" x1="35" y1="8" x2="35" y2="52" />
+            <line class="tc-racket-handle" x1="25" y1="57" x2="25" y2="88" />
+          </svg>
+        </span>
+        <span class="tc-loader-dot tc-loader-dot--1"></span>
+        <span class="tc-loader-dot tc-loader-dot--2"></span>
       </div>
-      <p class="rh-loader-text">Tuning the hall<span class="rh-loader-dots">&hellip;</span> <span class="rh-loader-pct" id="rh-loader-pct">0%</span></p>
+      <p class="tc-loader-text">Warming up the court<span class="tc-loader-dots">&hellip;</span> <span class="tc-loader-pct" id="tc-loader-pct">0%</span></p>
     </div>
     <script>
       (function () {
         var start = performance.now();
-        window.__rhLoaderStart = start;
-        window.__rhLoaderStop = false;
+        window.__tcLoaderStart = start;
+        window.__tcLoaderStop = false;
         function tick() {
-          if (window.__rhLoaderStop) return;
-          var el = document.getElementById('rh-loader-pct');
+          if (window.__tcLoaderStop) return;
+          var el = document.getElementById('tc-loader-pct');
           if (el) {
             var t = (performance.now() - start) / 1000;
-            el.textContent = Math.min(99, Math.round(99 * (1 - Math.exp(-t / 1.1)))) + '%';
+            el.textContent = Math.min(99, Math.round(99 * (1 - Math.exp(-t / 0.65)))) + '%';
           }
           requestAnimationFrame(tick);
         }
         requestAnimationFrame(tick);
+
+        if (localStorage.getItem('tc-sound') === 'off') return;
+        try {
+          var actx = new (window.AudioContext || window.webkitAudioContext)();
+          var master = actx.createGain(); master.gain.value = 0.5; master.connect(actx.destination);
+          function resumeCtx() { if (actx.state === 'suspended') actx.resume(); }
+          ['pointerdown', 'keydown', 'touchstart'].forEach(function (ev) {
+            window.addEventListener(ev, resumeCtx, { once: true, passive: true });
+          });
+          function hit() {
+            var now = actx.currentTime;
+            var bufLen = Math.floor(actx.sampleRate * 0.08);
+            var buffer = actx.createBuffer(1, bufLen, actx.sampleRate);
+            var data = buffer.getChannelData(0);
+            for (var i = 0; i < bufLen; i++) data[i] = (Math.random() * 2 - 1) * (1 - i / bufLen);
+            var noise = actx.createBufferSource(); noise.buffer = buffer;
+            var filt = actx.createBiquadFilter(); filt.type = 'bandpass'; filt.frequency.value = 1300; filt.Q.value = 0.7;
+            var ng = actx.createGain(); ng.gain.value = 0;
+            noise.connect(filt); filt.connect(ng); ng.connect(master);
+            ng.gain.setValueAtTime(0, now);
+            ng.gain.linearRampToValueAtTime(0.3, now + 0.004);
+            ng.gain.exponentialRampToValueAtTime(0.0008, now + 0.08);
+            noise.start(now); noise.stop(now + 0.09);
+            var osc = actx.createOscillator(); osc.type = 'sine';
+            osc.frequency.setValueAtTime(240, now);
+            osc.frequency.exponentialRampToValueAtTime(85, now + 0.1);
+            var og = actx.createGain(); og.gain.value = 0;
+            osc.connect(og); og.connect(master);
+            og.gain.setValueAtTime(0, now);
+            og.gain.linearRampToValueAtTime(0.22, now + 0.006);
+            og.gain.exponentialRampToValueAtTime(0.0008, now + 0.12);
+            osc.start(now); osc.stop(now + 0.13);
+          }
+          var hitTimer = setInterval(function () {
+            if (window.__tcLoaderStop) { clearInterval(hitTimer); try { actx.close(); } catch (e) {} return; }
+            hit();
+          }, 850);
+        } catch (e) {}
       })();
     </script>
-    <div class="rh-mount" id="rh-mount"></div>
+    <div class="tc-mount" id="tc-mount"></div>
 
-    <div class="rh-vignette"></div>
+    <div class="tc-vignette"></div>
+    <div class="tc-vignette-2"></div>
 
-    <div class="rh-markers">
-      <button class="rh-marker" data-marker="projects" aria-label="Walk to Projects">
-        <span class="rh-marker-pill"><span class="rh-marker-label">Projects</span></span>
-        <span class="rh-marker-dot"></span>
-      </button>
-      <button class="rh-marker" data-marker="blog" aria-label="Walk to Journal">
-        <span class="rh-marker-pill"><span class="rh-marker-label">Journal</span></span>
-        <span class="rh-marker-dot"></span>
-      </button>
-      <button class="rh-marker" data-marker="about" aria-label="Walk to About">
-        <span class="rh-marker-pill"><span class="rh-marker-label">About</span></span>
-        <span class="rh-marker-dot"></span>
-      </button>
-      <button class="rh-marker" data-marker="experience" aria-label="Walk to Experience">
-        <span class="rh-marker-pill"><span class="rh-marker-label">Experience</span></span>
-        <span class="rh-marker-dot"></span>
-      </button>
-      <button class="rh-marker" data-marker="research" aria-label="Walk to Research">
-        <span class="rh-marker-pill"><span class="rh-marker-label">Research</span></span>
-        <span class="rh-marker-dot"></span>
-      </button>
+    <div class="tc-identity">
+      <div class="tc-kicker">Center Court · Night Match</div>
+      <h1 class="tc-name">Niranjana Sankar</h1>
+      <p class="tc-tagline">EECS @ UC Berkeley — I study why models do what they do: interpretability, multimodal ML, and the systems that carry research into production. Walk the court and take a seat wherever you like.</p>
     </div>
 
-    <div class="rh-identity">
-      <div class="rh-kicker">The Recital Hall</div>
-      <h1 class="rh-name">Niranjana Sankar</h1>
-      <p class="rh-tagline">EECS @ UC Berkeley — I study why models do what they do: interpretability, multimodal ML, and the systems that carry research into production. Walk the stage and take a seat wherever you like.</p>
-    </div>
-
-    <nav class="rh-nav" aria-label="Sections">
-      <button data-open="projects">Projects</button>
-      <button data-open="blog">Journal</button>
+    <nav class="tc-nav" aria-label="Sections">
       <button data-open="about">About</button>
       <button data-open="experience">Experience</button>
       <button data-open="research">Research</button>
+      <button data-open="projects">Projects</button>
+      <button data-open="journal">Blog</button>
     </nav>
 
-    <div class="rh-hint" id="rh-hint">
-      <span>✦ Drag to look around · WASD or a tap on a marker to move</span>
+    <div class="tc-hint" id="tc-hint">
+      <span>✦ Drag to look around · WASD to move · tap the scoreboard to move pages</span>
     </div>
 
-    <div class="rh-toolbar">
-      <button class="theme-toggle rh-theme-toggle" aria-label="Toggle theme">☾</button>
-      <button class="rh-btn" id="rh-sound" aria-label="Toggle sound" aria-pressed="false">
-        <span class="rh-btn-glyph">🔇</span><span class="rh-btn-label">Sound off</span>
+    <div class="tc-toolbar">
+      <button class="theme-toggle tc-theme-toggle" aria-label="Toggle theme">☾</button>
+      <button class="tc-btn" id="tc-sound" aria-label="Toggle sound" aria-pressed="false">
+        <span class="tc-btn-glyph">🔇</span><span class="tc-btn-label">Sound off</span>
       </button>
-      <button class="rh-btn" id="rh-reset" aria-label="Reset view">
-        <span class="rh-btn-glyph">⟲</span><span class="rh-btn-label">Reset view</span>
-      </button>
-      <button class="rh-btn" id="rh-zoom" aria-label="Toggle overview">
-        <span class="rh-btn-glyph">⤡</span><span class="rh-btn-label">Zoom out</span>
+      <button class="tc-btn" id="tc-reset" aria-label="Reset view">
+        <span class="tc-btn-glyph">⟲</span><span class="tc-btn-label">Reset view</span>
       </button>
     </div>
 
-    <div class="rh-scrim" id="rh-scrim"></div>
-    <aside class="rh-panel" id="rh-panel" aria-hidden="true">
-      <div class="rh-panel-bar" id="rh-panel-bar"></div>
-      <div class="rh-panel-inner">
-        <button class="rh-panel-close" id="rh-panel-close" aria-label="Close">✕</button>
-        <div class="rh-panel-kicker" id="rh-panel-kicker"></div>
-        <h2 class="rh-panel-title" id="rh-panel-title"></h2>
-        <p class="rh-panel-blurb" id="rh-panel-blurb"></p>
-        <div class="rh-card-list" id="rh-panel-list"></div>
-        <a class="rh-panel-viewall" id="rh-panel-viewall" href="#">see all →</a>
+    <div class="tc-scrim" id="tc-scrim"></div>
+    <aside class="tc-panel" id="tc-panel" aria-hidden="true">
+      <div class="tc-panel-bar" id="tc-panel-bar"></div>
+      <div class="tc-panel-inner">
+        <button class="tc-panel-close" id="tc-panel-close" aria-label="Close">✕</button>
+        <div class="tc-panel-kicker" id="tc-panel-kicker"></div>
+        <h2 class="tc-panel-title" id="tc-panel-title"></h2>
+        <p class="tc-panel-blurb" id="tc-panel-blurb"></p>
+        <div class="tc-card-list" id="tc-panel-list"></div>
+        <a class="tc-panel-viewall" id="tc-panel-viewall" href="#">see all →</a>
       </div>
     </aside>
 
-    <div class="rh-fallback">
+    <div class="tc-fallback">
       <p class="hero-label">EECS @ UC Berkeley</p>
       <h1>Niranjana<br><em>Sankar</em></h1>
       <div class="hero-cta">
@@ -123,7 +162,7 @@
         <a class="btn btn-ghost" href="research.html">see my research</a>
       </div>
       <p class="hero-tagline">I study why models do what they do — interpretability, multimodal ML, and the systems that carry research into production.</p>
-      <nav class="rh-fallback-links" aria-label="Site">
+      <nav class="tc-fallback-links" aria-label="Site">
         <a href="about.html">about</a>
         <a href="research.html">research</a>
         <a href="projects.html">projects</a>
@@ -138,8 +177,8 @@
   <script src="script.js"></script>
   <div class="toast"></div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="recital-hall.js"></script>
-  <script src="hall-audio.js"></script>
-  <script src="recital-hall-controller.js"></script>
+  <script src="tennis-court.js"></script>
+  <script src="court-audio.js"></script>
+  <script src="tennis-court-controller.js"></script>
 </body>
 </html>
