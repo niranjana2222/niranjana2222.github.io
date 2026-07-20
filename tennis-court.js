@@ -563,10 +563,15 @@
     const fanHead = new T.Mesh(new T.SphereGeometry(0.08, 10, 10), fanSkinMat);
     fanHead.position.y = 0.56; fanHead.castShadow = true;
     fanGroup.add(fanHead);
+    // built from exact shoulder/hand points (like the umpire chair's legs) so the arm
+    // actually meets the torso instead of floating beside it at an eyeballed angle
     [-1, 1].forEach(side => {
-      const arm = new T.Mesh(new T.CylinderGeometry(0.022, 0.028, 0.32, 6), fanMat);
-      arm.position.set(side * 0.14, 0.64, 0.02);
-      arm.rotation.z = side * 0.55; arm.rotation.x = -0.2;
+      const shoulder = new T.Vector3(side * 0.11, 0.46, 0);
+      const hand = new T.Vector3(side * 0.30, 0.86, 0.08);
+      const dir = hand.clone().sub(shoulder);
+      const arm = new T.Mesh(new T.CylinderGeometry(0.026, 0.034, dir.length(), 6), fanMat);
+      arm.position.copy(shoulder).add(dir.clone().multiplyScalar(0.5));
+      arm.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), dir.clone().normalize());
       arm.castShadow = true;
       fanGroup.add(arm);
     });

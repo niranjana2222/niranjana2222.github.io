@@ -277,6 +277,7 @@
       const resetBtn = document.getElementById('tc-reset');
       resetBtn.addEventListener('click', () => {
         tc.resetToStart();
+        hideFanBubble();
       });
 
       window.addEventListener('beforeunload', () => { if (tc) tc.dispose(); if (audio) audio.dispose(); });
