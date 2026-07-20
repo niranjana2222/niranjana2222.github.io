@@ -50,7 +50,6 @@
               Diagnosing language blindness in vision-language-action (VLA) models using linear probes on PaliGemma and action-expert hidden states. Training logistic regression probes at every transformer layer on LangGap object-replacement scenes to produce accuracy curves — the gap between the VLM curve (which rises, encoding object identity) and the action-expert curve (which stays near chance) localises exactly where language grounding breaks down. Building methods to close that gap and strengthen the ActionExpert's grounding in instructions.
             </p>
             <div class="tags">
-              <span class="tag">VLA</span>
               <span class="tag">Linear Probes</span>
               <span class="tag">PaliGemma</span>
               <span class="tag">LangGap</span>
@@ -66,15 +65,20 @@
             <h3>Berkeley NLP Group</h3>
             <div class="role">Researcher · Multimodal Speech Recognition</div>
             <p>
-              Designing test-time adaptation (TTA) methods for Qwen3-Omni, LLaMA, and
-              Whisper-Flamingo on audio-visual speech recognition for accented speech,
-              and using SHAP values to compare how much the models lean on audio versus
-              visual features.
+              Built the first audio-visual dataset pairing speech, lip video, and accent
+              labels at usable scale — 2+ hours of read speech across 49 speakers spanning
+              eight regional dialects and eleven non-native L1s — to test whether lip-reading
+              helps models handle accented English the way it helps them handle acoustic noise.
+              Evaluating a generalist multimodal model against a specialist AVSR architecture
+              across audio-only, video-only, and audio-visual conditions, and designing
+              test-time adaptation methods — entropy minimization, reinforcement-learning-based,
+              continual, and pseudo-label objectives — to adapt to an unfamiliar accent at
+              inference time.
             </p>
             <div class="tags">
               <span class="tag">TTA</span>
-              <span class="tag">AVSR</span>
-              <span class="tag">SHAP</span>
+              <span class="tag">Dataset Construction</span>
+              <span class="tag">Distribution Shift</span>
             </div>
           </div>
         </div>
@@ -96,13 +100,19 @@
             <div class="role">Researcher · LLM Reasoning</div>
             <p>
               Built an interpretable extension of GEPA with tuned lens for process-level
-              evaluation of LLM reasoning. Developed QThink — latent reasoning via
-              per-step distillation of multiple chain-of-thought rollouts.
+              evaluation of LLM reasoning, and developed QThink, a latent chain-of-thought
+              distillation method currently under double-blind review at COLM 2026. QThink
+              trains a model to reason through six silent hidden-state loops before writing
+              an answer, distilling from the average of sixteen sampled reasoning rollouts at
+              six checkpoints along each trace — a training signal that's both broader and
+              denser than prior self-distillation methods. Also probing what those latent
+              states actually encode about the sampled reasoning traces.
             </p>
             <div class="tags">
               <span class="tag">GEPA</span>
               <span class="tag">Tuned Lens</span>
               <span class="tag">Chain-of-Thought</span>
+              <span class="tag">Latent Reasoning</span>
             </div>
           </div>
         </div>
@@ -114,13 +124,21 @@
             <div class="role">Researcher · LLM Interpretability &amp; RL</div>
             <p>
               Evaluated LLM interpretability with tuned-lens methods on GPT models for
-              multilingual multi-token prediction. Improved ICRL, SOAR, and TRPO for
-              summarization and math-game tasks with note-taking mechanisms.
+              multilingual multi-token prediction, addressing the logit lens's core weakness —
+              "representational drift," where the same concept sits in a different
+              residual-stream direction at different depths — by training a small per-layer
+              affine probe against the model's own final-layer output instead of reusing its
+              unembedding matrix. Used causal basis extraction to check whether the lens's
+              read of a layer agrees with the directions the model's own head actually relies
+              on, and ran depth analyses of where in the network different kinds of
+              predictions resolve. Improved ICRL, SOAR, and TRPO for summarization and
+              math-game tasks with note-taking mechanisms.
             </p>
             <div class="tags">
               <span class="tag">Tuned Lens</span>
               <span class="tag">ICRL</span>
               <span class="tag">TRPO</span>
+              <span class="tag">Depth Analysis</span>
             </div>
           </div>
         </div>

@@ -44,21 +44,21 @@
         <div class="project-entry">
           <div class="project-num">01</div>
           <div class="project-content">
-            <div class="project-meta">Personal Project · 2025 – 2026</div>
-            <h3 class="project-title">Research News Digest</h3>
-            <p class="project-desc">Personalized AI news digest agent — fetches articles and content from configured sources, processes them through a LangGraph multi-agent pipeline, and delivers a summarized digest on a schedule.</p>
+            <h3 class="project-title">Jacobian Lens Analysis</h3>
+            <p class="project-desc">An agentic-misalignment research pipeline that elicits blackmail, leaking, and sabotage from models under threat and goal-conflict scenarios, then goes past behavior into mechanism — a Jacobian lens (the per-layer sensitivity of the blackmail-vs-safe decision to that layer's activations) alongside logit lens, tuned lens, and activation patching localizes where the harmful decision forms and confirms it's causal, not just correlational. A separate attribution module manipulates each candidate cause (self-preservation, distrust, suspicion of a test) independently and compares what the model verbalizes against what actually moves its behavior, surfacing confabulated versus unverbalized drivers. Concept-direction steering then tests whether ablating the causal layer mitigates the behavior while preserving capability on benign tasks.</p>
             <div class="project-more">
-              <p>Under the hood, a LangGraph state machine coordinates fetch, dedupe, and summarize nodes so each source is processed independently before merging into a single digest — new sources can be added by dropping in a fetcher node without touching the rest of the graph. Delivery runs on a configurable schedule, and summaries are tuned to stay skimmable rather than reproducing full articles.</p>
+              <p>The <a href="blog-alignment-jacobian.html">write-up on this project</a> goes further into where the picture gets messy: steering and patching don't always agree on which layer is causal, and single-scenario findings didn't generalize across framings — the pipeline is built to surface that disagreement rather than paper over it.</p>
             </div>
             <div class="project-footer">
               <div class="tags">
-                <span class="tag">LangGraph</span>
+                <span class="tag">Mechanistic Interpretability</span>
+                <span class="tag">AI Safety</span>
+                <span class="tag">Jacobian Lens</span>
+                <span class="tag">Activation Patching</span>
                 <span class="tag">Python</span>
-                <span class="tag">Agents</span>
-                <span class="tag">Scheduling</span>
               </div>
               <button class="project-more-toggle" type="button" aria-expanded="false">read more</button>
-              <a class="card-link" href="https://github.com/niranjana2222/ai-fetch-" target="_blank" rel="noopener">github</a>
+              <a class="card-link" href="https://github.com/niranjana2222/alignment_jacobian" target="_blank" rel="noopener">github</a>
             </div>
           </div>
         </div>
@@ -66,99 +66,6 @@
         <div class="project-entry">
           <div class="project-num">02</div>
           <div class="project-content">
-            <div class="project-meta">Personal Project · 2025 – 2026</div>
-            <h3 class="project-title">Self-Learning Agent</h3>
-            <p class="project-desc">An AI agent that runs tasks, scores its own performance with an LLM judge, and synthesizes new Python tools when it fails — then retries with the expanded toolkit. Implements a full agentic loop: Plan → Execute → Evaluate → Synthesize → Retry, with dynamic tool generation via GPT-4o and a persistent tool registry across runs.</p>
-            <div class="project-more">
-              <p>The loop treats failure as signal: when a task fails, the LLM judge doesn't just score the attempt, it diagnoses what capability was missing, and that diagnosis becomes the spec handed to the tool-synthesis step. Synthesized tools are validated before being added to the persistent registry, so the agent's toolkit only grows with things that actually ran — later tasks benefit from tools written for earlier ones.</p>
-            </div>
-            <div class="project-footer">
-              <div class="tags">
-                <span class="tag">Agentic AI</span>
-                <span class="tag">GPT-4o</span>
-                <span class="tag">Tool Synthesis</span>
-                <span class="tag">LLM-as-Judge</span>
-                <span class="tag">Python</span>
-              </div>
-              <button class="project-more-toggle" type="button" aria-expanded="false">read more</button>
-              <a class="card-link" href="https://github.com/niranjana2222/agent-learner" target="_blank" rel="noopener">github</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-entry">
-          <div class="project-num">03</div>
-          <div class="project-content">
-            <div class="project-meta">Personal Project · 2025 – 2026</div>
-            <h3 class="project-title">Bias Detection</h3>
-            <p class="project-desc">Three analysis modules that probe an LLM's bias, safety robustness, and internal reasoning — bias detection across demographic pairs with Cohen's d effect size, a 9-attack safety prober (jailbreaks, fiction framing, prompt injection) with bypass rate scoring, and a logit lens approximation that pinpoints the exact token where the model commits to its answer, rendered as an HTML heatmap.</p>
-            <div class="project-more">
-              <p>The three modules share a single harness so the same model can be probed for bias, safety, and interpretability in one pass. Bias detection reports effect sizes rather than raw pass/fail, so small but consistent skews aren't averaged away; the safety prober logs which specific framing bypassed a refusal, not just that one did; and the logit-lens heatmap makes it possible to see the token where the model's answer was effectively already decided, well before the text that "explains" it.</p>
-            </div>
-            <div class="project-footer">
-              <div class="tags">
-                <span class="tag">Interpretability</span>
-                <span class="tag">AI Safety</span>
-                <span class="tag">Bias Detection</span>
-                <span class="tag">Logit Lens</span>
-                <span class="tag">Python</span>
-              </div>
-              <button class="project-more-toggle" type="button" aria-expanded="false">read more</button>
-              <a class="card-link" href="https://github.com/niranjana2222/alignment" target="_blank" rel="noopener">github</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-entry">
-          <div class="project-num">04</div>
-          <div class="project-content">
-            <div class="project-meta">Personal Project · 2025 – 2026</div>
-            <h3 class="project-title">LLM Server</h3>
-            <p class="project-desc">A FastAPI server exposing a single OpenAI-compatible endpoint that auto-routes requests to the right backend based on model name — GPT-4o, Claude, Gemini, or local Ollama — with no client-side changes needed. Includes sliding-window rate limiting per API key, per-provider cost telemetry (token counts, latency, error rates), and support for offline inference via quantized local models.</p>
-            <div class="project-more">
-              <p>Routing is done by parsing the model name in the request, so switching a client from GPT-4o to a local Ollama model is a one-line config change, not a code change. Per-provider telemetry is tracked separately so a slow or expensive provider is visible before it shows up in a bill, and the rate limiter is per-API-key rather than global, so one noisy client can't starve the others.</p>
-            </div>
-            <div class="project-footer">
-              <div class="tags">
-                <span class="tag">FastAPI</span>
-                <span class="tag">LLM Routing</span>
-                <span class="tag">OpenAI API</span>
-                <span class="tag">Ollama</span>
-                <span class="tag">Python</span>
-              </div>
-              <button class="project-more-toggle" type="button" aria-expanded="false">read more</button>
-              <a class="card-link" href="https://github.com/niranjana2222/llm-gateway" target="_blank" rel="noopener">github</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-entry">
-          <div class="project-num">05</div>
-          <div class="project-content">
-            <div class="project-meta">Personal Project · 2025 – 2026</div>
-            <h3 class="project-title">RAG Evaluation</h3>
-            <p class="project-desc">Enterprise-grade RAG pipeline with hybrid BM25 + TF-IDF cosine retrieval fused via RRF, a GPT-4o generator that cites source chunks inline, and an LLM-as-judge eval harness scoring each answer on faithfulness, relevance, and context recall — all in pure Python with no external vector database required.</p>
-            <div class="project-more">
-              <p>Retrieval fuses BM25 and TF-IDF cosine scores via reciprocal rank fusion rather than picking one, which matters most on queries where exact keyword overlap and semantic similarity disagree. The eval harness scores every answer along three separate axes instead of a single blended score, so a hallucinated-but-relevant answer and a faithful-but-incomplete one don't look the same in the results.</p>
-            </div>
-            <div class="project-footer">
-              <div class="tags">
-                <span class="tag">RAG</span>
-                <span class="tag">BM25</span>
-                <span class="tag">RRF Fusion</span>
-                <span class="tag">LLM-as-Judge</span>
-                <span class="tag">Python</span>
-              </div>
-              <button class="project-more-toggle" type="button" aria-expanded="false">read more</button>
-              <a class="card-link" href="https://github.com/niranjana2222/rag-eval" target="_blank" rel="noopener">github</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-entry">
-          <div class="project-num">06</div>
-          <div class="project-content">
-            <div class="project-meta">Personal Project · 2025 – 2026</div>
             <h3 class="project-title">Wildfire RAG Chatbot</h3>
             <p class="project-desc">Enterprise-grade RAG chat interface for wildfire operations — ingests CAL FIRE incident reports, USFS forest assessments, and NOAA weather data, then answers queries with hybrid BM25 + dense vector search, RRF fusion, HyDE, and Cohere reranking over a Qdrant vector store.</p>
             <div class="project-more">
@@ -179,24 +86,110 @@
         </div>
 
         <div class="project-entry">
-          <div class="project-num">07</div>
+          <div class="project-num">03</div>
           <div class="project-content">
-            <div class="project-meta">Personal Project · 2026</div>
-            <h3 class="project-title">Jacobian Lens Analysis</h3>
-            <p class="project-desc">An agentic-misalignment research pipeline that elicits blackmail, leaking, and sabotage from models under threat and goal-conflict scenarios, then goes past behavior into mechanism — a Jacobian lens (∂(harm−safe logit)/∂h, per layer) alongside logit lens, tuned lens, and activation patching localizes where the harmful decision forms and confirms it's causal, not just correlational. A separate attribution module manipulates each candidate cause (self-preservation, distrust, suspicion of a test) independently and compares what the model verbalizes against what actually moves its behavior, surfacing confabulated versus unverbalized drivers. Concept-direction steering then tests whether ablating the causal layer mitigates the behavior while preserving capability on benign tasks.</p>
+            <h3 class="project-title">Self-Learning Agent</h3>
+            <p class="project-desc">An AI agent that runs tasks, scores its own performance with an LLM judge, and synthesizes new Python tools when it fails — then retries with the expanded toolkit. Implements a full agentic loop: Plan → Execute → Evaluate → Synthesize → Retry, with dynamic tool generation via GPT-4o and a persistent tool registry across runs.</p>
             <div class="project-more">
-              <p>The <a href="blog-alignment-jacobian.html">write-up on this project</a> goes further into where the picture gets messy: steering and patching don't always agree on which layer is causal, and single-scenario findings didn't generalize across framings — the pipeline is built to surface that disagreement rather than paper over it.</p>
+              <p>The loop treats failure as signal: when a task fails, the LLM judge doesn't just score the attempt, it diagnoses what capability was missing, and that diagnosis becomes the spec handed to the tool-synthesis step. Synthesized tools are validated before being added to the persistent registry, so the agent's toolkit only grows with things that actually ran — later tasks benefit from tools written for earlier ones.</p>
             </div>
             <div class="project-footer">
               <div class="tags">
-                <span class="tag">Mechanistic Interpretability</span>
-                <span class="tag">AI Safety</span>
-                <span class="tag">Jacobian Lens</span>
-                <span class="tag">Activation Patching</span>
+                <span class="tag">Agentic AI</span>
+                <span class="tag">GPT-4o</span>
+                <span class="tag">Tool Synthesis</span>
+                <span class="tag">LLM-as-Judge</span>
                 <span class="tag">Python</span>
               </div>
               <button class="project-more-toggle" type="button" aria-expanded="false">read more</button>
-              <a class="card-link" href="https://github.com/niranjana2222/alignment_jacobian" target="_blank" rel="noopener">github</a>
+              <a class="card-link" href="https://github.com/niranjana2222/agent-learner" target="_blank" rel="noopener">github</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-entry">
+          <div class="project-num">04</div>
+          <div class="project-content">
+            <h3 class="project-title">Bias Detection</h3>
+            <p class="project-desc">Three analysis modules that probe an LLM's bias, safety robustness, and internal reasoning — bias detection across demographic pairs with Cohen's d effect size, a 9-attack safety prober (jailbreaks, fiction framing, prompt injection) with bypass rate scoring, and a logit lens approximation that pinpoints the exact token where the model commits to its answer, rendered as an HTML heatmap.</p>
+            <div class="project-more">
+              <p>The three modules share a single harness so the same model can be probed for bias, safety, and interpretability in one pass. Bias detection reports effect sizes rather than raw pass/fail, so small but consistent skews aren't averaged away; the safety prober logs which specific framing bypassed a refusal, not just that one did; and the logit-lens heatmap makes it possible to see the token where the model's answer was effectively already decided, well before the text that "explains" it.</p>
+            </div>
+            <div class="project-footer">
+              <div class="tags">
+                <span class="tag">Interpretability</span>
+                <span class="tag">AI Safety</span>
+                <span class="tag">Bias Detection</span>
+                <span class="tag">Logit Lens</span>
+                <span class="tag">Python</span>
+              </div>
+              <button class="project-more-toggle" type="button" aria-expanded="false">read more</button>
+              <a class="card-link" href="https://github.com/niranjana2222/alignment" target="_blank" rel="noopener">github</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-entry">
+          <div class="project-num">05</div>
+          <div class="project-content">
+            <h3 class="project-title">Research News Digest</h3>
+            <p class="project-desc">Personalized AI news digest agent — fetches articles and content from configured sources, processes them through a LangGraph multi-agent pipeline, and delivers a summarized digest on a schedule.</p>
+            <div class="project-more">
+              <p>Under the hood, a LangGraph state machine coordinates fetch, dedupe, and summarize nodes so each source is processed independently before merging into a single digest — new sources can be added by dropping in a fetcher node without touching the rest of the graph. Delivery runs on a configurable schedule, and summaries are tuned to stay skimmable rather than reproducing full articles.</p>
+            </div>
+            <div class="project-footer">
+              <div class="tags">
+                <span class="tag">LangGraph</span>
+                <span class="tag">Python</span>
+                <span class="tag">Agents</span>
+                <span class="tag">Scheduling</span>
+              </div>
+              <button class="project-more-toggle" type="button" aria-expanded="false">read more</button>
+              <a class="card-link" href="https://github.com/niranjana2222/ai-fetch-" target="_blank" rel="noopener">github</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-entry">
+          <div class="project-num">06</div>
+          <div class="project-content">
+            <h3 class="project-title">LLM Server</h3>
+            <p class="project-desc">A FastAPI server exposing a single OpenAI-compatible endpoint that auto-routes requests to the right backend based on model name — GPT-4o, Claude, Gemini, or local Ollama — with no client-side changes needed. Includes sliding-window rate limiting per API key, per-provider cost telemetry (token counts, latency, error rates), and support for offline inference via quantized local models.</p>
+            <div class="project-more">
+              <p>Routing is done by parsing the model name in the request, so switching a client from GPT-4o to a local Ollama model is a one-line config change, not a code change. Per-provider telemetry is tracked separately so a slow or expensive provider is visible before it shows up in a bill, and the rate limiter is per-API-key rather than global, so one noisy client can't starve the others.</p>
+            </div>
+            <div class="project-footer">
+              <div class="tags">
+                <span class="tag">FastAPI</span>
+                <span class="tag">LLM Routing</span>
+                <span class="tag">OpenAI API</span>
+                <span class="tag">Ollama</span>
+                <span class="tag">Python</span>
+              </div>
+              <button class="project-more-toggle" type="button" aria-expanded="false">read more</button>
+              <a class="card-link" href="https://github.com/niranjana2222/llm-gateway" target="_blank" rel="noopener">github</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-entry">
+          <div class="project-num">07</div>
+          <div class="project-content">
+            <h3 class="project-title">RAG Evaluation</h3>
+            <p class="project-desc">Enterprise-grade RAG pipeline with hybrid BM25 + TF-IDF cosine retrieval fused via RRF, a GPT-4o generator that cites source chunks inline, and an LLM-as-judge eval harness scoring each answer on faithfulness, relevance, and context recall — all in pure Python with no external vector database required.</p>
+            <div class="project-more">
+              <p>Retrieval fuses BM25 and TF-IDF cosine scores via reciprocal rank fusion rather than picking one, which matters most on queries where exact keyword overlap and semantic similarity disagree. The eval harness scores every answer along three separate axes instead of a single blended score, so a hallucinated-but-relevant answer and a faithful-but-incomplete one don't look the same in the results.</p>
+            </div>
+            <div class="project-footer">
+              <div class="tags">
+                <span class="tag">RAG</span>
+                <span class="tag">BM25</span>
+                <span class="tag">RRF Fusion</span>
+                <span class="tag">LLM-as-Judge</span>
+                <span class="tag">Python</span>
+              </div>
+              <button class="project-more-toggle" type="button" aria-expanded="false">read more</button>
+              <a class="card-link" href="https://github.com/niranjana2222/rag-eval" target="_blank" rel="noopener">github</a>
             </div>
           </div>
         </div>
@@ -207,18 +200,18 @@
     <div class="section reveal">
       <div class="section-header">
         <span class="section-num">02</span>
-        <h2>Programs &amp; Internships</h2>
+        <h2>Nonprofit Projects</h2>
       </div>
       <div class="project-list">
 
         <div class="project-entry">
           <div class="project-num">08</div>
           <div class="project-content">
-            <div class="project-meta">MIT Beaverworks Summer Institute · 2024</div>
-            <h3 class="project-title">Real-Time Cognitive Assistant</h3>
-            <p class="project-desc">Designed and implemented a real-time multimodal cognitive assistant combining NLP, computer vision, and audio analysis to infer user mood, facial expressions, and vocal cues — enabling adaptive human-computer interaction.</p>
+            <div class="project-meta">Berkeley Blueprint · Jan 2026 – Present</div>
+            <h3 class="project-title">Adopt an Inmate Matching Platform</h3>
+            <p class="project-desc">Built the full-stack matching platform for the Adopt an Inmate nonprofit, which pairs incarcerated individuals with volunteer correspondents — a SQL-backed algorithm that ranks matches by LLM-embedding semantic similarity rather than keyword overlap, and the React frontend volunteers use to browse and connect.</p>
             <div class="project-footer">
-              <div class="tags"><span class="tag">NLP</span><span class="tag">Computer Vision</span><span class="tag">Audio</span><span class="tag">Real-time</span></div>
+              <div class="tags"><span class="tag">SQL</span><span class="tag">LLM Embeddings</span><span class="tag">React</span></div>
             </div>
           </div>
         </div>
@@ -226,11 +219,11 @@
         <div class="project-entry">
           <div class="project-num">09</div>
           <div class="project-content">
-            <div class="project-meta">Santa Clara University Internship · 2023</div>
-            <h3 class="project-title">On-Device CKD Detection</h3>
-            <p class="project-desc">Co-developed an on-device ML pipeline for chronic kidney disease detection: implemented a color constancy algorithm for input normalization, fine-tuned CNN models for better generalization, and engineered features for robust performance.</p>
+            <div class="project-meta">Wildfire Awareness Initiative · 2021 – 2025</div>
+            <h3 class="project-title">Wildfire Preparedness iOS App</h3>
+            <p class="project-desc">An iOS app (400+ users) that walks people through wildfire preparedness end to end: camera-based detection and evaluation to flag defensible-space risks around a home, checklists and guided walkthroughs for getting ready, one-tap calling to emergency numbers, and evacuation-route planning, backed by a resource library for quick reference — all built around a clean, approachable interface rather than a dense binder of instructions.</p>
             <div class="project-footer">
-              <div class="tags"><span class="tag">On-Device ML</span><span class="tag">CNNs</span><span class="tag">Medical Imaging</span></div>
+              <div class="tags"><span class="tag">iOS</span><span class="tag">Founder</span><span class="tag">400+ users</span></div>
             </div>
           </div>
         </div>
@@ -238,11 +231,11 @@
         <div class="project-entry">
           <div class="project-num">10</div>
           <div class="project-content">
-            <div class="project-meta">Berkeley Blueprint · Jan 2026 – Present</div>
-            <h3 class="project-title">Adopt an Inmate Matching Platform</h3>
-            <p class="project-desc">Built the backend SQL adoptee-adopter matching algorithm with LLM-powered semantic similarity, plus the React frontend user application, for the Adopt an Inmate nonprofit.</p>
+            <div class="project-meta">MIT Beaverworks Summer Institute · 2024</div>
+            <h3 class="project-title">Real-Time Cognitive Assistant</h3>
+            <p class="project-desc">Designed and implemented a real-time multimodal cognitive assistant that combines NLP, computer vision, and audio analysis to infer user mood and engagement from facial expressions and vocal cues — enabling adaptive human-computer interaction.</p>
             <div class="project-footer">
-              <div class="tags"><span class="tag">SQL</span><span class="tag">LLM Embeddings</span><span class="tag">React</span></div>
+              <div class="tags"><span class="tag">NLP</span><span class="tag">Computer Vision</span><span class="tag">Audio</span><span class="tag">Real-time</span></div>
             </div>
           </div>
         </div>
@@ -253,22 +246,23 @@
     <div class="section reveal">
       <div class="section-header">
         <span class="section-num">03</span>
-        <h2>Publications &amp; Nonprofit</h2>
+        <h2>Publications</h2>
       </div>
       <div class="card-grid">
 
-        <div class="card">
-          <div class="card-kind">Wildfire Awareness Initiative · 2021 – 2025</div>
-          <h3>Wildfire Preparedness iOS App</h3>
+        <div class="card card-pub">
+          <div class="card-kind">Santa Clara University Internship · 2023</div>
+          <h3>On-Device CKD Detection</h3>
           <p>
-            Built and launched an iOS app with 400+ users as part of a 501(c)(3) nonprofit
-            I founded — alongside curriculum and go-bag supplies distributed to 400+ schools
-            and a published storybook.
+            Co-developed an on-device ML pipeline for chronic kidney disease detection:
+            implemented a color constancy algorithm for input normalization, fine-tuned
+            CNN models for better generalization, and engineered features for robust
+            performance.
           </p>
           <div class="tags">
-            <span class="tag">iOS</span>
-            <span class="tag">Founder</span>
-            <span class="tag">400+ users</span>
+            <span class="tag">On-Device ML</span>
+            <span class="tag">CNNs</span>
+            <span class="tag">Medical Imaging</span>
           </div>
         </div>
 
