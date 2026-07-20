@@ -128,17 +128,6 @@
 
         <p>TTA is a useful lever, but a small one, and only with the right objective. The gap between entropy minimization (helps) and pseudo-labeling (hurts) says the interesting research question isn't <em>whether</em> to adapt but <em>what to adapt on</em>.</p>
 
-        <h2>What we're doing next</h2>
-
-        <p>This is an honest work-in-progress, and a few threads are still open:</p>
-
-        <ul>
-          <li><strong>Firming up the ASR baselines.</strong> Our accented-subset ASR runs surfaced some run-to-run variance in the no-adaptation baseline — a known headache with modern inference stacks (floating-point non-associativity, batch-size-dependent kernels). We're pinning these down against a single frozen baseline before we make strong ASR claims.</li>
-          <li><strong>Filling in the adaptation grid.</strong> Several variant/condition cells (especially video-only) are still running.</li>
-          <li><strong>Making models actually look at the lips.</strong> The deeper problem is visual under-utilization. We're probing <em>where</em> in the network accent information concentrates, and whether targeted interventions can push the model to rely on the visual channel when the audio is ambiguous — rather than defaulting to audio and treating the video as decoration.</li>
-          <li><strong>Selective fusion.</strong> Instead of always fusing both modalities, use the video only when the audio-only prediction is uncertain — turning AVSR into a fallback rather than a default, and sidestepping the integration cost when it isn't needed.</li>
-        </ul>
-
         <p>If there's one line to take away: <strong>multimodality is not automatically robustness.</strong> A second input helps only when the model knows how to weigh it — and for accented and dialectal speech, today's models mostly don't. That's the gap our dataset and our follow-up work are built to close.</p>
 
         <hr />
