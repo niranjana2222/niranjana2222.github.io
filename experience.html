@@ -48,11 +48,12 @@
           </div>
           <div class="timeline-body">
             <div class="timeline-role">Machine Learning Intern · On-Device Conversational AI</div>
-            <p class="timeline-narrative">Built and shipped a production dialog/workflow engine for an industrial wearable (Bright.AI Copilot) that walks field technicians through safety-critical procedures like lockout-tagout. Designed a 3-stage NLU cascade (fuzzy match → ONNX embeddings → on-device SLM judge), reverse-engineered a byte-level HTTP contract with a teammate's Go voice pipeline, deployed an NPU inference server to a MediaTek Genio device, and resolved 45+ dependency/security alerts on the production image. Also built graph-based RAG using entity embeddings and RAPTOR hierarchical retrieval.</p>
+            <p class="timeline-narrative">Designed and shipped JobEngine, a production dialog/workflow engine for an industrial wearable (Bright.AI Copilot) that walks field technicians through safety-critical procedures like lockout-tagout, powered by a 3-stage NLU cascade (fuzzy match → ONNX embeddings → on-device SLM judge) and a branch-based workflow schema validated by a BFS reachability checker — one that caught a real defect leaving six safety-isolation steps unreachable. Reverse-engineered the byte-level HTTP contract a teammate's Go voice pipeline depended on straight from its source, then rebuilt the Python engine as a drop-in replacement with zero changes on the Go side, gated by a contract test suite run on every PR. Also built an 8-phase deployment pipeline for a MediaTek Genio NPU device and resolved 45+ dependency/security alerts by replacing a heavy ML dependency tree with a minimal ONNX Runtime embedder.</p>
             <div class="tags">
               <span class="tag">Dialog Systems</span>
               <span class="tag">Edge AI</span>
-              <span class="tag">RAG</span>
+              <span class="tag">Systems Integration</span>
+              <span class="tag">Security</span>
             </div>
           </div>
         </div>
@@ -64,9 +65,10 @@
           </div>
           <div class="timeline-body">
             <div class="timeline-role">Consultant · via SAAS Machine Learning at Berkeley</div>
-            <p class="timeline-narrative">Developed 5 Constitutional AI frameworks with critique-revision pairs for supervised fine-tuning and RL on Gemini 2.5. Evaluated safety performance on a curated dataset of 14k harmful prompts.</p>
+            <p class="timeline-narrative">Fine-tuned Gemini 2.5 Flash-Lite on 5 Constitutional AI variants — one generic and four department-specific (EHS, Security, Audits, CSRM) — generating each constitution's ideal responses through critique/revision pairs. Ran automated red-teaming with promptfoo across jailbreak, prompt-injection, and misinformation attack classes, hand-generated department-specific attack prompts for EHS, and researched how a constitution's cultural framing can make a model read as judgmental rather than neutral, feeding a target set of ~14,000 attack vectors for safety evaluation.</p>
             <div class="tags">
               <span class="tag">Constitutional AI</span>
+              <span class="tag">Red-Teaming</span>
               <span class="tag">RLHF</span>
               <span class="tag">Safety</span>
             </div>
