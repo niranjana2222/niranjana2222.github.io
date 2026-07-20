@@ -181,6 +181,7 @@
       armLeg.position.set(sx, seatY + 0.12, -0.02); chair.add(armLeg);
     });
     chair.position.set(-6.0, 0, 0); chair.rotation.y = Math.PI / 2; root.add(chair);
+    const chairWorldPos = new T.Vector3(-6.0, 1.0, 0);
 
     // benches (experience)
     function makeBench() {
@@ -274,6 +275,15 @@
     netLeanRacket2.rotation.z = -0.1;
     netLeanRacket2.position.set(netHalfW - 0.15, 0.29, 0.3);
     root.add(netLeanRacket2);
+
+    // a lone tennis ball bouncing idly near the net — a small clickable toy, not a destination
+    const idleBallR = 0.13;
+    const idleBall = new T.Mesh(new T.SphereGeometry(idleBallR, 14, 14), ballMat);
+    idleBall.position.set(1.1, idleBallR, 0.35);
+    idleBall.castShadow = true;
+    root.add(idleBall);
+    idleBall.userData.isBall = true;
+    const ballClickMeshes = [idleBall];
 
     // black fabric ball hopper on an aluminum X-frame folding stand with casters (matches reference)
     const hopperFabricMat = new T.MeshStandardMaterial({ name: 'hopper_fabric_black', color: 0x161616, roughness: 0.75 });
@@ -592,6 +602,50 @@
     const fanClickMeshes = [fanTorso, fanHead];
     const fanWorldPos = new T.Vector3(fanPt.x, fanBaseY + 0.56 * 1.7, fanPt.z);
 
+    // a second crowd member on the opposite side, holding up a sign
+    const sign2Mat = new T.MeshStandardMaterial({ name: 'sign2_shirt', color: 0x003262, roughness: 0.55 });
+    const sign2Group = new T.Group();
+    const sign2Torso = new T.Mesh(new T.CylinderGeometry(0.12, 0.14, 0.36, 8), sign2Mat);
+    sign2Torso.position.y = 0.32; sign2Torso.castShadow = true;
+    sign2Group.add(sign2Torso);
+    const sign2Head = new T.Mesh(new T.SphereGeometry(0.08, 10, 10), fanSkinMat);
+    sign2Head.position.y = 0.56; sign2Head.castShadow = true;
+    sign2Group.add(sign2Head);
+    [-1, 1].forEach(side => {
+      const shoulder = new T.Vector3(side * 0.11, 0.46, 0);
+      const hand = new T.Vector3(side * 0.16, 0.82, 0.14);
+      const dir = hand.clone().sub(shoulder);
+      const arm = new T.Mesh(new T.CylinderGeometry(0.026, 0.034, dir.length(), 6), sign2Mat);
+      arm.position.copy(shoulder).add(dir.clone().multiplyScalar(0.5));
+      arm.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), dir.clone().normalize());
+      arm.castShadow = true;
+      sign2Group.add(arm);
+    });
+    const signCanvas = document.createElement('canvas');
+    signCanvas.width = 320; signCanvas.height = 180;
+    const sgx = signCanvas.getContext('2d');
+    sgx.fillStyle = '#003262'; sgx.fillRect(0, 0, 320, 180);
+    sgx.strokeStyle = '#FDB515'; sgx.lineWidth = 8; sgx.strokeRect(8, 8, 304, 164);
+    sgx.fillStyle = '#FDB515'; sgx.textAlign = 'center'; sgx.textBaseline = 'middle';
+    sgx.font = '900 50px Arial';
+    sgx.fillText('GO BEARS!', 160, 95);
+    const signTex = new T.CanvasTexture(signCanvas);
+    const signBoardMat = new T.MeshStandardMaterial({ name: 'sign2_board', map: signTex, roughness: 0.6 });
+    const signBoard = new T.Mesh(new T.BoxGeometry(0.34, 0.2, 0.02), signBoardMat);
+    signBoard.position.set(0, 0.9, 0.15);
+    signBoard.castShadow = true;
+    sign2Group.add(signBoard);
+    const sign2Pt = ellipsePt(fanRowA, fanRowB, 0.0);
+    sign2Group.position.set(sign2Pt.x, fanBaseY, sign2Pt.z);
+    sign2Group.rotation.y = -sign2Pt.th - Math.PI / 2;
+    sign2Group.scale.setScalar(1.7);
+    root.add(sign2Group);
+    sign2Torso.userData.isSign2 = true;
+    sign2Head.userData.isSign2 = true;
+    signBoard.userData.isSign2 = true;
+    const sign2ClickMeshes = [sign2Torso, sign2Head, signBoard];
+    const sign2WorldPos = new T.Vector3(sign2Pt.x, fanBaseY + 0.9 * 1.7, sign2Pt.z);
+
     const roofY = roofYtemp;
     const roofOuterA = ellA + 0.6 + 13 * 0.62 + 1.6 + 14 * 0.66 + 1.2, roofOuterB = ellB + 0.6 + 13 * 0.62 + 1.6 + 14 * 0.66 + 1.2;
     const roofGeo = new T.CylinderGeometry(1, 1, 0.3, ringSegs, 1, true);
@@ -808,10 +862,10 @@
         pointerNDC.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
         pointerNDC.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
         raycaster.setFromCamera(pointerNDC, camera);
-        if (opts.onFanClick) {
-          const fanHits = raycaster.intersectObjects(fanClickMeshes, false);
-          if (fanHits.length) { opts.onFanClick(); return; }
-        }
+        if (opts.onFanClick && raycaster.intersectObjects(fanClickMeshes, false).length) { opts.onFanClick(); return; }
+        if (opts.onSign2Click && raycaster.intersectObjects(sign2ClickMeshes, false).length) { opts.onSign2Click(); return; }
+        if (opts.onChairClick && raycaster.intersectObject(chair, true).length) { opts.onChairClick(); return; }
+        if (opts.onBallClick && raycaster.intersectObjects(ballClickMeshes, false).length) { opts.onBallClick(); return; }
         if (opts.onSignClick) {
           const hits = raycaster.intersectObjects(signMeshes, false);
           if (hits.length && hits[0].object.userData.sectionId) opts.onSignClick(hits[0].object.userData.sectionId);
@@ -883,6 +937,8 @@
       requestAnimationFrame(loop);
       try {
         const t = clock.getElapsedTime();
+        idleBall.position.y = idleBallR + Math.abs(Math.sin(t * 1.6)) * 0.22;
+        idleBall.rotation.x += 0.05; idleBall.rotation.z += 0.03;
         let mx = 0, mz = 0;
         if (keys.KeyW || keys.ArrowUp) mz += 1;
         if (keys.KeyS || keys.ArrowDown) mz -= 1;
@@ -944,12 +1000,15 @@
         }
         onAnchors(out);
 
-        if (opts.onFanTrack) {
-          proj.copy(fanWorldPos).project(camera);
-          const fx = (proj.x * 0.5 + 0.5) * rect.w, fy = (-proj.y * 0.5 + 0.5) * rect.h;
-          const fVisible = proj.z < 1 && fx > -80 && fx < rect.w + 80 && fy > -80 && fy < rect.h + 80;
-          opts.onFanTrack(fx, fy, fVisible);
+        function projectPoint(worldPos) {
+          proj.copy(worldPos).project(camera);
+          const x = (proj.x * 0.5 + 0.5) * rect.w, y = (-proj.y * 0.5 + 0.5) * rect.h;
+          const visible = proj.z < 1 && x > -80 && x < rect.w + 80 && y > -80 && y < rect.h + 80;
+          return { x, y, visible };
         }
+        if (opts.onFanTrack) { const p = projectPoint(fanWorldPos); opts.onFanTrack(p.x, p.y, p.visible); }
+        if (opts.onSign2Track) { const p = projectPoint(sign2WorldPos); opts.onSign2Track(p.x, p.y, p.visible); }
+        if (opts.onChairTrack) { const p = projectPoint(chairWorldPos); opts.onChairTrack(p.x, p.y, p.visible); }
 
         renderer.render(scene, camera);
       } catch (e) {

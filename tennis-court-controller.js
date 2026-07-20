@@ -185,22 +185,29 @@
 
       const bubble = document.getElementById('tc-bubble');
       const bubbleText = document.getElementById('tc-bubble-text');
-      let bubbleVisible = false;
+      let activeBubble = null;
       let bubbleHideTimer = null;
-      function showFanBubble() {
-        bubbleText.textContent = "Hopefully me one day cheering for Jannik Sinner!!";
+      function showBubble(id, text) {
+        bubbleText.textContent = text;
         bubble.classList.add('tc-bubble-active');
         bubble.setAttribute('aria-hidden', 'false');
-        bubbleVisible = true;
+        activeBubble = id;
         clearTimeout(bubbleHideTimer);
-        bubbleHideTimer = setTimeout(hideFanBubble, 7000);
+        bubbleHideTimer = setTimeout(hideBubble, 7000);
       }
-      function hideFanBubble() {
+      function hideBubble() {
         bubble.classList.remove('tc-bubble-active');
         bubble.setAttribute('aria-hidden', 'true');
-        bubbleVisible = false;
+        activeBubble = null;
         clearTimeout(bubbleHideTimer);
       }
+      function trackBubble(id, x, y, visible) {
+        if (activeBubble !== id) return;
+        bubble.style.transform = 'translate(-50%,-120%) translate(' + x + 'px,' + y + 'px)';
+        bubble.style.opacity = visible ? '1' : '0';
+      }
+
+      const UMPIRE_LINES = ["New balls, please!", "Quiet, please!", "Advantage... Niranjana."];
 
       const tc = window.buildTennisCourt(mount, {
         onError(e) { showError((e && e.message) || String(e)); },
@@ -208,15 +215,27 @@
         onSignClick(id) { goToSection(id); },
         onFanClick() {
           if (hint) hint.classList.add('tc-hint-hidden');
-          if (bubbleVisible) { hideFanBubble(); return; }
+          if (activeBubble === 'fan') { hideBubble(); return; }
           tc.walkToFan();
           if (soundEnabled && audio) audio.playBallHit(659.25);
-          showFanBubble();
+          showBubble('fan', "Hopefully me one day cheering for Jannik Sinner!!");
         },
-        onFanTrack(x, y, visible) {
-          if (!bubbleVisible) return;
-          bubble.style.transform = 'translate(-50%,-120%) translate(' + x + 'px,' + y + 'px)';
-          bubble.style.opacity = visible ? '1' : '0';
+        onFanTrack(x, y, visible) { trackBubble('fan', x, y, visible); },
+        onSign2Click() {
+          if (activeBubble === 'sign2') { hideBubble(); return; }
+          if (soundEnabled && audio) audio.playBallHit(392);
+          showBubble('sign2', "Go Bears! \u{1F43B}");
+        },
+        onSign2Track(x, y, visible) { trackBubble('sign2', x, y, visible); },
+        onChairClick() {
+          if (activeBubble === 'chair') { hideBubble(); return; }
+          if (soundEnabled && audio) audio.playBallHit(440);
+          const line = UMPIRE_LINES[Math.floor(Math.random() * UMPIRE_LINES.length)];
+          showBubble('chair', line);
+        },
+        onChairTrack(x, y, visible) { trackBubble('chair', x, y, visible); },
+        onBallClick() {
+          if (soundEnabled && audio) audio.playBallHit(523.25);
         },
       });
 
@@ -277,7 +296,7 @@
       const resetBtn = document.getElementById('tc-reset');
       resetBtn.addEventListener('click', () => {
         tc.resetToStart();
-        hideFanBubble();
+        hideBubble();
       });
 
       window.addEventListener('beforeunload', () => { if (tc) tc.dispose(); if (audio) audio.dispose(); });
