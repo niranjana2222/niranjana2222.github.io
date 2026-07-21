@@ -1,7 +1,7 @@
 // Scroll reveal
 const observer = new IntersectionObserver(
   entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
-  { threshold: 0.06, rootMargin: '0px 0px 240px 0px' }
+  { threshold: 0, rootMargin: '0px 0px 240px 0px' }
 );
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
@@ -122,11 +122,12 @@ function initPageTransitions() {
   });
   // Fade in on load
   document.body.style.opacity = '0';
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      document.body.style.opacity = '';
-    });
-  });
+  const reveal = () => { document.body.style.opacity = ''; };
+  requestAnimationFrame(() => requestAnimationFrame(reveal));
+  // rAF never fires while the tab loads backgrounded/hidden, which would leave
+  // the page stuck invisible — fall back to a timer and to visibility regaining.
+  document.addEventListener('visibilitychange', reveal, { once: true });
+  setTimeout(reveal, 400);
 }
 
 // ============ Scroll Progress Bar ============

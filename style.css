@@ -1525,6 +1525,21 @@ nav { gap: 12px; }
   background: #fff;
 }
 
+.article-body .diagram {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 20px;
+}
+
+.article-body .diagram svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.article-body .diagram text { font-family: var(--font); }
+
 .article-body figcaption {
   margin-top: 10px;
   font-size: 0.82rem;
