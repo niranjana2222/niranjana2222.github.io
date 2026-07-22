@@ -194,6 +194,28 @@
           </div>
         </div>
 
+        <div class="project-entry">
+          <div class="project-num">08</div>
+          <div class="project-content">
+            <h3 class="project-title">Chain of Thought Monitor</h3>
+            <p class="project-desc">A lightweight, rule-based monitor that checks whether an AI agent's stated chain-of-thought reasoning actually matches the action it takes — catching cases like an agent reasoning "I should not delete any files" and then calling <code>delete_file</code> anyway. Combines fast pattern heuristics (negation, unexplained action families, deception language) with CoT-to-action similarity scoring into a single calibrated risk score, with every flag fully human-readable rather than a black-box number. Ships as a Python library, a CLI, and a Gradio web demo.</p>
+            <div class="project-more">
+              <p>Built as a fast first tier ahead of an expensive LLM-judge call, not a replacement for one: rule-based flags and CoT-action similarity are combined through a small logistic regression classifier, since two weak signals agreeing is often far more suspicious than either alone. Only the transcripts that clear a risk threshold need to go to a costlier follow-up check — a second model call or a human reviewer — instead of running that check on every single step.</p>
+            </div>
+            <div class="project-footer">
+              <div class="tags">
+                <span class="tag">AI Safety</span>
+                <span class="tag">Chain-of-Thought</span>
+                <span class="tag">Agent Monitoring</span>
+                <span class="tag">scikit-learn</span>
+                <span class="tag">Python</span>
+              </div>
+              <button class="project-more-toggle" type="button" aria-expanded="false">read more</button>
+              <a class="card-link" href="https://github.com/niranjana2222/cot-monitor" target="_blank" rel="noopener">github</a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -205,7 +227,7 @@
       <div class="project-list">
 
         <div class="project-entry">
-          <div class="project-num">08</div>
+          <div class="project-num">09</div>
           <div class="project-content">
             <div class="project-meta">Berkeley Blueprint · Jan 2026 – Present</div>
             <h3 class="project-title">Adopt an Inmate Matching Platform</h3>
@@ -217,7 +239,7 @@
         </div>
 
         <div class="project-entry">
-          <div class="project-num">09</div>
+          <div class="project-num">10</div>
           <div class="project-content">
             <div class="project-meta">Wildfire Awareness Initiative · 2021 – 2025</div>
             <h3 class="project-title">Wildfire Preparedness iOS App</h3>
@@ -229,7 +251,7 @@
         </div>
 
         <div class="project-entry">
-          <div class="project-num">10</div>
+          <div class="project-num">11</div>
           <div class="project-content">
             <div class="project-meta">MIT Beaverworks Summer Institute · 2024</div>
             <h3 class="project-title">Real-Time Cognitive Assistant</h3>
