@@ -198,16 +198,16 @@
           <div class="project-num">08</div>
           <div class="project-content">
             <h3 class="project-title">Chain of Thought Monitor</h3>
-            <p class="project-desc">A lightweight, rule-based monitor that checks whether an AI agent's stated chain-of-thought reasoning actually matches the action it takes — catching cases like an agent reasoning "I should not delete any files" and then calling <code>delete_file</code> anyway. Combines fast pattern heuristics (negation, unexplained action families, deception language) with CoT-to-action similarity scoring into a single calibrated risk score, with every flag fully human-readable rather than a black-box number. Ships as a Python library, a CLI, and a Gradio web demo.</p>
+            <p class="project-desc">A lightweight, rule-based monitor that checks whether an AI agent's stated chain-of-thought reasoning actually matches the action it takes — catching cases like an agent reasoning "I should not delete any files" and then calling <code>delete_file</code> anyway. Combines fast pattern heuristics (negation, unexplained action families, deception language) with CoT-to-action similarity scoring into a single calibrated risk score, with every flag fully human-readable rather than a black-box number. A live-agent mode runs the full pipeline against Anthropic, OpenAI, Gemini, or local Ollama models with a fixed, actionable toolset, and a second, independent check flags when a competing goal has pulled the model's own reasoning off the original task — the shape of a prompt-injection or goal-hijacking probe.</p>
             <div class="project-more">
-              <p>Built as a fast first tier ahead of an expensive LLM-judge call, not a replacement for one: rule-based flags and CoT-action similarity are combined through a small logistic regression classifier, since two weak signals agreeing is often far more suspicious than either alone. Only the transcripts that clear a risk threshold need to go to a costlier follow-up check — a second model call or a human reviewer — instead of running that check on every single step.</p>
+              <p>Built as a fast first tier ahead of an expensive LLM-judge call, not a replacement for one: rule-based flags and CoT-action similarity are combined through a small logistic regression classifier, since two weak signals agreeing is often far more suspicious than either alone. The live-agent tab and the task-alignment check target two distinct failure modes side by side — one flags CoT that doesn't match the action taken, the other flags CoT that's been pulled toward a competing goal — because a model can pass either check alone while still failing the other.</p>
             </div>
             <div class="project-footer">
               <div class="tags">
                 <span class="tag">AI Safety</span>
                 <span class="tag">Chain-of-Thought</span>
+                <span class="tag">Goal Hijacking</span>
                 <span class="tag">Agent Monitoring</span>
-                <span class="tag">scikit-learn</span>
                 <span class="tag">Python</span>
               </div>
               <button class="project-more-toggle" type="button" aria-expanded="false">read more</button>
