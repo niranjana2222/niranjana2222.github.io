@@ -42,6 +42,7 @@
       kicker: 'Over the Net', title: 'Blog', color: '#2bb0e0',
       blurb: 'Notes volleyed back and forth between projects — mostly interpretability, latent reasoning, and the gap between what models can do and what we can verify they’re doing.',
       items: [
+        { title: 'Crash Rate Is Noise Until You Rerun It', meta: 'Sep 2026', text: 'Tracing 41 agentic code-search runs across nine domains — crash rate, repeat failures, stagnation, and a clean reward-hacking test.', href: 'blog-agentic-search-traces.html' },
         { title: 'Why Does a Model Blackmail You?', meta: 'Jul 2026', text: 'Localizing the decision with a Jacobian lens — multi-skin results and real causal patching on Qwen2.5-7B.', href: 'blog-alignment-jacobian.html' },
         { title: 'Looking Inside the Black Box', meta: 'Jul 2026', text: 'Logit lens, tuned lens, and depth analysis — how transformers turn guessing into knowing.', href: 'blog-transformer-lenses.html' },
         { title: 'Teaching a Model to Think Without Words', meta: 'Jul 2026', text: 'What QThink actually does with latent chain-of-thought distillation.', href: 'blog-qthink.html' },
@@ -77,6 +78,7 @@
       kicker: 'The Racket', title: 'Research', color: '#d8e830',
       blurb: 'Longer, slower swings — four Berkeley labs, one thread: understanding why models behave the way they do, not just whether they work.',
       items: [
+        { title: 'Sky Computing Group — Agentic Search & Evaluation', meta: '2026 — now', text: 'Traced 41 agentic/evolutionary code-search runs — crash rate is domain-dependent, and a single run can swing 20+ points from randomness alone.' },
         { title: 'Berkeley ICON Lab — VLA Interpretability', meta: 'Jan 2026 — now', text: 'Linear probes on PaliGemma localize where language grounding breaks down in the action expert.' },
         { title: 'Berkeley NLP Group — Multimodal Speech', meta: 'Jan 2026 — now', text: 'Built a 49-speaker AVSR accent dataset and test-time adaptation methods for accented speech.' },
         { title: 'Sky Computing Group — LLM Reasoning', meta: 'Dec 2025 — May 2026', text: 'An interpretable GEPA extension with tuned lens, and QThink — latent CoT distillation under review at COLM.' },
