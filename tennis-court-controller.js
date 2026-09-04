@@ -42,7 +42,7 @@
       kicker: 'Over the Net', title: 'Blog', color: '#2bb0e0',
       blurb: 'Notes volleyed back and forth between projects — mostly interpretability, latent reasoning, and the gap between what models can do and what we can verify they’re doing.',
       items: [
-        { title: 'Crash Rate Is Noise Until You Rerun It', meta: 'Sep 2026', text: 'Tracing 41 agentic code-search runs across nine domains — crash rate, repeat failures, stagnation, and a clean reward-hacking test.', href: 'blog-agentic-search-traces.html' },
+        { title: 'Crash Rate in Agentic Coding Sessions', meta: 'Sep 2026', text: 'Tracing 41 agentic code-search runs across nine domains — crash rate, repeat failures, stagnation, and a clean reward-hacking test.', href: 'blog-agentic-search-traces.html' },
         { title: 'Why Does a Model Blackmail You?', meta: 'Jul 2026', text: 'Localizing the decision with a Jacobian lens — multi-skin results and real causal patching on Qwen2.5-7B.', href: 'blog-alignment-jacobian.html' },
         { title: 'Looking Inside the Black Box', meta: 'Jul 2026', text: 'Logit lens, tuned lens, and depth analysis — how transformers turn guessing into knowing.', href: 'blog-transformer-lenses.html' },
         { title: 'Teaching a Model to Think Without Words', meta: 'Jul 2026', text: 'What QThink actually does with latent chain-of-thought distillation.', href: 'blog-qthink.html' },

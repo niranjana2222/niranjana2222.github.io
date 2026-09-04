@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Crash Rate Is Noise Until You Rerun It — Niranjana Sankar</title>
+  <title>Crash Rate in Agentic Coding Sessions — Niranjana Sankar</title>
   <meta name="description" content="Tracing 41 evolutionary and agentic code-search runs across nine domains: where they crash, why, and whether any of them are gaming their own evaluators." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,7 +32,7 @@
 
       <div class="article-header">
         <div class="article-meta">Sep 2026 · Agentic Search &amp; Evaluation</div>
-        <h1>Crash Rate Is Noise Until You Rerun It: What 41 Agentic Code-Search Traces Actually Show</h1>
+        <h1>Crash Rate in Agentic Coding Sessions</h1>
       </div>
 
       <div class="article-body">
@@ -87,6 +87,11 @@
         </table>
         </div>
 
+        <figure>
+          <img src="img/agentic-search-traces/crash_rate_by_domain.png" alt="Horizontal bar chart of crash rate by problem domain, pooled across all runs and strategies, ranging from 1.9% for prism to 18.7% for circle packing, color-coded green/gold/red by severity tier." loading="lazy" />
+          <figcaption>Crash rate by domain, pooled across every run and strategy in that domain.</figcaption>
+        </figure>
+
         <p>This matters because the two domains an earlier, narrower version of this analysis focused on — signal_processing and llm_sql — sit right near the reliable end, not the middle. Any crash-rate conclusion drawn from just those two domains was really a conclusion about two unusually well-behaved problems, not about agentic search in general.</p>
 
         <p>The crashes also differ in <em>kind</em> by domain, not just rate. The geometry domains (circle_packing, triangle) mostly fail because the output is geometrically invalid — circles overlapping, points landing outside the triangle — not because the code itself broke. Neither of the original two domains produces that failure mode at all. A second recurring pattern showed up across domains: 12 failures from NumPy API version mismatches, where the model writes against an older NumPy API than what's actually installed (calling the removed <code>ndarray.ptp()</code> method is one example) — a reminder that a chunk of "the model's reasoning is wrong" failures are really "the model's world model of the library version is stale."</p>
@@ -123,9 +128,19 @@
         </table>
         </div>
 
+        <figure>
+          <img src="img/agentic-search-traces/feedback_repeat_rate.png" alt="Horizontal bar chart of the percentage of crashes that repeat an earlier error type in the same run, by domain, ranging from 33% for transaction_sched to 93% for ns3, with a dashed reference line at the overall rate of 68.5%." loading="lazy" />
+          <figcaption>Feedback incorporation: repeat-error rate by domain, against the overall 68.5% baseline.</figcaption>
+        </figure>
+
         <h2>Finding 4: stagnation is recoverable early, a trap late</h2>
 
         <p>Across all 155 stagnation episodes, recovery rate drops sharply depending on <em>when</em> in the run the stall starts: 91% of runs recover if the stall begins in the first third of the run, versus just 33% if it begins in the final third. The most extreme case in the dataset, <code>transaction_sched_adaevolve_rerun2</code>, gets stuck at iteration 1 and never recovers across all 96 remaining iterations. Early stagnation looks like exploration; late stagnation looks like the search has run out of room to maneuver.</p>
+
+        <figure>
+          <img src="img/agentic-search-traces/stagnation_recovery.png" alt="Bar chart comparing stagnation recovery rate: 91% when the stall starts in the first third of a run versus 33% when it starts in the final third, across all 155 stagnation episodes in the 41 runs." loading="lazy" />
+          <figcaption>Recovery rate from stagnation, by when in the run the stall begins.</figcaption>
+        </figure>
 
         <h2>Finding 5: runs get more speculative when stuck, not less</h2>
 
