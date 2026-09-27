@@ -244,7 +244,7 @@ function initReadMore() {
 // ============ Console Easter Egg ============
 function initConsoleEgg() {
   console.log('%cP(you opened devtools) ≈ 1.00', 'color:#2E6F40; font-weight:700; font-size:14px;');
-  console.log('%chi — I\'m Niranjana. Say hello: niranjana.sankar@berkeley.edu', 'color:#3d6878; font-size:12px;');
+  console.log('%chi, I\'m Niranjana. Say hello: niranjana.sankar@berkeley.edu', 'color:#3d6878; font-size:12px;');
 }
 
 // ============ Init All ============
