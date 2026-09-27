@@ -527,6 +527,29 @@ footer::before {
   .reveal { animation: none; transition: none; opacity: 1; transform: none; }
 }
 
+/* ============ Heading Line Reveal (rises up out of a mask) ============ */
+.reveal-line-mask { display: block; overflow: clip; }
+
+.reveal-line {
+  display: block;
+  transform: translateY(115%);
+  opacity: 0;
+}
+
+.reveal.visible .reveal-line {
+  animation: heading-rise 0.9s var(--ease) forwards;
+  animation-delay: 0.15s;
+}
+
+@keyframes heading-rise {
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-line { transform: none; opacity: 1; }
+  .reveal.visible .reveal-line { animation: none; }
+}
+
 /* ============ Marquee Strip ============ */
 .marquee-strip {
   border-bottom: 1px solid var(--border);
@@ -713,6 +736,74 @@ body.page-exit { opacity: 0; }
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-3);
+}
+
+/* ============ Boot Terminal (about) ============ */
+.term-card {
+  margin-top: 40px;
+  max-width: 480px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.term-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.term-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-3);
+  opacity: 0.4;
+}
+
+.term-dot--accent { background: var(--sky); opacity: 1; }
+
+.term-label {
+  margin-left: 6px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.term-body {
+  margin: 0;
+  padding: 16px 18px 20px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--text-2);
+  white-space: pre-wrap;
+  word-break: break-word;
+  min-height: 140px;
+}
+
+.term-cmd { color: var(--text); }
+.term-final { color: var(--sky); }
+
+.term-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 1em;
+  margin-left: 1px;
+  background: var(--sky);
+  vertical-align: text-bottom;
+  animation: term-blink 0.9s step-end infinite;
+}
+
+@keyframes term-blink { 50% { opacity: 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .term-cursor { animation: none; }
 }
 
 /* ============ Hero Tagline ============ */

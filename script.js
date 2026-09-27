@@ -233,6 +233,58 @@ function initConsoleEgg() {
   console.log('%chi, I\'m Niranjana. Say hello: niranjana.sankar@berkeley.edu', 'color:#3d6878; font-size:12px;');
 }
 
+// ============ Boot Terminal (about page) ============
+function initBootTerminal() {
+  const el = document.getElementById('about-term');
+  if (!el) return;
+
+  const lines = [
+    { text: '$ boot --profile niranjana', cls: 'term-cmd' },
+    { text: '  interpretability ........ ok' },
+    { text: '  multimodal ml ........... ok' },
+    { text: '  production systems ...... ok' },
+    { text: '  research ................ ok' },
+    { text: '→ ready to serve', cls: 'term-final' },
+  ];
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = lines.map(l => l.text).join('\n');
+    return;
+  }
+
+  function cursorEl() {
+    const s = document.createElement('span');
+    s.className = 'term-cursor';
+    return s;
+  }
+
+  let li = 0, ci = 0;
+  function typeStep() {
+    if (li >= lines.length) {
+      setTimeout(() => { el.textContent = ''; li = 0; ci = 0; typeStep(); }, 2400);
+      return;
+    }
+    const line = lines[li];
+    if (ci === 0) {
+      const row = document.createElement('div');
+      if (line.cls) row.className = line.cls;
+      el.appendChild(row);
+    }
+    const row = el.lastElementChild;
+    ci++;
+    const done = ci >= line.text.length;
+    row.textContent = line.text.slice(0, ci);
+    if (!done) row.appendChild(cursorEl());
+    if (!done) {
+      setTimeout(typeStep, 16 + Math.random() * 26);
+    } else {
+      li++; ci = 0;
+      setTimeout(typeStep, li === 1 ? 260 : 160);
+    }
+  }
+  typeStep();
+}
+
 // ============ Init All ============
 document.addEventListener('DOMContentLoaded', () => {
   initCursor();
@@ -245,4 +297,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initStatCounters();
   initTagFilter();
   initConsoleEgg();
+  initBootTerminal();
 });
