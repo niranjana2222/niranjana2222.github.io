@@ -227,20 +227,6 @@ function initTagFilter() {
   });
 }
 
-// ============ Project "read more" toggle ============
-function initReadMore() {
-  document.querySelectorAll('.project-more-toggle').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const content = btn.closest('.project-content');
-      const more = content && content.querySelector('.project-more');
-      if (!more) return;
-      const isOpen = more.classList.toggle('project-more-open');
-      btn.setAttribute('aria-expanded', String(isOpen));
-      btn.textContent = isOpen ? 'show less' : 'read more';
-    });
-  });
-}
-
 // ============ Console Easter Egg ============
 function initConsoleEgg() {
   console.log('%cP(you opened devtools) ≈ 1.00', 'color:#2E6F40; font-weight:700; font-size:14px;');
@@ -258,6 +244,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initEmailCopy();
   initStatCounters();
   initTagFilter();
-  initReadMore();
   initConsoleEgg();
 });

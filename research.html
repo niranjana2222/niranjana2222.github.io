@@ -30,7 +30,7 @@
     <div class="warm-hero reveal">
       <div class="warm-hero-kicker">The Racket</div>
       <h1>Research</h1>
-      <p>I've worked in four Berkeley AI labs, currently the ICON Lab and the NLP Group, across interpretability, multimodal learning, and LLM reasoning. The common thread is understanding why models behave the way they do, not just whether they work.</p>
+      <p>I've worked in four Berkeley AI labs, including the ICON Lab, NLP Group, Sky Computing, and Speech, across interpretability, multimodal learning, LLM reasoning, and agentic traces. Currently, I'm conducting research at SPAR on cognitive empathy in LLMs.</p>
     </div>
 
 
@@ -46,9 +46,12 @@
           <div>
             <h3>Berkeley ICON Lab</h3>
             <div class="role">Researcher · VLA Interpretability</div>
-            <p>
-              I'm diagnosing language blindness in vision-language-action (VLA) models using linear probes on PaliGemma and action-expert hidden states. I train logistic regression probes at every transformer layer on LangGap's object-replacement scenes to get an accuracy curve for each one, and the gap between those curves is the finding: the VLM curve rises as it encodes object identity, while the action-expert curve stays near chance. That gap is exactly where language grounding breaks down, and I'm building methods to close it and strengthen the action expert's grounding in instructions.
-            </p>
+            <ul>
+              <li>Diagnosing language blindness in vision-language-action (VLA) models using linear probes on PaliGemma and action-expert hidden states.</li>
+              <li>Training logistic regression probes at every transformer layer on LangGap's object-replacement scenes to get an accuracy curve for each one.</li>
+              <li>The gap between those curves is the finding: the VLM curve rises as it encodes object identity, while the action-expert curve stays near chance, exactly where language grounding breaks down.</li>
+              <li>Building methods to close that gap and strengthen the action expert's grounding in instructions.</li>
+            </ul>
             <div class="tags">
               <span class="tag">Linear Probes</span>
               <span class="tag">PaliGemma</span>
@@ -64,17 +67,12 @@
           <div>
             <h3>Berkeley NLP Group</h3>
             <div class="role">Researcher · Multimodal Speech Recognition</div>
-            <p>
-              I built the first audio-visual dataset that pairs speech, lip video, and accent
-              labels at a usable scale: over 2 hours of read speech across 49 speakers, spanning
-              eight regional dialects and eleven non-native L1s. The idea was to test whether
-              lip-reading helps models handle accented English the same way it already helps
-              them handle acoustic noise. I'm evaluating a generalist multimodal model against
-              a specialist AVSR architecture across audio-only, video-only, and audio-visual
-              conditions, and designing test-time adaptation methods (entropy minimization, an
-              RL-based objective, continual learning, and pseudo-labeling) to adapt to an
-              unfamiliar accent at inference time.
-            </p>
+            <ul>
+              <li>Built the first audio-visual dataset that pairs speech, lip video, and accent labels at a usable scale: over 2 hours of read speech across 49 speakers, spanning eight regional dialects and eleven non-native L1s.</li>
+              <li>Testing whether lip-reading helps models handle accented English the same way it already helps them handle acoustic noise.</li>
+              <li>Evaluating a generalist multimodal model against a specialist AVSR architecture across audio-only, video-only, and audio-visual conditions.</li>
+              <li>Designing test-time adaptation methods (entropy minimization, an RL-based objective, continual learning, and pseudo-labeling) to adapt to an unfamiliar accent at inference time.</li>
+            </ul>
             <div class="tags">
               <span class="tag">TTA</span>
               <span class="tag">Dataset Construction</span>
@@ -88,21 +86,13 @@
           <div>
             <h3>Berkeley Sky Computing Group</h3>
             <div class="role">Researcher · Agentic Search &amp; Evaluation</div>
-            <p>
-              I'm mining 41 evolutionary and agentic code-search traces (OpenEvolve, an in-house
-              Evolve2, and an in-house SkyDiscover/AdaEvolve) across nine problem domains and
-              three model families (Gemini, GPT-5, Claude) to reconstruct how these searches
-              actually move through solution space: 4,146 individual steps, each classified by
-              execution outcome, score change, and edit size relative to that run's own baseline.
-              So far, crash rate looks like a property of the domain rather than the method
-              (roughly a 10x spread across the same models and frameworks), and a single run's
-              crash rate can swing 20+ percentage points from randomness alone, which I confirmed
-              with genuine triplicate reruns. Most crashes are also avoidable: 68.5% repeat an
-              error type the same run already hit earlier in its own trace. I also ran an
-              independent reward-hacking check, running a high-scoring program against seeds
-              and noise levels it was never tuned on. Performance held flat, which looks like
-              real generalization rather than the model gaming the evaluator.
-            </p>
+            <ul>
+              <li>Mining 41 evolutionary and agentic code-search traces (OpenEvolve, an in-house Evolve2, and an in-house SkyDiscover/AdaEvolve) across nine problem domains and three model families (Gemini, GPT-5, Claude).</li>
+              <li>Reconstructing how these searches actually move through solution space: 4,146 individual steps, each classified by execution outcome, score change, and edit size relative to that run's own baseline.</li>
+              <li>Crash rate looks like a property of the domain rather than the method (roughly a 10x spread across the same models and frameworks), and a single run's crash rate can swing 20+ percentage points from randomness alone, confirmed with genuine triplicate reruns.</li>
+              <li>Most crashes are also avoidable: 68.5% repeat an error type the same run already hit earlier in its own trace.</li>
+              <li>Ran an independent reward-hacking check by running a high-scoring program against seeds and noise levels it was never tuned on. Performance held flat, which looks like real generalization rather than the model gaming the evaluator.</li>
+            </ul>
             <div class="tags">
               <span class="tag">Agentic Search</span>
               <span class="tag">Evolutionary Code Search</span>
@@ -127,16 +117,12 @@
           <div>
             <h3>Berkeley AI Sky Computing Group</h3>
             <div class="role">Researcher · LLM Reasoning</div>
-            <p>
-              I built an interpretable extension of GEPA using tuned lens for process-level
-              evaluation of LLM reasoning, and developed QThink, a latent chain-of-thought
-              distillation method currently under double-blind review at COLM 2026. QThink
-              trains a model to reason through six silent hidden-state loops before writing
-              an answer, distilling from the average of sixteen sampled reasoning rollouts at
-              six checkpoints along each trace, which gives it a training signal that's both
-              broader and denser than prior self-distillation methods. I'm also probing what
-              those latent states actually encode about the reasoning traces they came from.
-            </p>
+            <ul>
+              <li>Built an interpretable extension of GEPA using tuned lens for process-level evaluation of LLM reasoning.</li>
+              <li>Developed QThink, a latent chain-of-thought distillation method currently under double-blind review at COLM 2026.</li>
+              <li>QThink trains a model to reason through six silent hidden-state loops before writing an answer, distilling from the average of sixteen sampled reasoning rollouts at six checkpoints along each trace, a training signal that's both broader and denser than prior self-distillation methods.</li>
+              <li>Also probing what those latent states actually encode about the reasoning traces they came from.</li>
+            </ul>
             <div class="tags">
               <span class="tag">GEPA</span>
               <span class="tag">Tuned Lens</span>
@@ -151,18 +137,12 @@
           <div>
             <h3>Berkeley AI Research · Speech Group</h3>
             <div class="role">Researcher · LLM Interpretability &amp; RL</div>
-            <p>
-              I evaluated LLM interpretability using tuned-lens methods on GPT models for
-              multilingual multi-token prediction. The logit lens's core weakness is
-              "representational drift," where the same concept sits in a different
-              residual-stream direction at different depths, so instead of reusing the model's
-              unembedding matrix, I trained a small per-layer affine probe against its own
-              final-layer output. I used causal basis extraction to check whether the lens's
-              read of a layer agrees with the directions the model's own head actually relies
-              on, and ran depth analyses of where in the network different kinds of
-              predictions get resolved. I also improved ICRL, SOAR, and TRPO for summarization
-              and math-game tasks using note-taking mechanisms.
-            </p>
+            <ul>
+              <li>Evaluated LLM interpretability using tuned-lens methods on GPT models for multilingual multi-token prediction.</li>
+              <li>The logit lens's core weakness is "representational drift," where the same concept sits in a different residual-stream direction at different depths, so instead of reusing the model's unembedding matrix, I trained a small per-layer affine probe against its own final-layer output.</li>
+              <li>Used causal basis extraction to check whether the lens's read of a layer agrees with the directions the model's own head actually relies on, and ran depth analyses of where in the network different kinds of predictions get resolved.</li>
+              <li>Improved ICRL, SOAR, and TRPO for summarization and math-game tasks using note-taking mechanisms.</li>
+            </ul>
             <div class="tags">
               <span class="tag">Tuned Lens</span>
               <span class="tag">ICRL</span>

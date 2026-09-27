@@ -28,7 +28,6 @@
   const DATA = {
     projects: {
       kicker: 'The Bag', title: 'Projects', color: '#3a7a4e',
-      blurb: "Pieces I've built and shipped, all packed into one bag: research pipelines, agents, and apps.",
       items: [
         { thumb: true, color: '#3a7a4e', glyph: '01', title: 'Jacobian Lens Misalignment', meta: '2026', text: 'Agentic-misalignment research pipeline using a Jacobian lens and causal attribution to localize where a model decides to blackmail.', tag: 'AI Safety', href: 'https://github.com/niranjana2222/alignment_jacobian' },
         { thumb: true, color: '#1a2f66', glyph: '02', title: 'Bias Detection', meta: '2025', text: 'Bias detection with a 9-attack safety prober and a logit-lens approximation rendered as an HTML heatmap.', tag: 'Interpretability', href: 'https://github.com/niranjana2222/alignment' },
@@ -40,7 +39,6 @@
     },
     journal: {
       kicker: 'Over the Net', title: 'Blog', color: '#2bb0e0',
-      blurb: 'Notes volleyed back and forth between projects: mostly interpretability, latent reasoning, and the gap between what models can do and what we can verify they’re doing.',
       items: [
         { title: 'Crash Rate in Agentic Coding Sessions', meta: 'Sep 2026', text: 'Tracing 41 agentic code-search runs across nine domains: crash rate, repeat failures, stagnation, and a clean reward-hacking test.', href: 'blog-agentic-search-traces.html' },
         { title: 'Why Does a Model Blackmail You?', meta: 'Jul 2026', text: 'Localizing the decision with a Jacobian lens, with multi-skin results and real causal patching on Qwen2.5-7B.', href: 'blog-alignment-jacobian.html' },
@@ -52,7 +50,6 @@
     },
     about: {
       kicker: "The Umpire's Chair", title: 'About Me', color: '#e8b96a',
-      blurb: 'A view from up top: who I am, what I care about, and how to reach me.',
       items: [
         { title: 'Education', meta: 'UC Berkeley · EECS', text: 'B.S. EECS, expected May 2029, 4.0 GPA.<br>Member of SAAS, AWE, and Blueprint.' },
         { title: 'Skills', meta: 'Languages & ML stack', text: 'Python, Java, SQL, JavaScript, React, Scheme.<br>PyTorch, TensorFlow, HuggingFace, LangChain, LangGraph, Scikit-learn, Pandas, OpenCV, Vertex AI.<br>USACO Gold · AIME Qualifier.' },
@@ -66,7 +63,6 @@
     },
     experience: {
       kicker: 'The Bench', title: 'Experience', color: '#1a2f66',
-      blurb: 'Time on the bench between sets: the roles and teams that shaped how I think about production ML and research engineering.',
       items: [
         { title: 'bright.ai · ML Intern, On-Device Conversational AI', meta: 'Apr 2025 – now', text: 'Shipped JobEngine, a production dialog/workflow engine for an industrial wearable, powered by a 3-stage on-device NLU cascade and a from-scratch Go integration contract.' },
         { title: 'Google · Consultant, via SAAS at Berkeley', meta: 'Aug 2025 – Jan 2026', text: 'Fine-tuned 5 Constitutional AI variants (generic + 4 department-specific) for Gemini 2.5, red-teamed with promptfoo, evaluated on 14k harmful prompts.' },
@@ -76,7 +72,6 @@
     },
     research: {
       kicker: 'The Racket', title: 'Research', color: '#d8e830',
-      blurb: 'Longer, slower swings: four Berkeley labs, one thread. Understanding why models behave the way they do, not just whether they work.',
       items: [
         { title: 'Sky Computing Group · Agentic Search & Evaluation', meta: '2026 – now', text: 'Traced 41 agentic/evolutionary code-search runs. Crash rate is domain-dependent, and a single run can swing 20+ points from randomness alone.' },
         { title: 'Berkeley ICON Lab · VLA Interpretability', meta: 'Jan 2026 – now', text: 'Linear probes on PaliGemma localize where language grounding breaks down in the action expert.' },
@@ -112,7 +107,9 @@
     document.getElementById('tc-panel-kicker').textContent = d.kicker;
     document.getElementById('tc-panel-kicker').style.color = d.color;
     document.getElementById('tc-panel-title').textContent = d.title;
-    document.getElementById('tc-panel-blurb').textContent = d.blurb;
+    const blurbEl = document.getElementById('tc-panel-blurb');
+    blurbEl.textContent = d.blurb || '';
+    blurbEl.hidden = !d.blurb;
     const list = document.getElementById('tc-panel-list');
     list.innerHTML = '';
     d.items.forEach(it => {

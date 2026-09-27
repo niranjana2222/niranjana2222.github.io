@@ -280,6 +280,10 @@ main {
 
 .card p { font-size: 0.88rem; color: var(--text-2); line-height: 1.6; }
 
+.card ul { padding-left: 16px; margin: 0; }
+.card li { font-size: 0.88rem; color: var(--text-2); line-height: 1.6; margin-bottom: 4px; }
+.card li:last-child { margin-bottom: 0; }
+
 .card-meta { font-size: 0.75rem; color: var(--text-3); margin-bottom: 12px; }
 
 .card-pub { border-top: 2px solid var(--green); transition: border-top-color 0.2s var(--ease); }
@@ -359,6 +363,8 @@ main {
   line-height: 1.6;
 }
 
+.timeline-body li:last-child { margin-bottom: 0; }
+
 .timeline-current .timeline-org { color: var(--sky); }
 
 .timeline-current .timeline-org::before {
@@ -421,6 +427,10 @@ main {
 }
 
 .research-item p { font-size: 0.88rem; color: var(--text-2); line-height: 1.6; }
+
+.research-item ul { padding-left: 18px; margin: 0; }
+.research-item li { font-size: 0.88rem; color: var(--text-2); line-height: 1.6; margin-bottom: 6px; }
+.research-item li:last-child { margin-bottom: 0; }
 
 .research-item:hover .role {
   color: var(--sky);
@@ -1207,7 +1217,12 @@ body.page-exit { opacity: 0; }
   color: var(--text-2);
   line-height: 1.7;
   max-width: 640px;
+  padding-left: 18px;
+  margin: 0;
 }
+
+.project-desc li { margin-bottom: 6px; }
+.project-desc li:last-child { margin-bottom: 0; }
 
 .project-footer {
   display: flex;
@@ -1215,40 +1230,6 @@ body.page-exit { opacity: 0; }
   gap: 16px;
   margin-top: 16px;
   flex-wrap: wrap;
-}
-
-.project-more-toggle {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-3);
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  font-family: inherit;
-  transition: color 0.2s;
-}
-
-.project-more-toggle:hover { color: var(--sky); }
-
-.project-more {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s var(--ease), margin-top 0.35s var(--ease);
-}
-
-.project-more.project-more-open { max-height: 400px; margin-top: 4px; }
-
-.project-more p {
-  font-size: 0.9rem;
-  color: var(--text-2);
-  line-height: 1.7;
-  max-width: 640px;
 }
 
 /* ============ Timeline Narrative ============ */

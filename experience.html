@@ -30,7 +30,7 @@
     <div class="warm-hero reveal">
       <div class="warm-hero-kicker">The Bench</div>
       <h1>Experience</h1>
-      <p>Industry roles spanning production ML systems, AI safety consulting, and full-stack engineering, plus the teaching that keeps me honest about actually understanding things.</p>
+      <p>Industry roles spanning production ML systems, AI safety consulting, and full-stack engineering and the teaching that keeps me honest about actually understanding things.</p>
     </div>
 
 
@@ -48,7 +48,12 @@
           </div>
           <div class="timeline-body">
             <div class="timeline-role">Machine Learning Intern · On-Device Conversational AI</div>
-            <p class="timeline-narrative">I designed and shipped JobEngine, a production dialog and workflow engine for an industrial wearable (Bright.AI Copilot) that walks field technicians through safety-critical procedures like lockout-tagout. It runs on a 3-stage NLU cascade (fuzzy match → ONNX embeddings → on-device SLM judge) and a branch-based workflow schema that I validate with a BFS reachability checker, which caught a real defect leaving six safety-isolation steps unreachable. I reverse-engineered the byte-level HTTP contract a teammate's Go voice pipeline depended on straight from its source, then rebuilt the Python engine as a drop-in replacement with zero changes needed on the Go side, gated by a contract test suite that runs on every PR. I also built an 8-phase deployment pipeline for a MediaTek Genio NPU device and cleared 45+ dependency and security alerts by swapping a heavy ML dependency tree for a minimal ONNX Runtime embedder.</p>
+            <ul class="timeline-narrative">
+              <li>Designed and shipped JobEngine, a production dialog and workflow engine for an industrial wearable (Bright.AI Copilot) that walks field technicians through safety-critical procedures like lockout-tagout.</li>
+              <li>Built on a 3-stage NLU cascade (fuzzy match → ONNX embeddings → on-device SLM judge) and a branch-based workflow schema validated by a BFS reachability checker, which caught a real defect leaving six safety-isolation steps unreachable.</li>
+              <li>Reverse-engineered the byte-level HTTP contract a teammate's Go voice pipeline depended on, then rebuilt the Python engine as a drop-in replacement with zero changes needed on the Go side, gated by a contract test suite that runs on every PR.</li>
+              <li>Built an 8-phase deployment pipeline for a MediaTek Genio NPU device and cleared 45+ dependency and security alerts by swapping a heavy ML dependency tree for a minimal ONNX Runtime embedder.</li>
+            </ul>
             <div class="tags">
               <span class="tag">Dialog Systems</span>
               <span class="tag">Edge AI</span>
@@ -65,7 +70,12 @@
           </div>
           <div class="timeline-body">
             <div class="timeline-role">Consultant · via SAAS Machine Learning at Berkeley</div>
-            <p class="timeline-narrative">I fine-tuned Gemini 2.5 Flash-Lite on 5 Constitutional AI variants (one generic, four department-specific: EHS, Security, Audits, CSRM), generating each constitution's ideal responses through critique and revision pairs. I ran automated red-teaming with promptfoo across jailbreak, prompt-injection, and misinformation attack classes, hand-wrote department-specific attack prompts for EHS, and looked into how a constitution's cultural framing can make a model read as judgmental rather than neutral, feeding into a target set of about 14,000 attack vectors for safety evaluation.</p>
+            <ul class="timeline-narrative">
+              <li>Fine-tuned Gemini 2.5 Flash-Lite on 5 Constitutional AI variants (one generic, four department-specific: EHS, Security, Audits, CSRM), generating each constitution's ideal responses through critique and revision pairs.</li>
+              <li>Ran automated red-teaming with promptfoo across jailbreak, prompt-injection, and misinformation attack classes.</li>
+              <li>Hand-wrote department-specific attack prompts for EHS, feeding into a target set of about 14,000 attack vectors for safety evaluation.</li>
+              <li>Looked into how a constitution's cultural framing can make a model read as judgmental rather than neutral.</li>
+            </ul>
             <div class="tags">
               <span class="tag">Constitutional AI</span>
               <span class="tag">Red-Teaming</span>
@@ -82,7 +92,10 @@
           </div>
           <div class="timeline-body">
             <div class="timeline-role">Software Engineer Intern</div>
-            <p class="timeline-narrative">I integrated LangChain agent pipelines into production chatbot workflows and shipped 3 Composio integration features (Jira, GitHub, Slack) with SQL-backed services and a Next.js frontend.</p>
+            <ul class="timeline-narrative">
+              <li>Integrated LangChain agent pipelines into production chatbot workflows.</li>
+              <li>Shipped 3 Composio integration features (Jira, GitHub, Slack) with SQL-backed services and a Next.js frontend.</li>
+            </ul>
             <div class="tags">
               <span class="tag">LangChain</span>
               <span class="tag">Next.js</span>
@@ -104,13 +117,12 @@
         <div class="card">
           <div class="card-kind">Computer Programming Initiative (CPI)</div>
           <h3>USACO Instructor</h3>
-          <p>
-            Taught four USACO Bronze cohorts, about 120 students in all, building 25
-            lectures and problem sets that broke advanced algorithms down into approachable
-            pieces. Ran 25 one-on-one tutoring sessions alongside the classes, organized
-            three hackathons, and hosted three "Computer Programming for Girls" workshops
-            to get more girls into competitive programming early.
-          </p>
+          <ul>
+            <li>Taught four USACO Bronze cohorts, about 120 students in all, building 25 lectures and problem sets that broke advanced algorithms down into approachable pieces.</li>
+            <li>Ran 25 one-on-one tutoring sessions alongside the classes.</li>
+            <li>Organized three hackathons.</li>
+            <li>Hosted three "Computer Programming for Girls" workshops to get more girls into competitive programming early.</li>
+          </ul>
           <div class="tags">
             <span class="tag">USACO</span>
             <span class="tag">Algorithms</span>
@@ -121,11 +133,10 @@
         <div class="card">
           <div class="card-kind">Art of Problem Solving Academy · Jun 2023 – Jun 2024</div>
           <h3>Algebra 2 Instructor</h3>
-          <p>
-            Taught Algebra 2 to 50 middle schoolers over two summer camps, turning 10
-            lectures into hands-on games and guided problem sets so concepts that usually
-            feel abstract actually clicked.
-          </p>
+          <ul>
+            <li>Taught Algebra 2 to 50 middle schoolers over two summer camps.</li>
+            <li>Turned 10 lectures into hands-on games and guided problem sets so concepts that usually feel abstract actually clicked.</li>
+          </ul>
           <div class="tags">
             <span class="tag">Algebra</span>
             <span class="tag">AoPS</span>
@@ -136,11 +147,10 @@
         <div class="card">
           <div class="card-kind">Cupertino Lifetime Sports Center · May – Aug 2025</div>
           <h3>Tennis Coach</h3>
-          <p>
-            Coached younger players on technique and match strategy, and just as much on
-            the habits that make practice stick: showing up consistently, working as a
-            team, and staying confident through a bad set.
-          </p>
+          <ul>
+            <li>Coached younger players on technique and match strategy.</li>
+            <li>Focused just as much on the habits that make practice stick: showing up consistently, working as a team, and staying confident through a bad set.</li>
+          </ul>
           <div class="tags">
             <span class="tag">Coaching</span>
             <span class="tag">Tennis</span>
