@@ -51,12 +51,13 @@
             <ul class="timeline-narrative">
               <li>Designed and shipped JobEngine, a production dialog and workflow engine for an industrial wearable (Bright.AI Copilot) that walks field technicians through safety-critical procedures like lockout-tagout.</li>
               <li>Built on a 3-stage NLU cascade (fuzzy match → ONNX embeddings → on-device SLM judge) and a branch-based workflow schema validated by a BFS reachability checker, which caught a real defect leaving six safety-isolation steps unreachable.</li>
-              <li>Reverse-engineered the byte-level HTTP contract a teammate's Go voice pipeline depended on, then rebuilt the Python engine as a drop-in replacement with zero changes needed on the Go side, gated by a contract test suite that runs on every PR.</li>
+              <li>Benchmarked on-device ASR options for the wearable's speech-to-text stage (NVIDIA Parakeet CTC vs. Whisper), adding a Parakeet transcriber over ONNX Runtime with no PyTorch/NeMo dependency, plus a voice-mode harness in the internal authoring tool to A/B test both engines live before defaulting to Parakeet.</li>
               <li>Built an 8-phase deployment pipeline for a MediaTek Genio NPU device and cleared 45+ dependency and security alerts by swapping a heavy ML dependency tree for a minimal ONNX Runtime embedder.</li>
             </ul>
             <div class="tags">
               <span class="tag">Dialog Systems</span>
               <span class="tag">Edge AI</span>
+              <span class="tag">Speech Recognition</span>
               <span class="tag">Systems Integration</span>
               <span class="tag">Security</span>
             </div>
