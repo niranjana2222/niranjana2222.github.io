@@ -348,6 +348,164 @@ function initBootTerminal() {
   showScreen(SCREENS[screenIdx]);
 }
 
+// ============ Project / Publication Detail Modal ============
+function initDetailModals() {
+  const scrim = document.getElementById('detail-scrim');
+  const modal = document.getElementById('detail-modal');
+  const body = document.getElementById('detail-body');
+  const countEl = document.getElementById('detail-count');
+  const prevBtn = document.getElementById('detail-prev');
+  const nextBtn = document.getElementById('detail-next');
+  const closeBtn = document.getElementById('detail-close');
+  if (!scrim || !modal || !body) return;
+
+  function collect(group) {
+    if (group === 'publications') {
+      const grid = document.querySelector('.card-grid[data-group="publications"]');
+      if (!grid) return [];
+      return [...grid.querySelectorAll('.card-pub')].map(card => ({
+        kind: (card.querySelector('.card-kind') || {}).textContent?.trim() || '',
+        title: (card.querySelector('.entry-open') || {}).textContent?.trim() || '',
+        text: (card.querySelector('p') || {}).innerHTML?.trim() || '',
+        tags: [...card.querySelectorAll('.tags .tag')].map(t => t.textContent.trim()),
+      }));
+    }
+    const list = document.querySelector('.project-list[data-group="' + group + '"]');
+    if (!list) return [];
+    return [...list.querySelectorAll('.project-entry')].map(entry => {
+      const linkEl = entry.querySelector('.card-link');
+      return {
+        meta: (entry.querySelector('.project-meta') || {}).textContent?.trim() || '',
+        title: (entry.querySelector('.entry-open') || {}).textContent?.trim() || '',
+        items: [...entry.querySelectorAll('.project-desc li')].map(li => li.innerHTML.trim()),
+        tags: [...entry.querySelectorAll('.tags .tag')].map(t => t.textContent.trim()),
+        link: linkEl ? { href: linkEl.getAttribute('href'), text: linkEl.textContent.trim() } : null,
+      };
+    });
+  }
+
+  const DATA = {
+    personal: collect('personal'),
+    nonprofit: collect('nonprofit'),
+    publications: collect('publications'),
+  };
+
+  const state = { group: null, index: 0, typeToken: 0 };
+
+  function el(tag, cls, html) {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+
+  function renderScreen(item) {
+    body.innerHTML = '';
+    if (item.meta) body.appendChild(el('div', 'detail-kicker', item.meta));
+    body.appendChild(el('h2', 'detail-title', item.title));
+    if (item.items.length) {
+      const ul = el('ul', 'detail-list');
+      item.items.forEach(html => ul.appendChild(el('li', null, html)));
+      body.appendChild(ul);
+    }
+    if (item.tags.length) {
+      const tagsEl = el('div', 'detail-tags tags');
+      item.tags.forEach(t => tagsEl.appendChild(el('span', 'tag', t)));
+      body.appendChild(tagsEl);
+    }
+    if (item.link) {
+      const a = el('a', 'card-link', item.link.text);
+      a.href = item.link.href;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      body.appendChild(a);
+    }
+  }
+
+  function renderPaper(item, token) {
+    body.innerHTML = '';
+    body.appendChild(el('div', 'detail-kicker', item.kind));
+    body.appendChild(el('h2', 'detail-title', item.title));
+    const p = el('p', 'detail-text');
+    body.appendChild(p);
+    const tagsEl = el('div', 'detail-tags tags');
+    item.tags.forEach(t => tagsEl.appendChild(el('span', 'tag', t)));
+    body.appendChild(tagsEl);
+
+    const plain = item.text.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      p.textContent = plain;
+      return;
+    }
+    let ci = 0;
+    function step() {
+      if (token !== state.typeToken) return;
+      ci++;
+      const done = ci >= plain.length;
+      p.textContent = plain.slice(0, ci);
+      if (!done) {
+        p.appendChild(el('span', 'pen-cursor', '&#9998;'));
+        setTimeout(step, 10 + Math.random() * 18);
+      }
+    }
+    step();
+  }
+
+  function render() {
+    const list = DATA[state.group] || [];
+    const item = list[state.index];
+    if (!item) return;
+    countEl.textContent = (state.index + 1) + ' / ' + list.length;
+    modal.classList.toggle('detail-modal--paper', state.group === 'publications');
+    state.typeToken++;
+    if (state.group === 'publications') renderPaper(item, state.typeToken);
+    else renderScreen(item);
+  }
+
+  function open(group, index) {
+    state.group = group;
+    state.index = index;
+    render();
+    scrim.classList.add('detail-open');
+    modal.classList.add('detail-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    state.typeToken++;
+    scrim.classList.remove('detail-open');
+    modal.classList.remove('detail-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function step(delta) {
+    const list = DATA[state.group] || [];
+    if (!list.length) return;
+    state.index = (state.index + delta + list.length) % list.length;
+    render();
+  }
+
+  document.querySelectorAll('.project-list[data-group], .card-grid[data-group="publications"]').forEach(container => {
+    const group = container.getAttribute('data-group');
+    container.querySelectorAll('.entry-open').forEach((btn, i) => {
+      btn.addEventListener('click', () => open(group, i));
+    });
+  });
+
+  if (prevBtn) prevBtn.addEventListener('click', () => step(-1));
+  if (nextBtn) nextBtn.addEventListener('click', () => step(1));
+  if (closeBtn) closeBtn.addEventListener('click', close);
+  scrim.addEventListener('click', close);
+  document.addEventListener('keydown', e => {
+    if (modal.getAttribute('aria-hidden') === 'true') return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowRight') step(1);
+    if (e.key === 'ArrowLeft') step(-1);
+  });
+}
+
 // ============ Init All ============
 document.addEventListener('DOMContentLoaded', () => {
   initCursor();
@@ -361,4 +519,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initTagFilter();
   initConsoleEgg();
   initBootTerminal();
+  initDetailModals();
 });

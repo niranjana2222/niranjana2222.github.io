@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=wb12" />
+  <link rel="stylesheet" href="style.css?v=wb13" />
 </head>
 <body>
   <div class="scroll-progress"></div>
@@ -39,12 +39,12 @@
         <span class="section-num">01</span>
         <h2>Personal Projects</h2>
       </div>
-      <div class="project-list">
+      <div class="project-list" data-group="personal">
 
         <div class="project-entry">
           <div class="project-num">01</div>
           <div class="project-content">
-            <h3 class="project-title">Jacobian Lens Analysis</h3>
+            <h3><button type="button" class="project-title entry-open">Jacobian Lens Analysis</button></h3>
             <ul class="project-desc">
               <li>Elicits blackmail, leaking, and sabotage from models under threat and goal-conflict scenarios, then goes past behavior into mechanism.</li>
               <li>A Jacobian lens (the per-layer sensitivity of the blackmail-vs-safe decision to that layer's activations), alongside logit lens, tuned lens, and activation patching, localizes where the harmful decision forms and confirms it's causal, not just correlational.</li>
@@ -68,7 +68,7 @@
         <div class="project-entry">
           <div class="project-num">02</div>
           <div class="project-content">
-            <h3 class="project-title">Wildfire RAG Chatbot</h3>
+            <h3><button type="button" class="project-title entry-open">Wildfire RAG Chatbot</button></h3>
             <ul class="project-desc">
               <li>Enterprise-grade RAG chat interface for wildfire operations, ingesting CAL FIRE incident reports, USFS forest assessments, and NOAA weather data.</li>
               <li>Answers queries with hybrid BM25 + dense vector search, RRF fusion, HyDE, and Cohere reranking over a Qdrant vector store.</li>
@@ -91,7 +91,7 @@
         <div class="project-entry">
           <div class="project-num">03</div>
           <div class="project-content">
-            <h3 class="project-title">Self-Learning Agent</h3>
+            <h3><button type="button" class="project-title entry-open">Self-Learning Agent</button></h3>
             <ul class="project-desc">
               <li>An AI agent that runs tasks, scores its own performance with an LLM judge, and synthesizes new Python tools when it fails, then retries with the expanded toolkit.</li>
               <li>Runs a full agentic loop: Plan → Execute → Evaluate → Synthesize → Retry, with dynamic tool generation via GPT-4o and a persistent tool registry across runs.</li>
@@ -114,7 +114,7 @@
         <div class="project-entry">
           <div class="project-num">04</div>
           <div class="project-content">
-            <h3 class="project-title">Research News Digest</h3>
+            <h3><button type="button" class="project-title entry-open">Research News Digest</button></h3>
             <ul class="project-desc">
               <li>Personalized AI news digest agent that fetches articles from configured sources and processes them through a LangGraph multi-agent pipeline.</li>
               <li>A LangGraph state machine coordinates fetch, dedupe, and summarize nodes, so each source is processed independently before merging into a single digest.</li>
@@ -136,7 +136,7 @@
         <div class="project-entry">
           <div class="project-num">05</div>
           <div class="project-content">
-            <h3 class="project-title">Chain of Thought Monitor</h3>
+            <h3><button type="button" class="project-title entry-open">Chain of Thought Monitor</button></h3>
             <ul class="project-desc">
               <li>A lightweight, rule-based monitor that checks whether an AI agent's stated chain-of-thought reasoning actually matches the action it takes, catching cases like an agent reasoning "I should not delete any files" and then calling <code>delete_file</code> anyway.</li>
               <li>Combines fast pattern heuristics (negation, unexplained action families, deception language) with CoT-to-action similarity scoring into a single calibrated risk score, with every flag fully human-readable.</li>
@@ -165,13 +165,13 @@
         <span class="section-num">02</span>
         <h2>Nonprofit Projects</h2>
       </div>
-      <div class="project-list">
+      <div class="project-list" data-group="nonprofit">
 
         <div class="project-entry">
           <div class="project-num">06</div>
           <div class="project-content">
             <div class="project-meta">Berkeley Blueprint · Jan 2026 – Present</div>
-            <h3 class="project-title">Adopt an Inmate Matching Platform</h3>
+            <h3><button type="button" class="project-title entry-open">Adopt an Inmate Matching Platform</button></h3>
             <ul class="project-desc">
               <li>Full-stack matching platform for the Adopt an Inmate nonprofit, which pairs incarcerated individuals with volunteer correspondents.</li>
               <li>A SQL-backed algorithm ranks matches by LLM-embedding semantic similarity rather than keyword overlap, paired with a React frontend volunteers use to browse and connect.</li>
@@ -186,7 +186,7 @@
           <div class="project-num">07</div>
           <div class="project-content">
             <div class="project-meta">Wildfire Awareness Initiative · 2021 – 2025</div>
-            <h3 class="project-title">Wildfire Preparedness iOS App</h3>
+            <h3><button type="button" class="project-title entry-open">Wildfire Preparedness iOS App</button></h3>
             <ul class="project-desc">
               <li>An iOS app (400+ users) that walks people through wildfire preparedness end to end.</li>
               <li>Camera-based detection and evaluation to flag defensible-space risks around a home.</li>
@@ -204,7 +204,7 @@
           <div class="project-num">08</div>
           <div class="project-content">
             <div class="project-meta">MIT Beaverworks Summer Institute · 2024</div>
-            <h3 class="project-title">Real-Time Cognitive Assistant</h3>
+            <h3><button type="button" class="project-title entry-open">Real-Time Cognitive Assistant</button></h3>
             <ul class="project-desc">
               <li>Real-time multimodal cognitive assistant combining NLP, computer vision, and audio analysis to infer user mood and engagement from facial expressions and vocal cues.</li>
               <li>Enables adaptive human-computer interaction based on that inferred state.</li>
@@ -223,11 +223,11 @@
         <span class="section-num">03</span>
         <h2>Publications</h2>
       </div>
-      <div class="card-grid">
+      <div class="card-grid" data-group="publications">
 
         <div class="card card-pub">
           <div class="card-kind">Santa Clara University Internship · 2023</div>
-          <h3>On-Device CKD Detection</h3>
+          <h3><button type="button" class="entry-open">On-Device CKD Detection</button></h3>
           <p>
             Co-developed an on-device ML pipeline for chronic kidney disease detection:
             implemented a color constancy algorithm for input normalization, fine-tuned
@@ -243,7 +243,7 @@
 
         <div class="card card-pub">
           <div class="card-kind">NCUR 2024 · Published</div>
-          <h3>Disaster Response ML Pipeline</h3>
+          <h3><button type="button" class="entry-open">Disaster Response ML Pipeline</button></h3>
           <p>
             End-to-end multimodal pipeline (RoBERTa-XLM, GPT-J, InceptionV3) fine-tuned
             on curated disaster datasets for fast damage assessment. Presented orally
@@ -257,7 +257,7 @@
 
         <div class="card card-pub">
           <div class="card-kind">AAOMR 2024 · Poster</div>
-          <h3>3D CT Scan Infection Detection</h3>
+          <h3><button type="button" class="entry-open">3D CT Scan Infection Detection</button></h3>
           <p>
             Volumetric infection detection using fine-tuned 3D U-Net architectures on
             annotated CT datasets, with preprocessing pipelines for diagnostic accuracy
@@ -273,9 +273,23 @@
     </div>
   </main>
 
+  <div class="detail-scrim" id="detail-scrim"></div>
+  <div class="detail-modal" id="detail-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="detail-chrome">
+      <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot term-dot--accent"></span>
+      <span class="detail-count" id="detail-count"></span>
+      <div class="detail-nav">
+        <button class="term-nav" id="detail-prev" type="button" aria-label="Previous">&#8592;</button>
+        <button class="term-nav" id="detail-next" type="button" aria-label="Next">&#8594;</button>
+        <button class="detail-close" id="detail-close" type="button" aria-label="Close">&#10005;</button>
+      </div>
+    </div>
+    <div class="detail-body" id="detail-body"></div>
+  </div>
+
   <footer>© 2026 Niranjana Sankar · <span style="color:var(--sky)">Berkeley, CA</span></footer>
   <button class="back-top" aria-label="Back to top">↑</button>
-  <script src="script.js?v=wb12"></script>
+  <script src="script.js?v=wb14"></script>
   <div class="toast"></div>
 </body>
 </html>

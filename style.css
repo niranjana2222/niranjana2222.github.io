@@ -827,6 +827,178 @@ body.page-exit { opacity: 0; }
   .term-cursor { animation: none; }
 }
 
+/* ============ Entry Open Button (project/pub titles) ============ */
+.entry-open {
+  display: inline-block;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  text-align: left;
+  color: inherit;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.entry-open:hover, .entry-open:focus-visible { color: var(--sky); }
+
+/* ============ Detail Modal (projects & publications) ============ */
+.detail-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgba(0, 0, 0, 0.55);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s var(--ease), visibility 0.3s;
+}
+
+.detail-scrim.detail-open { opacity: 1; visibility: visible; }
+
+.detail-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 71;
+  width: min(640px, 92vw);
+  max-height: 84vh;
+  overflow-y: auto;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -46%) scale(0.97);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease), visibility 0.3s;
+}
+
+.detail-modal.detail-open { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+
+.detail-chrome {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  z-index: 1;
+}
+
+.detail-count {
+  margin-left: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+}
+
+.detail-nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.detail-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: none;
+  color: var(--text-3);
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.detail-close:hover { color: var(--accent); border-color: var(--accent); transform: rotate(90deg); }
+
+.detail-body { padding: 28px 30px 34px; }
+
+.detail-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--text-3);
+  margin-bottom: 10px;
+}
+
+.detail-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.6rem, 4vw, 2.1rem);
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.detail-list { margin-bottom: 18px; padding-left: 20px; }
+.detail-list li { font-size: 0.95rem; color: var(--text-2); line-height: 1.7; margin-bottom: 8px; }
+.detail-list li:last-child { margin-bottom: 0; }
+.detail-list a { color: var(--accent); }
+
+.detail-text { font-size: 1rem; color: var(--text-2); line-height: 1.8; margin-bottom: 18px; }
+
+.detail-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.detail-body .card-link { margin-top: 0; }
+
+/* ---- Paper skin (publications) ---- */
+.detail-modal--paper {
+  background: #f6f1e4;
+  border-color: rgba(43, 36, 24, 0.18);
+  color: #2b2418;
+}
+
+.detail-modal--paper .detail-chrome {
+  background: #f6f1e4;
+  border-bottom-color: rgba(43, 36, 24, 0.14);
+}
+
+.detail-modal--paper .detail-count { color: rgba(43, 36, 24, 0.55); }
+.detail-modal--paper .detail-kicker { color: rgba(43, 36, 24, 0.55); }
+.detail-modal--paper .detail-title { color: #2b2418; }
+.detail-modal--paper .detail-text { color: #3a3122; font-family: 'Fraunces', serif; font-size: 1.05rem; }
+
+.detail-modal--paper .term-nav,
+.detail-modal--paper .detail-close {
+  border-color: rgba(43, 36, 24, 0.25);
+  color: rgba(43, 36, 24, 0.6);
+}
+
+.detail-modal--paper .term-nav:hover { color: #b5461e; border-color: #b5461e; }
+.detail-modal--paper .detail-close:hover { color: #b5461e; border-color: #b5461e; }
+
+.pen-cursor {
+  display: inline-block;
+  margin-left: 2px;
+  font-size: 0.95em;
+  transform: rotate(12deg);
+  vertical-align: text-bottom;
+  animation: pen-bob 0.6s ease-in-out infinite;
+}
+
+@keyframes pen-bob {
+  0%, 100% { transform: rotate(12deg) translateY(0); }
+  50% { transform: rotate(12deg) translateY(-2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detail-scrim, .detail-modal { transition: none; }
+  .pen-cursor { animation: none; }
+}
+
+@media (max-width: 600px) {
+  .detail-body { padding: 22px 20px 28px; }
+}
+
 /* ============ Hero Tagline ============ */
 .hero-tagline {
   max-width: 520px;
