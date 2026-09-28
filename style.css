@@ -775,6 +775,27 @@ body.page-exit { opacity: 0; }
   color: var(--text-3);
 }
 
+.term-nav {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: none;
+  font-family: inherit;
+  font-size: 0.75rem;
+  line-height: 1;
+  color: var(--text-3);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.term-nav:hover { color: var(--sky); border-color: var(--sky); transform: translateX(1px); }
+.term-nav:active { transform: translateX(2px); }
+
 .term-body {
   margin: 0;
   padding: 16px 18px 20px;
@@ -1202,61 +1223,6 @@ body.page-exit { opacity: 0; }
     transition: none; animation: none;
   }
 }
-/* ============ Education Block ============ */
-.edu-block {
-  padding: 0 0 32px;
-  border-bottom: 1px solid var(--border);
-}
-
-.edu-primary {
-  display: flex;
-  align-items: baseline;
-  gap: 24px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
-}
-
-.edu-name {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--text);
-  letter-spacing: -0.02em;
-}
-
-.edu-degree {
-  font-size: 0.85rem;
-  color: var(--text-2);
-}
-
-.edu-clubs {
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-3);
-}
-
-/* ============ Skills Prose ============ */
-.skills-prose {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 0 0 28px;
-}
-
-.skills-prose p {
-  font-size: 0.9rem;
-  color: var(--text-2);
-  line-height: 1.6;
-}
-
-.skills-prose em {
-  font-style: normal;
-  font-weight: 700;
-  color: var(--text);
-  margin-right: 8px;
-}
-
 /* ============ Project List (editorial) ============ */
 .project-list {
   display: flex;

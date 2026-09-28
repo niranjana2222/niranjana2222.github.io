@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=wb10" />
+  <link rel="stylesheet" href="style.css?v=wb12" />
 </head>
 <body>
   <div class="scroll-progress"></div>
@@ -36,7 +36,8 @@
       <div class="term-card">
         <div class="term-bar">
           <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot term-dot--accent"></span>
-          <span class="term-label">session</span>
+          <span class="term-label" id="about-term-label">session</span>
+          <button class="term-nav" id="about-term-next" type="button" aria-label="Next terminal screen">&#8594;</button>
         </div>
         <pre class="term-body" id="about-term"></pre>
       </div>
@@ -89,32 +90,6 @@
     <div class="section reveal">
       <div class="section-header">
         <span class="section-num">01</span>
-        <h2>Education</h2>
-      </div>
-      <div class="edu-block">
-        <div class="edu-primary">
-          <span class="edu-name">UC Berkeley</span>
-          <span class="edu-degree">B.S. EECS · Expected May 2029 · 4.0 GPA</span>
-        </div>
-        <div class="edu-clubs">SAAS · AWE · Blueprint · Berkeley NLP</div>
-      </div>
-    </div>
-
-    <div class="section reveal">
-      <div class="section-header">
-        <span class="section-num">02</span>
-        <h2>Skills</h2>
-      </div>
-      <div class="skills-prose">
-        <p><em>Languages:</em> Python, Java, SQL, JavaScript, React, Scheme</p>
-        <p><em>ML Stack:</em> PyTorch, TensorFlow, HuggingFace, LangChain, LangGraph, Scikit-learn, Pandas, OpenCV, Vertex AI</p>
-        <p><em>Achievements:</em> USACO Gold · AIME Qualifier</p>
-      </div>
-    </div>
-
-    <div class="section reveal">
-      <div class="section-header">
-        <span class="section-num">03</span>
         <h2>Beyond the Code</h2>
       </div>
       <div class="card-grid">
@@ -143,7 +118,7 @@
 
   <footer>© 2026 Niranjana Sankar · <span style="color:var(--sky)">Berkeley, CA</span></footer>
   <button class="back-top" aria-label="Back to top">↑</button>
-  <script src="script.js?v=wb10"></script>
+  <script src="script.js?v=wb12"></script>
   <div class="toast"></div>
 </body>
 </html>

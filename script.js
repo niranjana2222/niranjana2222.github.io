@@ -236,21 +236,45 @@ function initConsoleEgg() {
 // ============ Boot Terminal (about page) ============
 function initBootTerminal() {
   const el = document.getElementById('about-term');
+  const labelEl = document.getElementById('about-term-label');
+  const nextBtn = document.getElementById('about-term-next');
   if (!el) return;
 
-  const lines = [
-    { text: '$ boot --profile niranjana', cls: 'term-cmd' },
-    { text: '  interpretability ........ ok' },
-    { text: '  multimodal ml ........... ok' },
-    { text: '  production systems ...... ok' },
-    { text: '  research ................ ok' },
-    { text: '→ ready to serve', cls: 'term-final' },
-  ];
-
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    el.textContent = lines.map(l => l.text).join('\n');
-    return;
+  function dotted(label, value, width) {
+    const dots = '.'.repeat(Math.max(3, width - label.length));
+    return '  ' + label + ' ' + dots + ' ' + value;
   }
+
+  const SCREENS = ['session', 'education', 'skills'];
+
+  const LINES = {
+    session: [
+      { text: '$ boot --profile niranjana', cls: 'term-cmd' },
+      { text: '  interpretability ........ ok' },
+      { text: '  multimodal ml ........... ok' },
+      { text: '  production systems ...... ok' },
+      { text: '  research ................ ok' },
+      { text: '→ ready to serve', cls: 'term-final' },
+    ],
+    education: [
+      { text: '$ cat education.log', cls: 'term-cmd' },
+      { text: dotted('school', 'UC Berkeley', 20) },
+      { text: dotted('degree', 'B.S. EECS', 20) },
+      { text: dotted('expected', 'May 2029', 20) },
+      { text: dotted('gpa', '4.0', 20) },
+      { text: dotted('orgs', 'SAAS, AWE, Blueprint, Berkeley NLP', 20), cls: 'term-final' },
+    ],
+    skills: [
+      { text: '$ cat skills.log', cls: 'term-cmd' },
+      { text: dotted('languages', 'Python, Java, SQL, JavaScript, React, Scheme', 20) },
+      { text: dotted('ml stack', 'PyTorch, TensorFlow, HuggingFace, LangChain, LangGraph, Scikit-learn, Pandas, OpenCV, Vertex AI', 20) },
+      { text: dotted('achievements', 'USACO Gold, AIME Qualifier', 20), cls: 'term-final' },
+    ],
+  };
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let screenIdx = 0;
+  let cycleToken = 0;
 
   function cursorEl() {
     const s = document.createElement('span');
@@ -258,31 +282,70 @@ function initBootTerminal() {
     return s;
   }
 
-  let li = 0, ci = 0;
-  function typeStep() {
-    if (li >= lines.length) {
-      setTimeout(() => { el.textContent = ''; li = 0; ci = 0; typeStep(); }, 2400);
-      return;
-    }
-    const line = lines[li];
-    if (ci === 0) {
+  function renderStatic(screen) {
+    el.textContent = '';
+    LINES[screen].forEach(line => {
       const row = document.createElement('div');
       if (line.cls) row.className = line.cls;
+      row.textContent = line.text;
       el.appendChild(row);
-    }
-    const row = el.lastElementChild;
-    ci++;
-    const done = ci >= line.text.length;
-    row.textContent = line.text.slice(0, ci);
-    if (!done) row.appendChild(cursorEl());
-    if (!done) {
-      setTimeout(typeStep, 16 + Math.random() * 26);
-    } else {
-      li++; ci = 0;
-      setTimeout(typeStep, li === 1 ? 260 : 160);
-    }
+    });
   }
-  typeStep();
+
+  function typeScreen(screen, token) {
+    const lines = LINES[screen];
+    let li = 0, ci = 0;
+    function step() {
+      if (token !== cycleToken) return;
+      if (li >= lines.length) {
+        if (screen !== 'session') return;
+        setTimeout(() => {
+          if (token !== cycleToken) return;
+          el.textContent = ''; li = 0; ci = 0; step();
+        }, 2400);
+        return;
+      }
+      const line = lines[li];
+      if (ci === 0) {
+        const row = document.createElement('div');
+        if (line.cls) row.className = line.cls;
+        el.appendChild(row);
+      }
+      const row = el.lastElementChild;
+      ci++;
+      const done = ci >= line.text.length;
+      row.textContent = line.text.slice(0, ci);
+      if (!done) row.appendChild(cursorEl());
+      if (!done) {
+        setTimeout(step, 14 + Math.random() * 22);
+      } else {
+        li++; ci = 0;
+        setTimeout(step, li === 1 ? 260 : 140);
+      }
+    }
+    step();
+  }
+
+  function showScreen(screen) {
+    cycleToken++;
+    const token = cycleToken;
+    if (labelEl) labelEl.textContent = screen;
+    el.textContent = '';
+    if (reduceMotion) {
+      renderStatic(screen);
+      return;
+    }
+    typeScreen(screen, token);
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      screenIdx = (screenIdx + 1) % SCREENS.length;
+      showScreen(SCREENS[screenIdx]);
+    });
+  }
+
+  showScreen(SCREENS[screenIdx]);
 }
 
 // ============ Init All ============
