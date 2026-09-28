@@ -150,7 +150,7 @@
     setTimeout(hideLoader, 8000);
 
     try {
-      let soundEnabled = localStorage.getItem('tc-sound') !== 'off';
+      let soundEnabled = localStorage.getItem('tc-sound') === 'on';
       let openTimer = null;
       const audio = window.buildCourtAudio ? window.buildCourtAudio() : null;
       if (audio && soundEnabled) audio.setEnabled(true);

@@ -1140,6 +1140,7 @@ body.page-exit { opacity: 0; }
 .tc-card-links a:hover { text-decoration-color: var(--sky); }
 
 .tc-panel-viewall {
+  display: block; text-align: right; margin: 12px 0 0;
   font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700;
   color: var(--sky); text-decoration: underline; text-decoration-color: rgba(184, 134, 11, 0.4);
   text-underline-offset: 3px;

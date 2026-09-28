@@ -972,11 +972,20 @@
         raycaster.setFromCamera(hoverNDC, camera);
         const hoverHits = raycaster.intersectObjects(signMeshes, false);
         const hoveredId = hoverHits.length ? hoverHits[0].object.userData.sectionId : null;
-        for (const b of signMeshes) {
+        const FLASH_PERIOD = 3.2, FLASH_STAGGER = 0.18, FLASH_WIDTH = 0.35;
+        signMeshes.forEach((b, i) => {
           const isHovered = b.userData.sectionId === hoveredId;
           b.position.z += ((isHovered ? 0.04 : 0) - b.position.z) * 0.2;
-          b.material.emissiveIntensity += ((isHovered ? 0.42 : 0.3) - b.material.emissiveIntensity) * 0.2;
-        }
+          let targetIntensity;
+          if (isHovered) {
+            targetIntensity = 0.42;
+          } else {
+            const phase = ((t - i * FLASH_STAGGER) % FLASH_PERIOD + FLASH_PERIOD) % FLASH_PERIOD;
+            const flash = phase < FLASH_WIDTH ? Math.sin((phase / FLASH_WIDTH) * Math.PI) : 0;
+            targetIntensity = 0.3 + flash * 1.35;
+          }
+          b.material.emissiveIntensity += (targetIntensity - b.material.emissiveIntensity) * 0.3;
+        });
         if (!dragging) dom.style.cursor = hoveredId ? 'pointer' : 'grab';
 
         for (const a of anchors) {

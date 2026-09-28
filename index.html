@@ -77,7 +77,7 @@
         }
         requestAnimationFrame(tick);
 
-        if (localStorage.getItem('tc-sound') === 'off') return;
+        if (localStorage.getItem('tc-sound') !== 'on') return;
         try {
           var actx = new (window.AudioContext || window.webkitAudioContext)();
           var master = actx.createGain(); master.gain.value = 0.5; master.connect(actx.destination);
@@ -160,9 +160,9 @@
         <button class="tc-panel-close" id="tc-panel-close" aria-label="Close">✕</button>
         <div class="tc-panel-kicker" id="tc-panel-kicker"></div>
         <h2 class="tc-panel-title" id="tc-panel-title"></h2>
+        <a class="tc-panel-viewall" id="tc-panel-viewall" href="#">see all →</a>
         <p class="tc-panel-blurb" id="tc-panel-blurb"></p>
         <div class="tc-card-list" id="tc-panel-list"></div>
-        <a class="tc-panel-viewall" id="tc-panel-viewall" href="#">see all →</a>
       </div>
     </aside>
 
