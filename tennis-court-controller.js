@@ -279,6 +279,7 @@
         panel.classList.remove('tc-panel-active');
         scrim.classList.remove('tc-scrim-active');
         panel.setAttribute('aria-hidden', 'true');
+        if (tc) tc.resetToStart();
       }
 
       root.querySelectorAll('[data-open]').forEach(btn => {
