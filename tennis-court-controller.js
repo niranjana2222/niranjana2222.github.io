@@ -73,6 +73,7 @@
     research: {
       kicker: 'The Racket', title: 'Research', color: '#d8e830',
       items: [
+        { title: 'SPAR · Cognitive Empathy in LLMs', meta: 'Sep 2026 – now', text: 'Studying how cognitive empathy is represented in a frontier model’s hidden activations, and whether that representation generalizes across languages, model families, and architectures.' },
         { title: 'Sky Computing Group · Agentic Search & Evaluation', meta: '2026 – now', text: 'Traced 41 agentic/evolutionary code-search runs. Crash rate is domain-dependent, and a single run can swing 20+ points from randomness alone.' },
         { title: 'Berkeley ICON Lab · VLA Interpretability', meta: 'Jan 2026 – now', text: 'Linear probes on PaliGemma localize where language grounding breaks down in the action expert.' },
         { title: 'Berkeley NLP Group · Multimodal Speech', meta: 'Jan 2026 – now', text: 'Built a 49-speaker AVSR accent dataset and test-time adaptation methods for accented speech.' },
