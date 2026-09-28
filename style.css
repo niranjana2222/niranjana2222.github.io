@@ -843,6 +843,20 @@ body.page-exit { opacity: 0; }
 
 .entry-open:hover, .entry-open:focus-visible { color: var(--sky); }
 
+.entry-open::after {
+  content: "\203A";
+  display: inline-block;
+  margin-left: 7px;
+  color: var(--text-3);
+  opacity: 0.55;
+  transition: transform 0.2s var(--ease), opacity 0.2s;
+}
+
+.entry-open:hover::after, .entry-open:focus-visible::after {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
 /* ============ Detail Modal (projects & publications) ============ */
 .detail-scrim {
   position: fixed;
