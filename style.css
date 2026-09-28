@@ -796,6 +796,8 @@ body.page-exit { opacity: 0; }
 .term-nav:hover { color: var(--sky); border-color: var(--sky); transform: translateX(1px); }
 .term-nav:active { transform: translateX(2px); }
 
+.screen-chrome .term-nav { color: var(--text); border-color: var(--text-3); }
+
 .term-body {
   margin: 0;
   padding: 16px 18px 20px;
@@ -1247,6 +1249,23 @@ body.page-exit { opacity: 0; }
   color: var(--text-3);
 }
 
+.screen-steps {
+  display: flex;
+  gap: 4px;
+  padding: 10px 16px 0;
+}
+
+.screen-step {
+  flex: 1;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--border);
+  transition: background 0.35s var(--ease);
+}
+
+.screen-step.is-filled { background: var(--sky); opacity: 0.45; }
+.screen-step.is-active { background: var(--sky); opacity: 1; }
+
 .project-list {
   display: flex;
   flex-direction: column;
@@ -1266,6 +1285,32 @@ body.page-exit { opacity: 0; }
 
 .project-list[data-cycle] .project-entry { border-bottom: none; }
 .project-entry[hidden] { display: none; }
+
+.project-entry.entering .project-num,
+.project-entry.entering .project-meta,
+.project-entry.entering .project-title,
+.project-entry.entering .project-desc li,
+.project-entry.entering .project-footer {
+  animation: project-rise 0.5s var(--ease) both;
+}
+
+.project-entry.entering .project-meta,
+.project-entry.entering .project-title { animation-delay: 0.03s; }
+.project-entry.entering .project-desc li:nth-child(1) { animation-delay: 0.09s; }
+.project-entry.entering .project-desc li:nth-child(2) { animation-delay: 0.15s; }
+.project-entry.entering .project-desc li:nth-child(3) { animation-delay: 0.21s; }
+.project-entry.entering .project-desc li:nth-child(4) { animation-delay: 0.27s; }
+.project-entry.entering .project-desc li:nth-child(5) { animation-delay: 0.33s; }
+.project-entry.entering .project-footer { animation-delay: 0.38s; }
+
+@keyframes project-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-entry.entering * { animation: none !important; }
+}
 
 .project-num {
   font-family: var(--font-mono);

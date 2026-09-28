@@ -352,13 +352,34 @@ function initBootTerminal() {
 function initProjectCycler(key) {
   const list = document.querySelector('.project-list[data-cycle="' + key + '"]');
   const nextBtn = document.getElementById(key + '-next');
+  const stepsTrack = document.querySelector('.screen-steps[data-steps="' + key + '"]');
   if (!list || !nextBtn) return;
 
   const entries = [...list.querySelectorAll('.project-entry')];
   let idx = 0;
 
+  if (stepsTrack) {
+    entries.forEach(() => {
+      const step = document.createElement('span');
+      step.className = 'screen-step';
+      stepsTrack.appendChild(step);
+    });
+  }
+  const steps = stepsTrack ? [...stepsTrack.children] : [];
+
   function render() {
-    entries.forEach((entry, i) => { entry.hidden = i !== idx; });
+    entries.forEach((entry, i) => {
+      entry.hidden = i !== idx;
+      entry.classList.remove('entering');
+    });
+    steps.forEach((step, i) => {
+      step.classList.toggle('is-filled', i < idx);
+      step.classList.toggle('is-active', i === idx);
+    });
+
+    const active = entries[idx];
+    void active.offsetWidth;
+    active.classList.add('entering');
   }
 
   nextBtn.addEventListener('click', () => {
