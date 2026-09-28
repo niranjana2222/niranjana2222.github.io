@@ -1264,6 +1264,9 @@ body.page-exit { opacity: 0; }
 
 .project-entry:last-child { border-bottom: none; }
 
+.project-list[data-cycle] .project-entry { border-bottom: none; }
+.project-entry[hidden] { display: none; }
+
 .project-num {
   font-family: var(--font-mono);
   font-size: 0.7rem;

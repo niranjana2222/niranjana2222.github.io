@@ -348,6 +348,32 @@ function initBootTerminal() {
   showScreen(SCREENS[screenIdx]);
 }
 
+// ============ Project Screen Cycler ============
+function initProjectCycler(key) {
+  const list = document.querySelector('.project-list[data-cycle="' + key + '"]');
+  const nextBtn = document.getElementById(key + '-next');
+  if (!list || !nextBtn) return;
+
+  const entries = [...list.querySelectorAll('.project-entry')];
+  let idx = 0;
+
+  function render() {
+    entries.forEach((entry, i) => { entry.hidden = i !== idx; });
+  }
+
+  nextBtn.addEventListener('click', () => {
+    idx = (idx + 1) % entries.length;
+    render();
+  });
+
+  render();
+}
+
+function initProjectCyclers() {
+  initProjectCycler('personal');
+  initProjectCycler('nonprofit');
+}
+
 // ============ Init All ============
 document.addEventListener('DOMContentLoaded', () => {
   initCursor();
@@ -361,4 +387,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initTagFilter();
   initConsoleEgg();
   initBootTerminal();
+  initProjectCyclers();
 });

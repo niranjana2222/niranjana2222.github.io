@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=wb18" />
+  <link rel="stylesheet" href="style.css?v=wb20" />
 </head>
 <body>
   <div class="scroll-progress"></div>
@@ -43,8 +43,9 @@
         <div class="screen-chrome">
           <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot term-dot--accent"></span>
           <span class="screen-label">personal.log</span>
+          <button class="term-nav" id="personal-next" type="button" aria-label="Next project">&#8594;</button>
         </div>
-        <div class="project-list">
+        <div class="project-list" data-cycle="personal">
 
         <div class="project-entry">
           <div class="project-num">01</div>
@@ -175,8 +176,9 @@
         <div class="screen-chrome">
           <span class="term-dot"></span><span class="term-dot"></span><span class="term-dot term-dot--accent"></span>
           <span class="screen-label">nonprofit.log</span>
+          <button class="term-nav" id="nonprofit-next" type="button" aria-label="Next project">&#8594;</button>
         </div>
-        <div class="project-list">
+        <div class="project-list" data-cycle="nonprofit">
 
         <div class="project-entry">
           <div class="project-num">06</div>
@@ -287,7 +289,7 @@
 
   <footer>© 2026 Niranjana Sankar · <span style="color:var(--sky)">Berkeley, CA</span></footer>
   <button class="back-top" aria-label="Back to top">↑</button>
-  <script src="script.js?v=wb18"></script>
+  <script src="script.js?v=wb19"></script>
   <div class="toast"></div>
 </body>
 </html>
