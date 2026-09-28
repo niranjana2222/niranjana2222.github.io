@@ -30,10 +30,8 @@
       kicker: 'The Bag', title: 'Projects', color: '#3a7a4e',
       items: [
         { thumb: true, color: '#3a7a4e', glyph: '01', title: 'Jacobian Lens Misalignment', meta: '2026', text: 'Agentic-misalignment research pipeline using a Jacobian lens and causal attribution to localize where a model decides to blackmail.', tag: 'AI Safety', href: 'https://github.com/niranjana2222/alignment_jacobian' },
-        { thumb: true, color: '#1a2f66', glyph: '02', title: 'Bias Detection', meta: '2025', text: 'Bias detection with a 9-attack safety prober and a logit-lens approximation rendered as an HTML heatmap.', tag: 'Interpretability', href: 'https://github.com/niranjana2222/alignment' },
-        { thumb: true, color: '#2bb0e0', glyph: '03', title: 'RAG Evaluation', meta: '2025', text: 'Hybrid BM25 + TF-IDF RAG pipeline with an LLM-as-judge eval harness, no vector DB required.', tag: 'RAG', href: 'https://github.com/niranjana2222/rag-eval' },
-        { thumb: true, color: '#a8843c', glyph: '04', title: 'Self-Evaluating Agent', meta: '2025', text: 'An agent that scores its own runs with an LLM judge and synthesizes new tools when it fails.', tag: 'Agentic AI', href: 'https://github.com/niranjana2222/agent-learner' },
-        { thumb: true, color: '#6a4c93', glyph: '05', title: 'Wildfire RAG Chat', meta: '2025', text: 'RAG chat over CAL FIRE, USFS, and NOAA data for wildfire operations.', tag: 'RAG', href: 'https://github.com/niranjana2222/wildfire-doc' },
+        { thumb: true, color: '#a8843c', glyph: '02', title: 'Self-Evaluating Agent', meta: '2025', text: 'An agent that scores its own runs with an LLM judge and synthesizes new tools when it fails.', tag: 'Agentic AI', href: 'https://github.com/niranjana2222/agent-learner' },
+        { thumb: true, color: '#6a4c93', glyph: '03', title: 'Wildfire RAG Chat', meta: '2025', text: 'RAG chat over CAL FIRE, USFS, and NOAA data for wildfire operations.', tag: 'RAG', href: 'https://github.com/niranjana2222/wildfire-doc' },
       ],
       viewAll: 'projects.html',
     },

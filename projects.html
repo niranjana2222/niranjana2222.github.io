@@ -114,29 +114,6 @@
         <div class="project-entry">
           <div class="project-num">04</div>
           <div class="project-content">
-            <h3 class="project-title">Bias Detection</h3>
-            <ul class="project-desc">
-              <li>Three analysis modules that probe an LLM's bias, safety robustness, and internal reasoning, sharing a single harness so the same model can be checked on all three in one pass.</li>
-              <li>Bias detection across demographic pairs with Cohen's d effect size, reporting effect sizes rather than raw pass/fail so small but consistent skews aren't averaged away.</li>
-              <li>A 9-attack safety prober (jailbreaks, fiction framing, prompt injection) with bypass rate scoring, logging which specific framing bypassed a refusal.</li>
-              <li>A logit lens approximation pinpoints the exact token where the model commits to its answer, rendered as an HTML heatmap.</li>
-            </ul>
-            <div class="project-footer">
-              <div class="tags">
-                <span class="tag">Interpretability</span>
-                <span class="tag">AI Safety</span>
-                <span class="tag">Bias Detection</span>
-                <span class="tag">Logit Lens</span>
-                <span class="tag">Python</span>
-              </div>
-              <a class="card-link" href="https://github.com/niranjana2222/alignment" target="_blank" rel="noopener">github</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-entry">
-          <div class="project-num">05</div>
-          <div class="project-content">
             <h3 class="project-title">Research News Digest</h3>
             <ul class="project-desc">
               <li>Personalized AI news digest agent that fetches articles from configured sources and processes them through a LangGraph multi-agent pipeline.</li>
@@ -157,53 +134,7 @@
         </div>
 
         <div class="project-entry">
-          <div class="project-num">06</div>
-          <div class="project-content">
-            <h3 class="project-title">LLM Server</h3>
-            <ul class="project-desc">
-              <li>A FastAPI server exposing a single OpenAI-compatible endpoint that auto-routes requests to the right backend based on model name (GPT-4o, Claude, Gemini, or local Ollama), with no client-side changes needed.</li>
-              <li>Includes sliding-window rate limiting per API key and per-provider cost telemetry (token counts, latency, error rates).</li>
-              <li>Supports offline inference via quantized local models.</li>
-              <li>Routing is done by parsing the model name in the request, so switching a client from GPT-4o to a local Ollama model is a one-line config change, not a code change.</li>
-            </ul>
-            <div class="project-footer">
-              <div class="tags">
-                <span class="tag">FastAPI</span>
-                <span class="tag">LLM Routing</span>
-                <span class="tag">OpenAI API</span>
-                <span class="tag">Ollama</span>
-                <span class="tag">Python</span>
-              </div>
-              <a class="card-link" href="https://github.com/niranjana2222/llm-gateway" target="_blank" rel="noopener">github</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-entry">
-          <div class="project-num">07</div>
-          <div class="project-content">
-            <h3 class="project-title">RAG Evaluation</h3>
-            <ul class="project-desc">
-              <li>Enterprise-grade RAG pipeline with hybrid BM25 + TF-IDF cosine retrieval fused via RRF, all in pure Python with no external vector database required.</li>
-              <li>A GPT-4o generator cites source chunks inline, and an LLM-as-judge eval harness scores each answer on faithfulness, relevance, and context recall.</li>
-              <li>Fusing BM25 and TF-IDF cosine scores matters most on queries where exact keyword overlap and semantic similarity disagree.</li>
-              <li>Scoring along three separate axes means a hallucinated-but-relevant answer and a faithful-but-incomplete one don't look the same in the results.</li>
-            </ul>
-            <div class="project-footer">
-              <div class="tags">
-                <span class="tag">RAG</span>
-                <span class="tag">BM25</span>
-                <span class="tag">RRF Fusion</span>
-                <span class="tag">LLM-as-Judge</span>
-                <span class="tag">Python</span>
-              </div>
-              <a class="card-link" href="https://github.com/niranjana2222/rag-eval" target="_blank" rel="noopener">github</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-entry">
-          <div class="project-num">08</div>
+          <div class="project-num">05</div>
           <div class="project-content">
             <h3 class="project-title">Chain of Thought Monitor</h3>
             <ul class="project-desc">
@@ -237,7 +168,7 @@
       <div class="project-list">
 
         <div class="project-entry">
-          <div class="project-num">09</div>
+          <div class="project-num">06</div>
           <div class="project-content">
             <div class="project-meta">Berkeley Blueprint · Jan 2026 – Present</div>
             <h3 class="project-title">Adopt an Inmate Matching Platform</h3>
@@ -252,7 +183,7 @@
         </div>
 
         <div class="project-entry">
-          <div class="project-num">10</div>
+          <div class="project-num">07</div>
           <div class="project-content">
             <div class="project-meta">Wildfire Awareness Initiative · 2021 – 2025</div>
             <h3 class="project-title">Wildfire Preparedness iOS App</h3>
@@ -270,7 +201,7 @@
         </div>
 
         <div class="project-entry">
-          <div class="project-num">11</div>
+          <div class="project-num">08</div>
           <div class="project-content">
             <div class="project-meta">MIT Beaverworks Summer Institute · 2024</div>
             <h3 class="project-title">Real-Time Cognitive Assistant</h3>
