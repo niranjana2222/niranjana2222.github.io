@@ -827,7 +827,7 @@ body.page-exit { opacity: 0; }
   .term-cursor { animation: none; }
 }
 
-/* ============ Entry Open Button (project/pub titles) ============ */
+/* ============ Entry Open Button (project titles) ============ */
 .entry-open {
   display: inline-block;
   background: none;
@@ -857,7 +857,7 @@ body.page-exit { opacity: 0; }
   transform: translateX(3px);
 }
 
-/* ============ Detail Modal (projects & publications) ============ */
+/* ============ Detail Modal (projects) ============ */
 .detail-scrim {
   position: fixed;
   inset: 0;
@@ -964,49 +964,8 @@ body.page-exit { opacity: 0; }
 .detail-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
 .detail-body .card-link { margin-top: 0; }
 
-/* ---- Paper skin (publications) ---- */
-.detail-modal--paper {
-  background: #f6f1e4;
-  border-color: rgba(43, 36, 24, 0.18);
-  color: #2b2418;
-}
-
-.detail-modal--paper .detail-chrome {
-  background: #f6f1e4;
-  border-bottom-color: rgba(43, 36, 24, 0.14);
-}
-
-.detail-modal--paper .detail-count { color: rgba(43, 36, 24, 0.55); }
-.detail-modal--paper .detail-kicker { color: rgba(43, 36, 24, 0.55); }
-.detail-modal--paper .detail-title { color: #2b2418; }
-.detail-modal--paper .detail-text { color: #3a3122; font-family: 'Fraunces', serif; font-size: 1.05rem; }
-
-.detail-modal--paper .term-nav,
-.detail-modal--paper .detail-close {
-  border-color: rgba(43, 36, 24, 0.25);
-  color: rgba(43, 36, 24, 0.6);
-}
-
-.detail-modal--paper .term-nav:hover { color: #b5461e; border-color: #b5461e; }
-.detail-modal--paper .detail-close:hover { color: #b5461e; border-color: #b5461e; }
-
-.pen-cursor {
-  display: inline-block;
-  margin-left: 2px;
-  font-size: 0.95em;
-  transform: rotate(12deg);
-  vertical-align: text-bottom;
-  animation: pen-bob 0.6s ease-in-out infinite;
-}
-
-@keyframes pen-bob {
-  0%, 100% { transform: rotate(12deg) translateY(0); }
-  50% { transform: rotate(12deg) translateY(-2px); }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .detail-scrim, .detail-modal { transition: none; }
-  .pen-cursor { animation: none; }
 }
 
 @media (max-width: 600px) {

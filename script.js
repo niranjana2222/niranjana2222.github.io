@@ -245,7 +245,7 @@ function initBootTerminal() {
     return '  ' + label + ' ' + dots + ' ' + value;
   }
 
-  const SCREENS = ['session', 'education', 'skills'];
+  const SCREENS = ['education', 'skills', 'session'];
 
   const LINES = {
     session: [
@@ -348,7 +348,7 @@ function initBootTerminal() {
   showScreen(SCREENS[screenIdx]);
 }
 
-// ============ Project / Publication Detail Modal ============
+// ============ Project Detail Modal ============
 function initDetailModals() {
   const scrim = document.getElementById('detail-scrim');
   const modal = document.getElementById('detail-modal');
@@ -360,16 +360,6 @@ function initDetailModals() {
   if (!scrim || !modal || !body) return;
 
   function collect(group) {
-    if (group === 'publications') {
-      const grid = document.querySelector('.card-grid[data-group="publications"]');
-      if (!grid) return [];
-      return [...grid.querySelectorAll('.card-pub')].map(card => ({
-        kind: (card.querySelector('.card-kind') || {}).textContent?.trim() || '',
-        title: (card.querySelector('.entry-open') || {}).textContent?.trim() || '',
-        text: (card.querySelector('p') || {}).innerHTML?.trim() || '',
-        tags: [...card.querySelectorAll('.tags .tag')].map(t => t.textContent.trim()),
-      }));
-    }
     const list = document.querySelector('.project-list[data-group="' + group + '"]');
     if (!list) return [];
     return [...list.querySelectorAll('.project-entry')].map(entry => {
@@ -387,10 +377,9 @@ function initDetailModals() {
   const DATA = {
     personal: collect('personal'),
     nonprofit: collect('nonprofit'),
-    publications: collect('publications'),
   };
 
-  const state = { group: null, index: 0, typeToken: 0 };
+  const state = { group: null, index: 0 };
 
   function el(tag, cls, html) {
     const e = document.createElement(tag);
@@ -422,44 +411,12 @@ function initDetailModals() {
     }
   }
 
-  function renderPaper(item, token) {
-    body.innerHTML = '';
-    body.appendChild(el('div', 'detail-kicker', item.kind));
-    body.appendChild(el('h2', 'detail-title', item.title));
-    const p = el('p', 'detail-text');
-    body.appendChild(p);
-    const tagsEl = el('div', 'detail-tags tags');
-    item.tags.forEach(t => tagsEl.appendChild(el('span', 'tag', t)));
-    body.appendChild(tagsEl);
-
-    const plain = item.text.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      p.textContent = plain;
-      return;
-    }
-    let ci = 0;
-    function step() {
-      if (token !== state.typeToken) return;
-      ci++;
-      const done = ci >= plain.length;
-      p.textContent = plain.slice(0, ci);
-      if (!done) {
-        p.appendChild(el('span', 'pen-cursor', '&#9998;'));
-        setTimeout(step, 10 + Math.random() * 18);
-      }
-    }
-    step();
-  }
-
   function render() {
     const list = DATA[state.group] || [];
     const item = list[state.index];
     if (!item) return;
     countEl.textContent = (state.index + 1) + ' / ' + list.length;
-    modal.classList.toggle('detail-modal--paper', state.group === 'publications');
-    state.typeToken++;
-    if (state.group === 'publications') renderPaper(item, state.typeToken);
-    else renderScreen(item);
+    renderScreen(item);
   }
 
   function open(group, index) {
@@ -473,7 +430,6 @@ function initDetailModals() {
   }
 
   function close() {
-    state.typeToken++;
     scrim.classList.remove('detail-open');
     modal.classList.remove('detail-open');
     modal.setAttribute('aria-hidden', 'true');
@@ -487,7 +443,7 @@ function initDetailModals() {
     render();
   }
 
-  document.querySelectorAll('.project-list[data-group], .card-grid[data-group="publications"]').forEach(container => {
+  document.querySelectorAll('.project-list[data-group]').forEach(container => {
     const group = container.getAttribute('data-group');
     container.querySelectorAll('.entry-open').forEach((btn, i) => {
       btn.addEventListener('click', () => open(group, i));
