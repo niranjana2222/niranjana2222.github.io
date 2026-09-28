@@ -1140,12 +1140,20 @@ body.page-exit { opacity: 0; }
 .tc-card-links a:hover { text-decoration-color: var(--sky); }
 
 .tc-panel-viewall {
-  display: block; text-align: right; margin: 12px 0 0;
-  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 700;
-  color: var(--sky); text-decoration: underline; text-decoration-color: rgba(184, 134, 11, 0.4);
-  text-underline-offset: 3px;
+  display: flex; align-items: center; gap: 6px;
+  width: fit-content; margin: 16px 0 24px auto;
+  padding: 10px 18px;
+  border: 1px solid var(--border); border-radius: 999px;
+  font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--sky); text-decoration: none;
+  transition: border-color 0.2s, background 0.2s, transform 0.2s;
 }
-.tc-panel-viewall:hover { text-decoration-color: var(--sky); }
+.tc-panel-viewall:hover {
+  border-color: var(--sky);
+  background: rgba(143, 184, 255, 0.1);
+  transform: translateY(-1px);
+}
 
 /* ============ Error banner ============ */
 .tc-error {
