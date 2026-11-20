@@ -64,7 +64,7 @@
       items: [
         { title: 'bright.ai · ML Intern, On-Device Conversational AI', meta: 'Apr 2025 – now', text: 'Shipped JobEngine, a production dialog/workflow engine for an industrial wearable, powered by a 3-stage on-device NLU cascade and a from-scratch Go integration contract.' },
         { title: 'Google · Consultant, via SAAS at Berkeley', meta: 'Aug 2025 – Jan 2026', text: 'Fine-tuned 5 Constitutional AI variants (generic + 4 department-specific) for Gemini 2.5, red-teamed with promptfoo, evaluated on 14k harmful prompts.' },
-        { title: 'Entelligence.ai · Software Engineer Intern', meta: '2023 – 2025', text: 'LangChain agent pipelines and Jira/GitHub/Slack integrations in production chatbot workflows.' },
+        { title: 'Entelligence.ai · Software Engineer Intern', meta: 'May 2025 – Aug 2025', text: 'LangChain agent pipelines and Jira/GitHub/Slack integrations in production chatbot workflows.' },
       ],
       viewAll: 'experience.html',
     },
